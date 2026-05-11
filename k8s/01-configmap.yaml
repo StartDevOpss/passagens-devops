@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: passagens-bot-config
+  name: bot-config
   namespace: passagens-bot
 data:
   CHECK_INTERVAL: "3600"

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: passagens-bot-deployment
+  namespace: passagens-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: passagens-bot
+  template:
+    metadata:
+      labels:
+        app: passagens-bot
+    spec:
+      containers:
+      - name: bot-container
+        image: passagens-bot:latest
+        imagePullPolicy: Never
+        # Adicionado para o HPA funcionar
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+        envFrom:
+        - configMapRef:
+            name: bot-config
+        - secretRef:
+            name: discord-webhook
+        volumeMounts:
+        - name: data
+          mountPath: /app/data
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: bot-storage
