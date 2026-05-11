@@ -1,0 +1,10 @@
+replicaCount: 1
+
+image:
+  repository: passagens-bot
+  pullPolicy: Never
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 80

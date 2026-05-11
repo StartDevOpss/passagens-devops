@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bot-ingress
+  namespace: passagens-bot
+spec:
+  rules:
+  - host: bot.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: passagens-bot-service
+            port:
+              number: 80

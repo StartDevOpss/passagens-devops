@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard de Passagens</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f4f9; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #007bff; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>✈️ Ofertas de Passagens Ativas</h1>
+    <table id="tabela-ofertas">
+        <thead>
+            <tr>
+                <th>Origem</th>
+                <th>Destino</th>
+                <th>Preço</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+        <tbody>
+            </tbody>
+    </table>
+
+    <script>
+        // Função para carregar as passagens do arquivo JSON
+        fetch('ofertas.json')
+            .then(response => response.json())
+            .then(data => {
+                const corpoTabela = document.querySelector('#tabela-ofertas tbody');
+                data.forEach(oferta => {
+                    const linha = `<tr>
+                        <td>${oferta.origem}</td>
+                        <td>${oferta.destino}</td>
+                        <td>${oferta.preco}</td>
+                        <td>${oferta.data}</td>
+                    </tr>`;
+                    corpoTabela.innerHTML += linha;
+                });
+            })
+            .catch(error => console.error('Erro ao carregar ofertas:', error));
+    </script>
+</body>
+</html>

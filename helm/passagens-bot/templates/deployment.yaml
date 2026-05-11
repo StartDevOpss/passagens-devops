@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-deployment
+  namespace: passagens-bot
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: passagens-bot
+  template:
+    metadata:
+      labels:
+        app: passagens-bot
+    spec:
+     containers:
+        - name: bot-container
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          envFrom:
+            - configMapRef:
+                name: bot-config
+            - secretRef:
+                name: bot-secrets

@@ -1,0 +1,22 @@
+name: Deploy Passagens Bot
+
+# O pipeline roda sempre que você envia código para a branch 'main'
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v4
+
+      - name: Configurar Helm
+        uses: azure/setup-helm@v4.2.0
+
+      - name: Validar Helm Chart (Lint)
+        run: helm lint ./helm/passagens-bot/
+
+      - name: Simular Build do Docker
+        run: docker build -t passagens-bot:latest .
