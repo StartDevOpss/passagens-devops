@@ -1,7 +1,8 @@
 import os
 
 # ── discord ───────────────────────────────────────────────────
-DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1503195521848836127/535nqvQk5N2Pw_xBqYUHFBg9NFZ8M5BllFA2HK_Zd8yRnXcSo5MdKlEGE5AB_MZAFMgY"
+# ── discord ───────────────────────────────────────────────────
+DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL", "")
 
 # ── busca ─────────────────────────────────────────────────────
 ORIGEM          = os.environ.get("ORIGEM", "BSB")

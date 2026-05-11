@@ -19,8 +19,8 @@ log = logging.getLogger(__name__)
 ARQUIVO_VISTAS  = "ofertas_vistas.json"
 ARQUIVO_OFERTAS = "docs/ofertas.json"
 
-# ── cole sua chave aqui ───────────────────────────────────────
-SERPAPI_KEY = "dc9b5de36d31d51054508819597b11623fce9494c67d9952ca26c6d705ee352e"
+# ── cole sua chave aqui ────────────────────────────────────────────────────────────────────────
+SERPAPI_KEY = os.environ.get("SERPAPI_KEY", "")
 
 os.makedirs("docs", exist_ok=True)
 
