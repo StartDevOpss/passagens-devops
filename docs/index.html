@@ -2,47 +2,63 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard de Passagens</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlightHunter - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: sans-serif; background: #f4f4f9; padding: 20px; }
-        table { width: 100%; border-collapse: collapse; background: white; }
-        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
-        th { background-color: #007bff; color: white; }
-        tr:nth-child(even) { background-color: #f2f2f2; }
+        body { background-color: #0f172a; color: #f1f5f9; }
+        .card { background: #1e293b; border: 1px solid #334155; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); border-color: #38bdf8; }
     </style>
 </head>
-<body>
-    <h1>✈️ Ofertas de Passagens Ativas</h1>
-    <table id="tabela-ofertas">
-        <thead>
-            <tr>
-                <th>Origem</th>
-                <th>Destino</th>
-                <th>Preço</th>
-                <th>Data</th>
-            </tr>
-        </thead>
-        <tbody>
-            </tbody>
-    </table>
+<body class="p-4 md:p-8">
+    <div class="max-w-6xl mx-auto">
+        <header class="flex justify-between items-center mb-8 border-b border-slate-700 pb-4">
+            <h1 class="text-3xl font-bold text-sky-400"><i class="fa-solid fa-plane-departure mr-2"></i>FlightHunter</h1>
+            <div id="status" class="text-sm text-slate-400">Atualizado agora</div>
+        </header>
+
+        <div id="ofertas-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="text-center col-span-full py-20">
+                <i class="fa-solid fa-circle-notch fa-spin text-4xl text-sky-500 mb-4"></i>
+                <p>Buscando as melhores ofertas em tempo real...</p>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // Função para carregar as passagens do arquivo JSON
-        fetch('ofertas.json')
-            .then(response => response.json())
-            .then(data => {
-                const corpoTabela = document.querySelector('#tabela-ofertas tbody');
-                data.forEach(oferta => {
-                    const linha = `<tr>
-                        <td>${oferta.origem}</td>
-                        <td>${oferta.destino}</td>
-                        <td>${oferta.preco}</td>
-                        <td>${oferta.data}</td>
-                    </tr>`;
-                    corpoTabela.innerHTML += linha;
-                });
-            })
-            .catch(error => console.error('Erro ao carregar ofertas:', error));
+        async function carregarOfertas() {
+            try {
+                // Lê o arquivo que o bot atualiza no volume persistente
+                const response = await fetch('ofertas.json');
+                const ofertas = await response.json();
+                const container = document.getElementById('ofertas-container');
+                
+                if (ofertas.length === 0) {
+                    container.innerHTML = '<p class="col-span-full text-center text-slate-500">Nenhuma oferta encontrada no momento. O bot continua monitorando!</p>';
+                    return;
+                }
+
+                container.innerHTML = ofertas.map(o => `
+                    <div class="card p-6 rounded-xl">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2 py-1 rounded">${o.origin} → ${o.destination}</span>
+                            <span class="text-emerald-400 font-bold text-xl">R$ ${o.price}</span>
+                        </div>
+                        <h3 class="text-lg font-semibold mb-2">${o.destination_name || 'Voo Imperdível'}</h3>
+                        <p class="text-sm text-slate-400 mb-4"><i class="fa-solid fa-calendar-days mr-2"></i>${o.date}</p>
+                        <a href="${o.link}" target="_blank" class="block text-center bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 rounded-lg transition">
+                            Ver no Google Flights
+                        </a>
+                    </div>
+                `).join('');
+            } catch (e) {
+                console.error("Aguardando arquivo de ofertas...");
+            }
+        }
+        setInterval(carregarOfertas, 5000);
+        carregarOfertas();
     </script>
 </body>
 </html>

@@ -1,17 +1,1 @@
-[
-  {
-    "id": "20261015-VCP-BCN",
-    "origem": "Campinas",
-    "origem_code": "VCP",
-    "destino": "Barcelona",
-    "destino_code": "BCN",
-    "preco": 2690.00,
-    "moeda": "BRL",
-    "data": "2026-10-15",
-    "data_retorno": "2026-10-28",
-    "airline": "Iberia",
-    "provider": "Kiwi API",
-    "link": "https://www.google.com/flights/...",
-    "tags": ["Promoção 🔥", "Internacional"]
-  }
-]
+[]

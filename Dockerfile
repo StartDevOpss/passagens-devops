@@ -10,4 +10,5 @@ COPY . .
 
 # 3. Define as variáveis e o comando de inicialização
 ENV PYTHONPATH="/app:/app/src"
+# Mude para o caminho correto que o seu comando ls mostrou:
 CMD ["python", "src/bot.py"]

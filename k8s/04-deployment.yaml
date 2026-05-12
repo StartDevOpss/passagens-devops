@@ -18,6 +18,7 @@ spec:
         image: passagens-bot:latest
         imagePullPolicy: Never
         workingDir: /app
+        command: ["python", "src/bot.py"] 
         resources:
           requests:
             cpu: "100m"
@@ -30,19 +31,29 @@ spec:
           valueFrom:
             secretKeyRef:
               name: passagens-secret
-              key: SERPAPI_KEY # Ajustado para bater com seu 02-secret.yaml
+              key: SERPAPI_KEY
         - name: DISCORD_WEBHOOK_URL
           valueFrom:
             secretKeyRef:
               name: passagens-secret
-              key: DISCORD_WEBHOOK_URL # Ajustado para bater com seu 02-secret.yaml
-        envFrom:
-        - configMapRef:
-            name: bot-config
-        volumeMounts:
-        - name: data
-          mountPath: /app/data
-      volumes:
-      - name: data
-        persistentVolumeClaim:
-          claimName: bot-storage # Garanta que o 03-pvc.yaml já foi aplicado
+              key: DISCORD_WEBHOOK_URL
+        - name: WEBHOOK_BRASIL
+          valueFrom:
+            secretKeyRef:
+              name: passagens-secret
+              key: WEBHOOK_BRASIL
+        - name: WEBHOOK_INTERNACIONAL
+          valueFrom:
+            secretKeyRef:
+              name: passagens-secret
+              key: WEBHOOK_INTERNACIONAL
+        - name: WEBHOOK_MALUCOS
+          valueFrom:
+            secretKeyRef:
+              name: passagens-secret
+              key: WEBHOOK_MALUCOS
+        - name: WEBHOOK_DATAS_ESPECIFICAS
+          valueFrom:
+            secretKeyRef:
+              name: passagens-secret
+              key: WEBHOOK_DATAS_ESPECIFICAS
