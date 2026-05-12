@@ -7,7 +7,7 @@
     "destino_code": "BCN",
     "preco": 2690.00,
     "moeda": "BRL",
-    "data_voo": "2026-10-15",
+    "data": "2026-10-15",
     "data_retorno": "2026-10-28",
     "airline": "Iberia",
     "provider": "Kiwi API",
