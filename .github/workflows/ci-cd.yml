@@ -1,13 +1,16 @@
 name: Deploy Passagens Bot
 
-# O pipeline roda sempre que você envia código para a branch 'main'
 on:
   push:
     branches: [ main ]
 
 jobs:
-  build-and-test:
+  build-and-push:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write # Importante para permitir o envio da imagem
+
     steps:
       - name: Checkout do Código
         uses: actions/checkout@v4
@@ -18,15 +21,28 @@ jobs:
       - name: Validar Helm Chart (Lint)
         run: helm lint ./helm/passagens-bot/
 
-      - name: Simular Build do Docker
-        run: docker build -t passagens-bot:latest .
+      - name: Login no GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push da Imagem Real
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/startdevopss/passagens-bot:latest
+            ghcr.io/startdevopss/passagens-bot:${{ github.sha }}
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build-and-test
+    needs: build-and-push
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Configure kubeconfig
         run: |
@@ -35,5 +51,6 @@ jobs:
 
       - name: Deploy updated image
         run: |
-          kubectl set image deployment/passagens-bot passagens-bot=ghcr.io/startdevopss/passagens-bot:${{ github.sha }}
-          kubectl rollout status deployment/passagens-bot
+          # Atualizando para o nome do container e imagem corretos
+          kubectl set image deployment/passagens-deployment bot-container=ghcr.io/startdevopss/passagens-bot:${{ github.sha }} -n passagens-bot
+          kubectl rollout status deployment/passagens-deployment -n passagens-bot
