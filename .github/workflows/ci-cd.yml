@@ -20,3 +20,19 @@ jobs:
 
       - name: Simular Build do Docker
         run: docker build -t passagens-bot:latest .
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Configure kubeconfig
+        run: |
+          echo "${{ secrets.KUBECONFIG_BASE64 }}" | base64 -d > $HOME/.kube/config
+
+      - name: Deploy updated image
+        run: |
+          kubectl set image deployment/passagens-bot passagens-bot=ghcr.io/startdevopss/passagens-bot:${{ github.sha }}
+          kubectl rollout status deployment/passagens-bot
