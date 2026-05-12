@@ -30,7 +30,6 @@
     <script>
         async function carregarOfertas() {
             try {
-                // Lê o arquivo que o bot atualiza no volume persistente
                 const response = await fetch('ofertas.json');
                 const ofertas = await response.json();
                 const container = document.getElementById('ofertas-container');

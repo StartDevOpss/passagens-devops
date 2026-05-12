@@ -24,8 +24,7 @@ spec:
                 secretKeyRef:
                   name: passagens-secret
                   key: serpApiKey
-            
-            # Mapeamento dos 4 Webhooks para o router.py
+           
             - name: WEBHOOK_INTERNACIONAL
               valueFrom:
                 secretKeyRef:
