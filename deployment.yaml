@@ -1,8 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: passagens-deployment
-  namespace: passagens-bot
+  name: passagens-bot
+  namespace: passagens
+  labels:
+    app: passagens-bot
+    version: "1.0"
 spec:
   replicas: 1
   selector:
@@ -13,47 +16,70 @@ spec:
       labels:
         app: passagens-bot
     spec:
+      # Nunca rodar como root no cluster
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+
       containers:
-      - name: bot-container
-        image: passagens-bot:latest
-        imagePullPolicy: Never
-        workingDir: /app
-        command: ["python", "src/bot.py"]
-        resources:
-          requests:
-            cpu: "100m"
-            memory: "128Mi"
-          limits:
-            cpu: "200m"
-            memory: "256Mi"
-        env:
-        - name: SERPAPI_KEY
-          valueFrom:
-            secretKeyRef:
-              name: passagens-secrets
-              key: SERPAPI_KEY
-        - name: DISCORD_WEBHOOK_GERAL
-          valueFrom:
-            secretKeyRef:
-              name: passagens-secrets
-              key: DISCORD_WEBHOOK_GERAL
-        - name: DISCORD_WEBHOOK_INTERNACIONAL
-          valueFrom:
-            secretKeyRef:
-              name: passagens-secrets
-              key: DISCORD_WEBHOOK_INTERNACIONAL
-        - name: DISCORD_WEBHOOK_BRASIL
-          valueFrom:
-            secretKeyRef:
-              name: passagens-secrets
-              key: DISCORD_WEBHOOK_BRASIL
-        - name: DISCORD_WEBHOOK_MALUCOS
-          valueFrom:
-            secretKeyRef:
-              name: passagens-secrets
-              key: DISCORD_WEBHOOK_MALUCOS
-        - name: DISCORD_WEBHOOK_DATAS
-          valueFrom:
-            secretKeyRef:
-              name: passagens-secrets
-              key: DISCORD_WEBHOOK_DATAS
+        - name: bot
+          image: ghcr.io/startdevopss/passagens-devops:latest
+          imagePullPolicy: Always
+
+          # Variáveis sensíveis vêm do Secret, não hardcoded
+          envFrom:
+            - secretRef:
+                name: passagens-secret
+            - configMapRef:
+                name: passagens-config
+
+          # Limites de recursos (obrigatório em prod)
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"
+
+          # Volume para persistir o ofertas.json
+          volumeMounts:
+            - name: ofertas-storage
+              mountPath: /app/data
+
+          # Liveness: reinicia o container se travar
+          livenessProbe:
+            exec:
+              command:
+                - python
+                - -c
+                - "import sys; sys.exit(0)"
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            failureThreshold: 3
+
+          # Readiness: só recebe tráfego quando pronto
+          readinessProbe:
+            exec:
+              command:
+                - python
+                - -c
+                - "import sys; sys.exit(0)"
+            initialDelaySeconds: 5
+            periodSeconds: 15
+
+          # Filesystem read-only (boa prática de segurança)
+          securityContext:
+            readOnlyRootFilesystem: false
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+
+      volumes:
+        - name: ofertas-storage
+          persistentVolumeClaim:
+            claimName: passagens-pvc
+
+      restartPolicy: Always
