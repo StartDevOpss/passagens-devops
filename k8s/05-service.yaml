@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: passagens-bot-service
+  namespace: passagens-bot
+spec:
+  selector:
+    app: passagens-bot
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP

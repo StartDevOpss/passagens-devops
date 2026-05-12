@@ -1,8 +1,13 @@
 FROM python:3.9-slim
 WORKDIR /app
+
+# 1. Copia apenas o necessário para instalar dependências (otimiza cache)
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-COPY . .
-# Isso garante que os logs apareçam no Kubernetes
-ENV PYTHONUNBUFFERED=1 
-CMD ["python", "bot.py"]
+
+# 2. COPIA TODO O RESTANTE DO PROJETO (Isso leva a pasta /src para dentro)
+COPY . . 
+
+# 3. Define as variáveis e o comando de inicialização
+ENV PYTHONPATH="/app:/app/src"
+CMD ["python", "src/bot.py"]

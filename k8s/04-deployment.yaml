@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: passagens-bot-deployment
+  name: passagens-deployment
   namespace: passagens-bot
 spec:
   replicas: 1
@@ -17,7 +17,7 @@ spec:
       - name: bot-container
         image: passagens-bot:latest
         imagePullPolicy: Never
-        # Adicionado para o HPA funcionar
+        workingDir: /app
         resources:
           requests:
             cpu: "100m"
@@ -25,15 +25,24 @@ spec:
           limits:
             cpu: "200m"
             memory: "256Mi"
+        env:
+        - name: SERPAPI_KEY
+          valueFrom:
+            secretKeyRef:
+              name: passagens-secret
+              key: SERPAPI_KEY # Ajustado para bater com seu 02-secret.yaml
+        - name: DISCORD_WEBHOOK_URL
+          valueFrom:
+            secretKeyRef:
+              name: passagens-secret
+              key: DISCORD_WEBHOOK_URL # Ajustado para bater com seu 02-secret.yaml
         envFrom:
         - configMapRef:
             name: bot-config
-        - secretRef:
-            name: discord-webhook
         volumeMounts:
         - name: data
           mountPath: /app/data
       volumes:
       - name: data
         persistentVolumeClaim:
-          claimName: bot-storage
+          claimName: bot-storage # Garanta que o 03-pvc.yaml já foi aplicado

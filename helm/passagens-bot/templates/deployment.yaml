@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-deployment
+  name: passagens-deployment
   namespace: passagens-bot
 spec:
   replicas: {{ .Values.replicaCount }}
@@ -13,11 +13,43 @@ spec:
       labels:
         app: passagens-bot
     spec:
-     containers:
-        - name: bot-container
+      containers:
+        - name: passagens-bot
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          envFrom:
-            - configMapRef:
-                name: bot-config
-            - secretRef:
-                name: bot-secrets
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            # Chave da API
+            - name: SERPAPI_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: passagens-secret
+                  key: serpApiKey
+            
+            # Mapeamento dos 4 Webhooks para o router.py
+            - name: WEBHOOK_INTERNACIONAL
+              valueFrom:
+                secretKeyRef:
+                  name: passagens-secret
+                  key: internacional
+            - name: WEBHOOK_BRASIL
+              valueFrom:
+                secretKeyRef:
+                  name: passagens-secret
+                  key: brasil
+            - name: WEBHOOK_MALUCOS
+              valueFrom:
+                secretKeyRef:
+                  name: passagens-secret
+                  key: voos_malucos
+            - name: WEBHOOK_DATAS
+              valueFrom:
+                secretKeyRef:
+                  name: passagens-secret
+                  key: datas_especificas
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
