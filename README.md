@@ -1,27 +1,137 @@
-# ✈️ FlightHunter Dashboard & K8s Bot
+# ✈️ FlightHunter — Passagens DevOps
 
-Sistema automatizado de monitoramento de passagens aéreas que utiliza **Kubernetes** para orquestração e **Discord** para alertas inteligentes.
+![CI/CD](https://github.com/StartDevOpss/passagens-devops/actions/workflows/ci-cd.yml/badge.svg)
+![Docker](https://img.shields.io/badge/Docker-ready-blue?logo=docker)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-Minikube-326CE5?logo=kubernetes)
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python)
 
-## 🚀 Destaques Técnicos
+> Bot automatizado de monitoramento de passagens aéreas com alertas no Discord, rodando em Kubernetes com pipeline CI/CD completo via GitHub Actions.
 
-- **Orquestração com Kubernetes:** Utilização de `Deployments`, `ConfigMaps` e `Secrets` para uma aplicação resiliente e segura.
-- **Persistência de Dados:** Configuração de `PersistentVolumeClaim (PVC)` para armazenamento de cache de ofertas (`JSON`), garantindo que os dados persistam mesmo após restarts do container.
-- **Roteamento Inteligente:** Lógica em Python (`router.py`) que filtra ofertas por preço, data e destino, direcionando-as para diferentes Webhooks do Discord.
-- **Dashboard em Tempo Real:** Frontend estático em **Tailwind CSS** hospedado via **GitHub Pages**, que consome os dados gerados pelo bot no cluster.
-
-## 🛠️ Tecnologias
-- **Backend:** Python 3.10 (Requests, Logging, JSON)
-- **Infra:** Docker, Kubernetes (Minikube), Kubectl
-- **API:** SerpApi (Google Flights)
-- **Frontend:** HTML5, Tailwind CSS, JavaScript (Fetch API)
-
-## 🔧 Como o projeto foi construído (Step-by-Step)
-
-1. **Desenvolvimento do Bot:** Criação do motor de busca em Python integrado à SerpApi.
-2. **Containerização:** Escrita do `Dockerfile` otimizado para rodar o bot de forma isolada.
-3. **Manifestos K8s:** Criação da infraestrutura como código (IaC) para subir o bot no Minikube.
-4. **Volume Persistente:** Implementação do PVC para que o bot e o dashboard compartilhassem o arquivo `ofertas.json`.
-5. **CI/CD estático:** Configuração do GitHub Pages para servir o dashboard automaticamente a partir da pasta `/docs`.
+**Projeto de portfólio** focado em práticas DevOps reais: containerização, orquestração, CI/CD, segurança e observabilidade.
 
 ---
-*Projeto desenvolvido para fins de portfólio em Engenharia de Plataforma / DevOps.*
+
+## 🏗️ Arquitetura
+
+```
+GitHub Actions (CI/CD)
+    │
+    ├── Lint (flake8 + bandit)
+    ├── Build & Push → ghcr.io (GHCR)
+    ├── Security Scan (Trivy)
+    └── Deploy → Kubernetes (Minikube)
+                    │
+                    ├── Namespace: passagens
+                    ├── Deployment: passagens-bot
+                    │     └── Container Python (non-root)
+                    ├── ConfigMap (configs não-sensíveis)
+                    ├── Secret (webhook + api key via CI)
+                    └── PVC (persistência do ofertas.json)
+                              │
+                              └── Discord Webhooks 🔔
+```
+
+---
+
+## 🚀 Tecnologias
+
+| Camada | Tecnologia |
+|---|---|
+| Linguagem | Python 3.11 |
+| API de Voos | SerpApi (Google Flights) |
+| Alertas | Discord Webhooks |
+| Container | Docker (multi-stage, non-root) |
+| Orquestração | Kubernetes (Minikube) |
+| CI/CD | GitHub Actions |
+| Registry | GitHub Container Registry (GHCR) |
+| Segurança | Trivy (scan de imagem) + Bandit (SAST) |
+| Frontend | HTML + Tailwind CSS → GitHub Pages |
+
+---
+
+## 🔧 Como rodar localmente
+
+### Pré-requisitos
+- Docker
+- Minikube
+- kubectl
+
+### 1. Clone e configure o ambiente
+
+```bash
+git clone https://github.com/StartDevOpss/passagens-devops
+cd passagens-devops
+
+# Configure suas variáveis de ambiente
+cp .env.example .env
+# Edite o .env com seus valores reais
+```
+
+### 2. Rodar com Docker
+
+```bash
+docker build -t passagens-bot .
+docker run --env-file .env passagens-bot
+```
+
+### 3. Rodar no Minikube
+
+```bash
+# Inicia o cluster
+minikube start
+
+# Cria o namespace e configs
+kubectl apply -f k8s/namespace-and-config.yaml
+
+# Cria o secret com seus valores reais
+kubectl create secret generic passagens-secret \
+  --from-literal=DISCORD_WEBHOOK_URL="sua_url" \
+  --from-literal=SERPAPI_KEY="sua_chave" \
+  -n passagens
+
+# Faz o deploy
+kubectl apply -f k8s/deployment.yaml
+
+# Verifica os pods
+kubectl get pods -n passagens
+```
+
+---
+
+## 🔐 Segurança
+
+- Secrets gerenciados via **Kubernetes Secrets** + **GitHub Secrets** (nunca no código)
+- Container roda como **usuário não-root** (UID 1000)
+- **Trivy** escaneia a imagem a cada push para detectar CVEs
+- **Bandit** analisa o código Python em busca de vulnerabilidades
+- `.gitignore` configurado para bloquear `.env` e arquivos de secret K8s
+
+---
+
+## 📦 Pipeline CI/CD
+
+O pipeline roda automaticamente a cada `push` na `main`:
+
+1. **Lint** — flake8 + bandit no código Python
+2. **Build & Push** — imagem Docker enviada para o GHCR com tag `sha-` e `latest`
+3. **Security Scan** — Trivy varre a imagem; resultado vai para o GitHub Security
+4. **Deploy** — `kubectl set image` + `rollout status` garantem zero-downtime
+
+### Secrets necessários no GitHub
+
+| Secret | Descrição |
+|---|---|
+| `DISCORD_WEBHOOK_URL` | URL do webhook do Discord |
+| `SERPAPI_KEY` | Chave da SerpApi |
+| `KUBECONFIG_BASE64` | kubeconfig em base64 para acesso ao cluster |
+
+---
+
+## 📊 Dashboard
+
+Acesse o dashboard em tempo real via GitHub Pages:
+**[https://startdevopss.github.io/passagens-devops](https://startdevopss.github.io/passagens-devops)**
+
+---
+
+*Projeto desenvolvido para portfólio em Engenharia de Plataforma / DevOps.*
