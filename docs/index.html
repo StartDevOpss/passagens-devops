@@ -1,6 +1,3 @@
-bash
-
-cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -185,19 +182,42 @@ cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
         /* ── PLANE SVG ── */
         .hero-plane {
             flex: 0 0 auto;
-            width: clamp(280px, 42vw, 560px);
+            width: clamp(200px, 30vw, 360px);
             position: relative;
-            filter: drop-shadow(0 20px 60px rgba(14,165,233,0.22));
-            animation: float 7s ease-in-out infinite;
         }
 
-        .hero-plane svg { width: 100%; height: auto; display: block; }
+        .plane-svg {
+            width: 100%;
+            filter: drop-shadow(0 20px 60px rgba(14,165,233,0.25));
+            animation: float 6s ease-in-out infinite;
+        }
 
         @keyframes float {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            33%       { transform: translateY(-12px) rotate(0.6deg); }
-            66%       { transform: translateY(-6px) rotate(-0.3deg); }
+            33%       { transform: translateY(-12px) rotate(1deg); }
+            66%       { transform: translateY(-6px) rotate(-0.5deg); }
         }
+
+        /* Glow behind plane */
+        .plane-glow {
+            position: absolute;
+            width: 70%; height: 40%;
+            background: radial-gradient(ellipse, rgba(14,165,233,0.2) 0%, transparent 70%);
+            bottom: 10%; left: 15%;
+            filter: blur(20px);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* contrail */
+        .contrail {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(to left, rgba(14,165,233,0.6), transparent);
+            border-radius: 2px;
+            animation: float 6s ease-in-out infinite;
+        }
+        .contrail-1 { width: 45%; top: 42%; right: 88%; }
+        .contrail-2 { width: 30%; top: 50%; right: 90%; opacity: 0.5; }
 
         /* ── STATUS BAR ── */
         .status-bar {
@@ -228,7 +248,7 @@ cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
         @media (max-width: 700px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .hero { flex-direction: column; padding: 36px 0 32px; }
-            .hero-plane { width: 100%; order: -1; }
+            .hero-plane { width: 220px; order: -1; }
         }
 
         .stat-card {
@@ -318,6 +338,7 @@ cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
             box-shadow: 0 20px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(14,165,233,0.1);
         }
 
+        /* subtle gradient bg per card */
         .offer-card::after {
             content: '';
             position: absolute;
@@ -327,6 +348,7 @@ cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
             pointer-events: none;
         }
 
+        /* route header */
         .route-header {
             display: flex;
             align-items: center;
@@ -361,6 +383,7 @@ cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
             margin-right: 2px;
         }
 
+        /* route visual */
         .route-visual {
             display: flex;
             align-items: center;
@@ -435,6 +458,7 @@ cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
             box-shadow: 0 10px 28px rgba(2,132,199,0.45);
         }
 
+        /* ── EMPTY STATE ── */
         .empty-state {
             grid-column: 1 / -1;
             text-align: center;
@@ -448,12 +472,14 @@ cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
         }
         .empty-text { color: var(--muted); font-size: 15px; }
 
+        /* ── LOADING ── */
         .loading-state {
             grid-column: 1 / -1;
             text-align: center;
             padding: 80px 20px;
         }
 
+        /* ── FOOTER ── */
         .site-footer {
             margin-top: 64px;
             padding-top: 24px;
@@ -473,6 +499,7 @@ cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
         .footer-logo span { color: var(--accent); }
         .footer-note { font-size: 12px; color: var(--muted); }
 
+        /* entrance animation */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(20px); }
             to   { opacity: 1; transform: translateY(0); }
@@ -518,216 +545,68 @@ cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
                 </p>
             </div>
 
-            <!-- A330 FlightHunter SVG -->
+            <!-- PLANE ILLUSTRATION -->
             <div class="hero-plane">
-                <svg viewBox="0 0 680 320" xmlns="http://www.w3.org/2000/svg">
+                <div class="plane-glow"></div>
+                <div class="contrail contrail-1"></div>
+                <div class="contrail contrail-2"></div>
+                <svg class="plane-svg" viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- fuselage -->
+                    <ellipse cx="200" cy="140" rx="155" ry="32" fill="url(#body)" rx="155"/>
+                    <ellipse cx="200" cy="140" rx="155" ry="32" fill="url(#bodyGrad)"/>
+                    <!-- nose -->
+                    <path d="M355 140 Q390 140 395 138 Q400 136 395 134 Q390 132 355 132 Z" fill="#e2eaf6"/>
+                    <!-- tail fin -->
+                    <path d="M52 138 Q30 110 10 90 Q25 100 55 132 Z" fill="url(#tailGrad)"/>
+                    <path d="M52 142 Q30 170 10 190 Q25 180 55 148 Z" fill="url(#tailGrad2)"/>
+                    <!-- main wing top -->
+                    <path d="M220 134 L310 60 Q318 55 322 62 L250 134 Z" fill="url(#wingGrad)"/>
+                    <!-- main wing bottom -->
+                    <path d="M220 146 L310 220 Q318 225 322 218 L250 146 Z" fill="url(#wingGrad)"/>
+                    <!-- small rear wing top -->
+                    <path d="M90 134 L60 105 Q55 100 58 96 L96 130 Z" fill="url(#tailGrad)"/>
+                    <!-- small rear wing bottom -->
+                    <path d="M90 146 L60 175 Q55 180 58 184 L96 150 Z" fill="url(#tailGrad2)"/>
+                    <!-- windows row -->
+                    <rect x="160" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.6)" opacity="0.8"/>
+                    <rect x="178" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.6)" opacity="0.8"/>
+                    <rect x="196" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.6)" opacity="0.8"/>
+                    <rect x="214" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.8)" opacity="0.9"/>
+                    <rect x="232" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.6)" opacity="0.7"/>
+                    <rect x="250" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.5)" opacity="0.6"/>
+                    <rect x="268" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.4)" opacity="0.5"/>
+                    <rect x="286" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.3)" opacity="0.4"/>
+                    <!-- door line -->
+                    <rect x="143" y="120" width="2" height="40" rx="1" fill="rgba(255,255,255,0.15)"/>
+                    <!-- engine under main wing -->
+                    <ellipse cx="268" cy="153" rx="22" ry="9" fill="url(#engineGrad)"/>
+                    <ellipse cx="268" cy="153" rx="16" ry="6" fill="rgba(14,165,233,0.12)"/>
+                    <!-- highlight stripe -->
+                    <path d="M100 133 Q220 128 355 133" stroke="rgba(14,165,233,0.5)" stroke-width="2" fill="none"/>
+
                     <defs>
-                        <linearGradient id="skyBg" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="#06101e"/>
-                            <stop offset="35%" stop-color="#0c1f45"/>
-                            <stop offset="70%" stop-color="#1a4a8a"/>
-                            <stop offset="100%" stop-color="#2e6ab8"/>
+                        <linearGradient id="bodyGrad" x1="50" y1="108" x2="360" y2="172" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%"   stop-color="#1a2e50"/>
+                            <stop offset="40%"  stop-color="#e2eaf6"/>
+                            <stop offset="100%" stop-color="#8badd0"/>
                         </linearGradient>
-                        <linearGradient id="fuseGrad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="#f2f8ff"/>
-                            <stop offset="25%" stop-color="#ffffff"/>
-                            <stop offset="60%" stop-color="#ddeaf8"/>
-                            <stop offset="100%" stop-color="#aac8e8"/>
+                        <linearGradient id="wingGrad" x1="220" y1="90" x2="320" y2="140" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%"  stop-color="#c8d8f0"/>
+                            <stop offset="100%" stop-color="#7a9cc0"/>
                         </linearGradient>
-                        <linearGradient id="fuseBelly" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="#c8ddf0"/>
-                            <stop offset="100%" stop-color="#7aa0c8"/>
+                        <linearGradient id="tailGrad" x1="50" y1="100" x2="100" y2="140" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%"  stop-color="#b0c8e8"/>
+                            <stop offset="100%" stop-color="#6a8cb4"/>
                         </linearGradient>
-                        <linearGradient id="tealGrad" x1="0" y1="0" x2="1" y2="0">
-                            <stop offset="0%" stop-color="#0d9adc"/>
-                            <stop offset="40%" stop-color="#00c8c8"/>
-                            <stop offset="100%" stop-color="#0ab8b8"/>
+                        <linearGradient id="tailGrad2" x1="50" y1="180" x2="100" y2="140" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%"  stop-color="#90b0d8"/>
+                            <stop offset="100%" stop-color="#5a7ca4"/>
                         </linearGradient>
-                        <linearGradient id="tealDark" x1="0" y1="0" x2="1" y2="0">
-                            <stop offset="0%" stop-color="#087aa8"/>
-                            <stop offset="100%" stop-color="#089090"/>
+                        <linearGradient id="engineGrad" x1="246" y1="144" x2="290" y2="162" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#1e3a5f"/>
+                            <stop offset="100%" stop-color="#0f2244"/>
                         </linearGradient>
-                        <linearGradient id="wingGrad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="#e0eeff"/>
-                            <stop offset="55%" stop-color="#c0d8f0"/>
-                            <stop offset="100%" stop-color="#8ab0d4"/>
-                        </linearGradient>
-                        <linearGradient id="engGrad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="#3a5878"/>
-                            <stop offset="50%" stop-color="#1a3050"/>
-                            <stop offset="100%" stop-color="#080f20"/>
-                        </linearGradient>
-                        <linearGradient id="cld1" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="#ffffff"/>
-                            <stop offset="100%" stop-color="#c8daf0"/>
-                        </linearGradient>
-                        <linearGradient id="cld2" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="#eef6ff"/>
-                            <stop offset="100%" stop-color="#b8d0ea"/>
-                        </linearGradient>
-                        <linearGradient id="cld3" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="#ddeeff"/>
-                            <stop offset="100%" stop-color="#a8c4e0"/>
-                        </linearGradient>
-                        <clipPath id="frame">
-                            <rect x="0" y="0" width="680" height="320" rx="18"/>
-                        </clipPath>
                     </defs>
-
-                    <g clip-path="url(#frame)">
-                        <!-- SKY -->
-                        <rect x="0" y="0" width="680" height="320" fill="url(#skyBg)"/>
-
-                        <!-- Stars -->
-                        <circle cx="45"  cy="22" r="1.1" fill="white" opacity="0.7"/>
-                        <circle cx="110" cy="10" r="0.9" fill="white" opacity="0.55"/>
-                        <circle cx="195" cy="28" r="0.8" fill="white" opacity="0.45"/>
-                        <circle cx="280" cy="12" r="1"   fill="white" opacity="0.5"/>
-                        <circle cx="370" cy="8"  r="0.8" fill="white" opacity="0.4"/>
-                        <circle cx="30"  cy="48" r="0.7" fill="white" opacity="0.35"/>
-                        <circle cx="490" cy="20" r="0.9" fill="white" opacity="0.5"/>
-                        <circle cx="590" cy="35" r="0.7" fill="white" opacity="0.38"/>
-
-                        <!-- Far clouds -->
-                        <ellipse cx="80"  cy="310" rx="160" ry="58" fill="url(#cld3)" opacity="0.7"/>
-                        <ellipse cx="620" cy="295" rx="140" ry="50" fill="url(#cld3)" opacity="0.65"/>
-                        <ellipse cx="340" cy="315" rx="220" ry="45" fill="url(#cld2)" opacity="0.5"/>
-
-                        <!-- Mid clouds left -->
-                        <ellipse cx="100" cy="300" rx="190" ry="62" fill="url(#cld1)" opacity="0.92"/>
-                        <ellipse cx="55"  cy="288" rx="130" ry="52" fill="white" opacity="0.88"/>
-                        <ellipse cx="158" cy="310" rx="110" ry="50" fill="white" opacity="0.85"/>
-                        <ellipse cx="18"  cy="315" rx="80"  ry="44" fill="#f0f8ff" opacity="0.75"/>
-                        <ellipse cx="205" cy="296" rx="75"  ry="36" fill="white" opacity="0.8"/>
-
-                        <!-- Mid clouds right -->
-                        <ellipse cx="600" cy="298" rx="175" ry="60" fill="url(#cld1)" opacity="0.9"/>
-                        <ellipse cx="650" cy="283" rx="115" ry="50" fill="white" opacity="0.82"/>
-                        <ellipse cx="556" cy="310" rx="120" ry="52" fill="white" opacity="0.8"/>
-                        <ellipse cx="680" cy="316" rx="90"  ry="44" fill="#f2f9ff" opacity="0.7"/>
-
-                        <!-- Center bottom clouds -->
-                        <ellipse cx="290" cy="315" rx="170" ry="48" fill="white" opacity="0.6"/>
-                        <ellipse cx="400" cy="310" rx="150" ry="44" fill="white" opacity="0.55"/>
-
-                        <!-- Atmosphere glow -->
-                        <ellipse cx="340" cy="175" rx="320" ry="80" fill="#1a60b8" opacity="0.1"/>
-
-                        <!-- AIRCRAFT (nose-up ~4deg) -->
-                        <g transform="translate(340,162) rotate(-4) translate(-340,-162)">
-
-                            <!-- Contrails -->
-                            <line x1="72" y1="168" x2="0"  y2="185" stroke="white" stroke-width="3"   stroke-linecap="round" opacity="0.5"/>
-                            <line x1="72" y1="175" x2="5"  y2="193" stroke="white" stroke-width="1.8" stroke-linecap="round" opacity="0.32"/>
-                            <line x1="72" y1="171" x2="15" y2="181" stroke="white" stroke-width="1.2" stroke-linecap="round" opacity="0.18"/>
-
-                            <!-- Vertical tail fin (teal) -->
-                            <path d="M 142 155 Q 124 122 100 62 Q 114 72 138 118 L 152 148 Z" fill="url(#tealGrad)"/>
-                            <path d="M 142 155 Q 128 128 110 78 Q 120 85 138 122 L 148 150 Z" fill="url(#tealDark)" opacity="0.5"/>
-                            <path d="M 135 150 Q 122 125 106 75 Q 112 80 130 118 L 140 146 Z" fill="rgba(255,255,255,0.2)"/>
-                            <text x="108" y="114" font-family="'Syne','Arial',sans-serif" font-size="18" font-weight="800" fill="white" opacity="0.97" letter-spacing="2">F-H</text>
-
-                            <!-- Horizontal stabilizers -->
-                            <path d="M 150 198 Q 105 192 66 204 Q 72 210 108 207 L 153 203 Z" fill="url(#wingGrad)"/>
-                            <path d="M 150 210 Q 105 218 66 226 Q 72 220 108 216 L 153 208 Z" fill="url(#wingGrad)" opacity="0.78"/>
-                            <path d="M 154 200 Q 115 195 78 205 L 80 202 Q 118 193 154 198 Z" fill="rgba(255,255,255,0.35)"/>
-
-                            <!-- Main fuselage upper -->
-                            <path d="M 152 148 Q 168 136 205 130 Q 340 118 530 136 Q 610 142 648 158 Q 672 164 690 172 Q 672 177 648 180 Q 610 186 530 188 Q 340 200 205 186 Q 168 182 152 172 Z" fill="url(#fuseGrad)"/>
-                            <!-- Belly -->
-                            <path d="M 152 172 Q 168 182 205 186 Q 340 200 530 188 Q 610 186 648 180 L 648 185 Q 610 196 530 198 Q 340 212 205 198 Q 168 194 152 184 Z" fill="url(#fuseBelly)"/>
-
-                            <!-- Nose -->
-                            <path d="M 648 158 Q 700 162 730 168 Q 742 170 730 175 Q 700 178 648 180 Z" fill="#eef6ff"/>
-                            <path d="M 730 168 Q 752 170 762 171 Q 752 173 730 175 Z" fill="#d0e8f8"/>
-                            <path d="M 650 162 Q 690 160 726 165 Q 690 162 650 165 Z" fill="rgba(255,255,255,0.4)"/>
-
-                            <!-- Tail cone -->
-                            <path d="M 152 148 Q 140 155 138 162 Q 140 172 152 172 Q 158 166 156 160 Q 157 154 152 148 Z" fill="#b8d0e8"/>
-
-                            <!-- TEAL LIVERY front section -->
-                            <path d="M 152 148 Q 165 136 200 130 Q 270 118 340 118 Q 340 118 340 148 Q 270 148 200 152 Q 172 154 155 158 Z" fill="url(#tealGrad)" opacity="0.92"/>
-                            <!-- Teal belly scoop -->
-                            <path d="M 152 172 Q 168 182 200 186 Q 270 192 340 190 Q 340 172 270 168 Q 200 164 155 162 Z" fill="url(#tealGrad)" opacity="0.88"/>
-
-                            <!-- Fuselage top shine -->
-                            <path d="M 162 144 Q 380 130 650 144" stroke="rgba(255,255,255,0.55)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-
-                            <!-- Windows (white section) -->
-                            <rect x="344" y="154" width="9" height="7" rx="2.5" fill="#0a2e50" opacity="0.88"/>
-                            <rect x="360" y="153" width="9" height="7" rx="2.5" fill="#0a2e50" opacity="0.88"/>
-                            <rect x="376" y="152" width="9" height="7" rx="2.5" fill="#0a2e50" opacity="0.88"/>
-                            <rect x="392" y="152" width="9" height="7" rx="2.5" fill="#0a2e50" opacity="0.86"/>
-                            <rect x="408" y="152" width="9" height="7" rx="2.5" fill="#0a2e50" opacity="0.84"/>
-                            <rect x="424" y="153" width="9" height="7" rx="2.5" fill="#0a2e50" opacity="0.82"/>
-                            <rect x="440" y="153" width="9" height="7" rx="2.5" fill="#0a2e50" opacity="0.80"/>
-                            <rect x="456" y="154" width="9" height="7" rx="2.5" fill="#0a2e50" opacity="0.75"/>
-                            <rect x="472" y="155" width="9" height="7" rx="2.5" fill="#0a2e50" opacity="0.68"/>
-                            <rect x="488" y="155" width="9" height="7" rx="2.5" fill="#0a2e50" opacity="0.60"/>
-                            <rect x="504" y="156" width="9" height="7" rx="2.5" fill="#0a2e50" opacity="0.50"/>
-                            <rect x="519" y="157" width="8" height="7" rx="2"   fill="#0a2e50" opacity="0.40"/>
-                            <rect x="533" y="158" width="8" height="6" rx="2"   fill="#0a2e50" opacity="0.30"/>
-
-                            <!-- Windows (teal section, darker) -->
-                            <rect x="215" y="150" width="8" height="6.5" rx="2" fill="rgba(0,50,70,0.5)"/>
-                            <rect x="228" y="149" width="8" height="6.5" rx="2" fill="rgba(0,50,70,0.5)"/>
-                            <rect x="241" y="148" width="8" height="6.5" rx="2" fill="rgba(0,50,70,0.45)"/>
-                            <rect x="254" y="147" width="8" height="6.5" rx="2" fill="rgba(0,50,70,0.4)"/>
-                            <rect x="267" y="147" width="8" height="6.5" rx="2" fill="rgba(0,50,70,0.35)"/>
-                            <rect x="280" y="147" width="8" height="6.5" rx="2" fill="rgba(0,50,70,0.3)"/>
-                            <rect x="293" y="147" width="8" height="6.5" rx="2" fill="rgba(0,50,70,0.25)"/>
-                            <rect x="306" y="147" width="8" height="6.5" rx="2" fill="rgba(0,50,70,0.2)"/>
-                            <rect x="319" y="147" width="8" height="6.5" rx="2" fill="rgba(0,50,70,0.15)"/>
-
-                            <!-- Door lines -->
-                            <rect x="204" y="136" width="1.8" height="52" rx="0.9" fill="rgba(30,80,130,0.22)"/>
-                            <rect x="342" y="140" width="1.8" height="52" rx="0.9" fill="rgba(30,80,130,0.18)"/>
-
-                            <!-- FlightHunter name -->
-                            <text x="400" y="148" font-family="'Syne','Arial',sans-serif" font-size="10.5" font-weight="700" fill="#0a2e50" opacity="0.9" letter-spacing="0.8">FlightHunter</text>
-
-                            <!-- F-H large on front -->
-                            <text x="188" y="170" font-family="'Syne','Arial',sans-serif" font-size="26" font-weight="800" fill="white" opacity="0.95" letter-spacing="3">F-H</text>
-
-                            <!-- Main wing top -->
-                            <path d="M 370 172 L 570 58 Q 586 48 594 57 L 588 72 L 420 180 Z" fill="url(#wingGrad)"/>
-                            <!-- Wing underside -->
-                            <path d="M 370 186 L 570 300 Q 586 310 594 301 L 588 288 L 420 184 Z" fill="url(#wingGrad)" opacity="0.75"/>
-                            <!-- Wing highlight -->
-                            <path d="M 374 174 L 568 62 L 580 65 L 408 180 Z" fill="rgba(255,255,255,0.38)"/>
-                            <!-- Winglet top -->
-                            <path d="M 568 60 Q 587 45 594 57 Q 586 63 574 72 Z" fill="#c8daf0"/>
-                            <!-- Winglet bottom -->
-                            <path d="M 568 298 Q 587 313 594 301 Q 586 295 574 287 Z" fill="#b8ccde"/>
-                            <!-- Wing leading edge -->
-                            <path d="M 375 172 Q 480 115 570 60" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none"/>
-
-                            <!-- Left wing (foreshortened) -->
-                            <path d="M 360 184 Q 290 210 248 228 Q 238 232 236 224 L 244 218 Q 280 208 360 180 Z" fill="url(#wingGrad)" opacity="0.7"/>
-                            <path d="M 362 182 Q 295 205 252 222 L 256 220 Q 298 204 364 180 Z" fill="rgba(255,255,255,0.28)"/>
-
-                            <!-- Pylon -->
-                            <rect x="462" y="186" width="7" height="28" rx="2.5" fill="#b8cce0"/>
-
-                            <!-- Engine 1 -->
-                            <ellipse cx="482" cy="220" rx="40" ry="15" fill="url(#engGrad)"/>
-                            <path d="M 446 212 Q 482 205 518 212 L 518 218 Q 482 211 446 218 Z" fill="rgba(255,255,255,0.12)"/>
-                            <ellipse cx="446" cy="218" rx="13" ry="11" fill="#06101e"/>
-                            <ellipse cx="446" cy="218" rx="9"  ry="7.5" fill="#182840"/>
-                            <circle  cx="446" cy="218" r="3.5" fill="#0a1e34"/>
-                            <ellipse cx="520" cy="218" rx="9" ry="7" fill="#0a1522"/>
-                            <path d="M 448 208 Q 482 204 516 208" stroke="#0ab8b8" stroke-width="1.8" fill="none" opacity="0.7"/>
-                            <ellipse cx="482" cy="232" rx="38" ry="7" fill="rgba(5,15,35,0.4)"/>
-
-                            <!-- Engine 2 (left, hidden) -->
-                            <ellipse cx="320" cy="200" rx="30" ry="11" fill="url(#engGrad)" opacity="0.55"/>
-                            <ellipse cx="300" cy="198" rx="10" ry="8.5" fill="#06101e" opacity="0.55"/>
-                            <path d="M 302 192 Q 322 188 342 192" stroke="#0ab8b8" stroke-width="1.2" fill="none" opacity="0.38"/>
-
-                            <!-- Belly shadow -->
-                            <ellipse cx="400" cy="210" rx="275" ry="14" fill="rgba(5,15,45,0.3)"/>
-                        </g>
-                    </g>
                 </svg>
             </div>
         </header>
@@ -809,6 +688,7 @@ cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
             geral:             "✈️ Geral"
         };
 
+        // extract IATA-like code (first 3 uppercase letters of city name)
         function toCode(city) {
             return (city || '???').replace(/[^a-zA-Z]/g,'').substring(0,3).toUpperCase();
         }
@@ -835,7 +715,8 @@ cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
                     : 'agora';
 
                 document.getElementById('last-update').textContent = atualizacao;
-                document.getElementById('bot-status').innerHTML = '<span style="color:#10b981">● Ativo</span>';
+                document.getElementById('bot-status').innerHTML =
+                    '<span style="color:#10b981">● Ativo</span>';
 
                 document.getElementById('stat-total').textContent = ofertas.length;
                 document.getElementById('stat-brasil').textContent = ofertas.filter(o => o.grupo === 'brasil').length;
@@ -868,6 +749,7 @@ cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
                                     : `<span style="font-size:14px;color:var(--muted)">Ver preço</span>`}
                             </div>
                         </div>
+
                         <div class="route-visual">
                             <div>
                                 <div class="airport-code">${toCode(o.origem)}</div>
@@ -883,10 +765,12 @@ cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
                                 <div class="airport-name">${o.destino}</div>
                             </div>
                         </div>
+
                         <div class="card-date">
                             <i class="fa-solid fa-calendar-days"></i>
                             ${o.data}
                         </div>
+
                         <a href="${o.link}" target="_blank" class="cta-btn">
                             Ver oferta no Kayak
                         </a>
@@ -894,7 +778,8 @@ cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
                 `).join('');
 
             } catch (e) {
-                document.getElementById('bot-status').innerHTML = '<span style="color:#f59e0b">● Aguardando dados</span>';
+                document.getElementById('bot-status').innerHTML =
+                    '<span style="color:#f59e0b">● Aguardando dados</span>';
                 document.getElementById('last-update').textContent = '—';
                 console.log("Aguardando ofertas.json:", e.message);
             }
