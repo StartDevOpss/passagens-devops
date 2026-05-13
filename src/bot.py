@@ -1,7 +1,9 @@
 import os
+import json
 import logging
 import time
 import requests
+from datetime import datetime
 from src.providers.serpapi import buscar_voos_serpapi
 
 logging.basicConfig(level=logging.INFO,
@@ -15,6 +17,55 @@ DISCORD_WEBHOOKS = {
     "voos_malucos": os.getenv("DISCORD_WEBHOOK_MALUCOS"),
     "datas_especificas": os.getenv("DISCORD_WEBHOOK_DATAS")
 }
+
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+GITHUB_REPO = os.getenv("GITHUB_REPO", "StartDevOpss/passagens-devops")
+GITHUB_FILE_PATH = "docs/ofertas.json"
+
+def salvar_e_publicar_ofertas(todas_ofertas):
+    """Salva ofertas no GitHub Pages via API do GitHub."""
+    if not GITHUB_TOKEN:
+        log.warning("⚠️ GITHUB_TOKEN não configurado, pulando publicação.")
+        return
+
+    payload = {
+        "ultima_atualizacao": datetime.now().isoformat(),
+        "total": len(todas_ofertas),
+        "ofertas": todas_ofertas
+    }
+
+    conteudo = json.dumps(payload, ensure_ascii=False, indent=2)
+    conteudo_b64 = __import__("base64").b64encode(conteudo.encode()).decode()
+
+    headers = {
+        "Authorization": f"token {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github.v3+json"
+    }
+
+    # Pega o SHA atual do arquivo (necessário para atualizar)
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{GITHUB_FILE_PATH}"
+    sha = None
+    try:
+        r = requests.get(url, headers=headers, timeout=10)
+        if r.status_code == 200:
+            sha = r.json()["sha"]
+    except Exception:
+        pass
+
+    body = {
+        "message": f"chore: atualiza ofertas {datetime.now().strftime('%Y-%m-%d %H:%M')}",
+        "content": conteudo_b64,
+        "branch": "main"
+    }
+    if sha:
+        body["sha"] = sha
+
+    try:
+        r = requests.put(url, headers=headers, json=body, timeout=10)
+        r.raise_for_status()
+        log.info("✅ ofertas.json publicado no GitHub Pages.")
+    except Exception as e:
+        log.error(f"❌ Erro ao publicar no GitHub: {e}")
 
 def enviar_notificacao_discord(oferta, grupo="geral"):
     webhook = DISCORD_WEBHOOKS.get(grupo)
@@ -41,9 +92,9 @@ def enviar_notificacao_discord(oferta, grupo="geral"):
 def classificar_grupo(oferta):
     destino = oferta["destino"].lower()
 
-    if any(cidade in destino for cidade in ["miami", "paris", "lisboa", "new york", "orlando"]):
+    if any(c in destino for c in ["miami", "paris", "lisboa", "new york", "orlando"]):
         return "internacional"
-    elif any(cidade in destino for cidade in ["rio de janeiro", "santos dumont", "congonhas", "porto alegre"]):
+    elif any(c in destino for c in ["rio de janeiro", "santos dumont", "congonhas", "porto alegre"]):
         return "brasil"
     elif oferta["preco"] < 500:
         return "voos_malucos"
@@ -59,10 +110,16 @@ def monitorar_voos():
         ofertas_encontradas = buscar_voos_serpapi(origem="GRU", destino="SDU", dias_para_ida=15)
 
         if ofertas_encontradas:
+            todas_com_grupo = []
             for oferta in ofertas_encontradas:
                 grupo = classificar_grupo(oferta)
+                oferta["grupo"] = grupo
                 log.info(f"✈️ Oferta encontrada ({grupo}): {oferta}")
                 enviar_notificacao_discord(oferta, grupo=grupo)
+                todas_com_grupo.append(oferta)
+
+            # Publica no GitHub Pages
+            salvar_e_publicar_ofertas(todas_com_grupo)
         else:
             log.warning("⚠️ Nenhuma oferta encontrada.")
 

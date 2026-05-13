@@ -57,3 +57,10 @@ spec:
             secretKeyRef:
               name: passagens-secrets
               key: DISCORD_WEBHOOK_DATAS
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: passagens-secrets
+              key: GITHUB_TOKEN
+        - name: GITHUB_REPO
+          value: "StartDevOpss/passagens-devops"
