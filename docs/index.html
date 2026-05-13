@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FlightHunter — Melhores Ofertas de Voos</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
@@ -29,6 +29,7 @@
             background-color: var(--navy);
             color: var(--text);
             font-family: 'DM Sans', sans-serif;
+            font-optical-sizing: auto;
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -42,7 +43,6 @@
                 linear-gradient(180deg, #060f22 0%, #0a1628 40%, #050d1f 100%);
         }
 
-        /* Stars */
         .stars {
             position: fixed; inset: 0; z-index: 0;
             background-image:
@@ -58,13 +58,11 @@
                 radial-gradient(1px 1px at 68% 42%, rgba(255,255,255,0.3) 0%, transparent 100%);
         }
 
-        /* Horizon glow */
         .horizon {
             position: fixed; bottom: 0; left: 0; right: 0; height: 35vh; z-index: 0;
             background: linear-gradient(to top, rgba(6,15,34,1) 0%, transparent 100%);
         }
 
-        /* Cloud layers */
         .clouds {
             position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
         }
@@ -116,22 +114,21 @@
         .logo-text {
             font-family: 'Syne', sans-serif;
             font-size: 28px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
             color: #fff;
         }
 
         .logo-text span { color: var(--accent); }
 
         .hero-tagline {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--muted);
-            letter-spacing: 0.05em;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
-            font-weight: 500;
+            font-weight: 400;
         }
 
-        /* live badge */
         .live-badge {
             display: inline-flex;
             align-items: center;
@@ -139,85 +136,98 @@
             background: rgba(14,165,233,0.1);
             border: 1px solid rgba(14,165,233,0.25);
             color: var(--accent);
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 11px;
+            font-weight: 500;
             padding: 5px 14px;
             border-radius: 100px;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
         .live-dot {
-            width: 7px; height: 7px;
-            background: var(--accent);
+            width: 6px; height: 6px;
+            background: #10b981;
             border-radius: 50%;
             animation: pulse 1.5s ease-in-out infinite;
+            box-shadow: 0 0 6px #10b981;
         }
         @keyframes pulse {
             0%, 100% { opacity: 1; transform: scale(1); }
             50%       { opacity: 0.4; transform: scale(0.7); }
         }
 
+        /* ── HERO TITLE — fonte mais fina e elegante ── */
         .hero-title {
             font-family: 'Syne', sans-serif;
-            font-size: clamp(32px, 5vw, 52px);
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -1px;
-            color: #fff;
-            margin-bottom: 16px;
+            font-size: clamp(34px, 4.5vw, 54px);
+            font-weight: 600;           /* era 800 — principal culpado do efeito gordo */
+            line-height: 1.08;
+            letter-spacing: -0.5px;    /* era -1px — esticava as letras */
+            color: #d8e8f8;
+            margin-bottom: 18px;
         }
         .hero-title em {
             font-style: normal;
             color: var(--accent);
+            font-weight: 700;
         }
 
         .hero-sub {
             font-size: 15px;
+            font-weight: 300;
             color: var(--muted);
-            line-height: 1.7;
-            max-width: 420px;
+            line-height: 1.75;
+            max-width: 400px;
         }
 
-        /* ── PLANE SVG ── */
+        /* ── PLANE ── */
         .hero-plane {
             flex: 0 0 auto;
-            width: clamp(200px, 30vw, 360px);
+            width: clamp(260px, 34vw, 420px);
             position: relative;
         }
 
         .plane-svg {
             width: 100%;
-            filter: drop-shadow(0 20px 60px rgba(14,165,233,0.25));
-            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 24px 48px rgba(14,165,233,0.22)) drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+            animation: float 7s ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            33%       { transform: translateY(-12px) rotate(1deg); }
-            66%       { transform: translateY(-6px) rotate(-0.5deg); }
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50%       { transform: translateY(-14px) rotate(1deg); }
         }
 
-        /* Glow behind plane */
         .plane-glow {
             position: absolute;
-            width: 70%; height: 40%;
-            background: radial-gradient(ellipse, rgba(14,165,233,0.2) 0%, transparent 70%);
-            bottom: 10%; left: 15%;
-            filter: blur(20px);
-            animation: float 6s ease-in-out infinite;
+            width: 65%; height: 30%;
+            background: radial-gradient(ellipse, rgba(14,165,233,0.18) 0%, transparent 70%);
+            bottom: 5%; left: 18%;
+            filter: blur(24px);
+            animation: float 7s ease-in-out infinite;
+            pointer-events: none;
         }
 
-        /* contrail */
+        /* contrails */
         .contrail {
             position: absolute;
-            height: 2px;
-            background: linear-gradient(to left, rgba(14,165,233,0.6), transparent);
+            height: 1.5px;
             border-radius: 2px;
-            animation: float 6s ease-in-out infinite;
+            animation: float 7s ease-in-out infinite;
+            pointer-events: none;
         }
-        .contrail-1 { width: 45%; top: 42%; right: 88%; }
-        .contrail-2 { width: 30%; top: 50%; right: 90%; opacity: 0.5; }
+        .contrail-1 {
+            width: 52%; top: 38%; right: 97%;
+            background: linear-gradient(to left, rgba(14,165,233,0.55), transparent);
+        }
+        .contrail-2 {
+            width: 36%; top: 46%; right: 98%;
+            background: linear-gradient(to left, rgba(14,165,233,0.3), transparent);
+        }
+        .contrail-3 {
+            width: 22%; top: 54%; right: 96%;
+            background: linear-gradient(to left, rgba(14,165,233,0.15), transparent);
+        }
 
         /* ── STATUS BAR ── */
         .status-bar {
@@ -233,8 +243,8 @@
             backdrop-filter: blur(12px);
             flex-wrap: wrap;
         }
-        .status-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
-        .status-value { font-size: 13px; font-weight: 500; color: var(--text); }
+        .status-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 400; }
+        .status-value { font-size: 13px; font-weight: 500; color: var(--text); margin-top: 3px; }
         .status-divider { width: 1px; height: 28px; background: var(--glass-border); }
 
         /* ── STATS GRID ── */
@@ -248,7 +258,7 @@
         @media (max-width: 700px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .hero { flex-direction: column; padding: 36px 0 32px; }
-            .hero-plane { width: 220px; order: -1; }
+            .hero-plane { width: 240px; order: -1; }
         }
 
         .stat-card {
@@ -277,7 +287,7 @@
         .stat-num {
             font-family: 'Syne', sans-serif;
             font-size: 36px;
-            font-weight: 800;
+            font-weight: 700;
             line-height: 1;
             margin-bottom: 6px;
         }
@@ -286,13 +296,13 @@
         .stat-card.intl   .stat-num { color: #60a5fa; }
         .stat-card.crazy  .stat-num { color: var(--gold); }
 
-        .stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+        .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; font-weight: 400; }
 
         .stat-icon {
             position: absolute;
             right: 18px; top: 18px;
             font-size: 20px;
-            opacity: 0.18;
+            opacity: 0.15;
         }
 
         /* ── SECTION TITLE ── */
@@ -305,13 +315,10 @@
         .section-title {
             font-family: 'Syne', sans-serif;
             font-size: 20px;
-            font-weight: 700;
+            font-weight: 600;
             color: #fff;
         }
-        .section-count {
-            font-size: 13px;
-            color: var(--muted);
-        }
+        .section-count { font-size: 13px; color: var(--muted); }
 
         /* ── OFFERS GRID ── */
         .offers-grid {
@@ -337,8 +344,6 @@
             border-color: rgba(14,165,233,0.3);
             box-shadow: 0 20px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(14,165,233,0.1);
         }
-
-        /* subtle gradient bg per card */
         .offer-card::after {
             content: '';
             position: absolute;
@@ -348,7 +353,6 @@
             pointer-events: none;
         }
 
-        /* route header */
         .route-header {
             display: flex;
             align-items: center;
@@ -357,12 +361,12 @@
         }
 
         .badge {
-            font-size: 11px;
-            font-weight: 700;
+            font-size: 10px;
+            font-weight: 500;
             padding: 4px 12px;
             border-radius: 100px;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.07em;
         }
         .badge-brasil         { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.2); }
         .badge-internacional  { background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.2); }
@@ -373,17 +377,16 @@
         .price-tag {
             font-family: 'Syne', sans-serif;
             font-size: 22px;
-            font-weight: 800;
+            font-weight: 700;
             color: #fff;
         }
         .price-currency {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 400;
             color: var(--muted);
             margin-right: 2px;
         }
 
-        /* route visual */
         .route-visual {
             display: flex;
             align-items: center;
@@ -393,17 +396,18 @@
         .airport-code {
             font-family: 'Syne', sans-serif;
             font-size: 26px;
-            font-weight: 800;
+            font-weight: 700;
             color: #fff;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.3px;
             line-height: 1;
         }
         .airport-name {
             font-size: 10px;
             color: var(--muted);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.06em;
             margin-top: 2px;
+            font-weight: 400;
         }
         .route-line {
             flex: 1;
@@ -427,6 +431,7 @@
             align-items: center;
             gap: 8px;
             font-size: 13px;
+            font-weight: 300;
             color: var(--muted);
             margin-bottom: 20px;
             padding: 8px 12px;
@@ -442,13 +447,13 @@
             text-align: center;
             background: linear-gradient(135deg, #0284c7, #1d4ed8);
             color: #fff;
-            font-weight: 700;
-            font-size: 13px;
+            font-weight: 500;
+            font-size: 12px;
             padding: 12px;
             border-radius: 14px;
             text-decoration: none;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.1em;
             transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
             box-shadow: 0 6px 20px rgba(2,132,199,0.3);
         }
@@ -458,28 +463,20 @@
             box-shadow: 0 10px 28px rgba(2,132,199,0.45);
         }
 
-        /* ── EMPTY STATE ── */
         .empty-state {
             grid-column: 1 / -1;
             text-align: center;
             padding: 80px 20px;
         }
-        .empty-icon {
-            font-size: 48px;
-            color: var(--accent);
-            opacity: 0.4;
-            margin-bottom: 16px;
-        }
+        .empty-icon { font-size: 48px; color: var(--accent); opacity: 0.4; margin-bottom: 16px; }
         .empty-text { color: var(--muted); font-size: 15px; }
 
-        /* ── LOADING ── */
         .loading-state {
             grid-column: 1 / -1;
             text-align: center;
             padding: 80px 20px;
         }
 
-        /* ── FOOTER ── */
         .site-footer {
             margin-top: 64px;
             padding-top: 24px;
@@ -490,16 +487,10 @@
             flex-wrap: wrap;
             gap: 12px;
         }
-        .footer-logo {
-            font-family: 'Syne', sans-serif;
-            font-weight: 700;
-            font-size: 15px;
-            color: var(--muted);
-        }
+        .footer-logo { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 15px; color: var(--muted); }
         .footer-logo span { color: var(--accent); }
-        .footer-note { font-size: 12px; color: var(--muted); }
+        .footer-note { font-size: 12px; color: var(--muted); font-weight: 300; }
 
-        /* entrance animation */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(20px); }
             to   { opacity: 1; transform: translateY(0); }
@@ -527,9 +518,7 @@
                     <div class="logo-text">Flight<span>Hunter</span></div>
                 </div>
                 <div class="hero-tagline">Monitoramento automático de passagens · Kubernetes Bot</div>
-
                 <br>
-
                 <div class="live-badge">
                     <span class="live-dot"></span>
                     Bot ativo · atualização contínua
@@ -545,68 +534,162 @@
                 </p>
             </div>
 
-            <!-- PLANE ILLUSTRATION -->
+            <!-- PLANE ILLUSTRATION — perspectiva lateral 3/4 como TAP -->
             <div class="hero-plane">
                 <div class="plane-glow"></div>
                 <div class="contrail contrail-1"></div>
                 <div class="contrail contrail-2"></div>
-                <svg class="plane-svg" viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- fuselage -->
-                    <ellipse cx="200" cy="140" rx="155" ry="32" fill="url(#body)" rx="155"/>
-                    <ellipse cx="200" cy="140" rx="155" ry="32" fill="url(#bodyGrad)"/>
-                    <!-- nose -->
-                    <path d="M355 140 Q390 140 395 138 Q400 136 395 134 Q390 132 355 132 Z" fill="#e2eaf6"/>
-                    <!-- tail fin -->
-                    <path d="M52 138 Q30 110 10 90 Q25 100 55 132 Z" fill="url(#tailGrad)"/>
-                    <path d="M52 142 Q30 170 10 190 Q25 180 55 148 Z" fill="url(#tailGrad2)"/>
-                    <!-- main wing top -->
-                    <path d="M220 134 L310 60 Q318 55 322 62 L250 134 Z" fill="url(#wingGrad)"/>
-                    <!-- main wing bottom -->
-                    <path d="M220 146 L310 220 Q318 225 322 218 L250 146 Z" fill="url(#wingGrad)"/>
-                    <!-- small rear wing top -->
-                    <path d="M90 134 L60 105 Q55 100 58 96 L96 130 Z" fill="url(#tailGrad)"/>
-                    <!-- small rear wing bottom -->
-                    <path d="M90 146 L60 175 Q55 180 58 184 L96 150 Z" fill="url(#tailGrad2)"/>
-                    <!-- windows row -->
-                    <rect x="160" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.6)" opacity="0.8"/>
-                    <rect x="178" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.6)" opacity="0.8"/>
-                    <rect x="196" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.6)" opacity="0.8"/>
-                    <rect x="214" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.8)" opacity="0.9"/>
-                    <rect x="232" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.6)" opacity="0.7"/>
-                    <rect x="250" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.5)" opacity="0.6"/>
-                    <rect x="268" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.4)" opacity="0.5"/>
-                    <rect x="286" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.3)" opacity="0.4"/>
-                    <!-- door line -->
-                    <rect x="143" y="120" width="2" height="40" rx="1" fill="rgba(255,255,255,0.15)"/>
-                    <!-- engine under main wing -->
-                    <ellipse cx="268" cy="153" rx="22" ry="9" fill="url(#engineGrad)"/>
-                    <ellipse cx="268" cy="153" rx="16" ry="6" fill="rgba(14,165,233,0.12)"/>
-                    <!-- highlight stripe -->
-                    <path d="M100 133 Q220 128 355 133" stroke="rgba(14,165,233,0.5)" stroke-width="2" fill="none"/>
+                <div class="contrail contrail-3"></div>
 
+                <svg class="plane-svg" viewBox="0 0 520 340" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <defs>
-                        <linearGradient id="bodyGrad" x1="50" y1="108" x2="360" y2="172" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%"   stop-color="#1a2e50"/>
-                            <stop offset="40%"  stop-color="#e2eaf6"/>
-                            <stop offset="100%" stop-color="#8badd0"/>
+                        <!-- Fuselagem principal: iluminada no topo, escura na barriga -->
+                        <linearGradient id="fuseGrad" x1="260" y1="120" x2="260" y2="210" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%"   stop-color="#dce8f5"/>
+                            <stop offset="35%"  stop-color="#b8cfea"/>
+                            <stop offset="75%"  stop-color="#6e8eae"/>
+                            <stop offset="100%" stop-color="#2c4a6e"/>
                         </linearGradient>
-                        <linearGradient id="wingGrad" x1="220" y1="90" x2="320" y2="140" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%"  stop-color="#c8d8f0"/>
-                            <stop offset="100%" stop-color="#7a9cc0"/>
+                        <!-- Asa superior -->
+                        <linearGradient id="wingTopGrad" x1="200" y1="100" x2="380" y2="165" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%"   stop-color="#c8ddf0"/>
+                            <stop offset="60%"  stop-color="#8aafc8"/>
+                            <stop offset="100%" stop-color="#4a7090"/>
                         </linearGradient>
-                        <linearGradient id="tailGrad" x1="50" y1="100" x2="100" y2="140" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%"  stop-color="#b0c8e8"/>
-                            <stop offset="100%" stop-color="#6a8cb4"/>
+                        <!-- Asa inferior / sombra -->
+                        <linearGradient id="wingBotGrad" x1="200" y1="175" x2="380" y2="230" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%"   stop-color="#7a9cb8"/>
+                            <stop offset="100%" stop-color="#2a4a68"/>
                         </linearGradient>
-                        <linearGradient id="tailGrad2" x1="50" y1="180" x2="100" y2="140" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%"  stop-color="#90b0d8"/>
-                            <stop offset="100%" stop-color="#5a7ca4"/>
+                        <!-- Cauda vertical -->
+                        <linearGradient id="tailFinGrad" x1="60" y1="100" x2="95" y2="168" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%"   stop-color="#a0bcd4"/>
+                            <stop offset="100%" stop-color="#3a5a7a"/>
                         </linearGradient>
-                        <linearGradient id="engineGrad" x1="246" y1="144" x2="290" y2="162" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%" stop-color="#1e3a5f"/>
-                            <stop offset="100%" stop-color="#0f2244"/>
+                        <!-- Motor -->
+                        <linearGradient id="engineGrad" x1="265" y1="192" x2="315" y2="220" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%"   stop-color="#1e3050"/>
+                            <stop offset="50%"  stop-color="#2a4268"/>
+                            <stop offset="100%" stop-color="#0e1e34"/>
                         </linearGradient>
+                        <!-- Nacela do motor (frente brilhante) -->
+                        <linearGradient id="engineFaceGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%"   stop-color="#2a4268"/>
+                            <stop offset="100%" stop-color="#060e1c"/>
+                        </linearGradient>
+                        <!-- Destaque metálico topo fuselagem -->
+                        <linearGradient id="shineGrad" x1="100" y1="140" x2="440" y2="140" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%"   stop-color="rgba(255,255,255,0)"/>
+                            <stop offset="30%"  stop-color="rgba(255,255,255,0.18)"/>
+                            <stop offset="70%"  stop-color="rgba(255,255,255,0.1)"/>
+                            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+                        </linearGradient>
+                        <!-- Clip para fuselagem -->
+                        <clipPath id="fuseClip">
+                            <path d="M85 162 Q90 130 140 122 L430 120 Q468 120 485 160 Q468 200 430 200 L140 198 Q90 192 85 162 Z"/>
+                        </clipPath>
                     </defs>
+
+                    <!-- === SOMBRA NO CHÃO === -->
+                    <ellipse cx="275" cy="310" rx="160" ry="12" fill="rgba(0,0,0,0.25)"/>
+
+                    <!-- === CAUDA HORIZONTAL (stabilizer) — atrás do fuselagem === -->
+                    <!-- upper stabilizer -->
+                    <path d="M88 156 L42 128 Q36 124 38 120 Q42 116 50 120 L92 148 Z"
+                          fill="url(#tailFinGrad)" opacity="0.9"/>
+                    <!-- lower stabilizer -->
+                    <path d="M88 168 L42 196 Q36 200 38 204 Q42 208 50 204 L92 176 Z"
+                          fill="url(#wingBotGrad)" opacity="0.85"/>
+
+                    <!-- === CAUDA VERTICAL (fin) === -->
+                    <path d="M82 155 Q75 130 68 105 Q72 100 80 108 Q90 125 95 155 Z"
+                          fill="url(#tailFinGrad)"/>
+                    <!-- borda da cauda vertical -->
+                    <path d="M82 155 Q75 130 68 105 Q72 100 80 108 Q90 125 95 155"
+                          stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
+
+                    <!-- === ASA PRINCIPAL — parte traseira (baixo perspectiva) === -->
+                    <path d="M195 175 L350 238 Q368 246 372 240 Q374 234 358 226 L210 168 Z"
+                          fill="url(#wingBotGrad)" opacity="0.9"/>
+
+                    <!-- === FUSELAGEM principal === -->
+                    <path d="M85 162 Q90 130 140 122 L430 120 Q468 120 485 160 Q468 200 430 200 L140 198 Q90 192 85 162 Z"
+                          fill="url(#fuseGrad)"/>
+
+                    <!-- === ASA PRINCIPAL — parte superior (acima perspectiva) === -->
+                    <path d="M195 150 L355 86 Q372 78 376 86 Q378 92 362 100 L210 162 Z"
+                          fill="url(#wingTopGrad)"/>
+                    <!-- borda de fuga da asa -->
+                    <path d="M210 162 L362 100" stroke="rgba(255,255,255,0.15)" stroke-width="0.8" fill="none"/>
+                    <!-- borda de ataque da asa -->
+                    <path d="M195 150 L355 86" stroke="rgba(255,255,255,0.25)" stroke-width="1.2" fill="none"/>
+
+                    <!-- === NARIZ === -->
+                    <path d="M430 120 Q468 120 490 140 Q500 155 490 175 Q468 196 430 200 Z"
+                          fill="url(#fuseGrad)"/>
+                    <!-- vidro do cockpit -->
+                    <path d="M450 133 Q472 130 486 148 Q482 138 462 136 Z"
+                          fill="rgba(14,165,233,0.45)"/>
+                    <path d="M450 133 Q472 130 486 148 Q482 138 462 136 Z"
+                          fill="none" stroke="rgba(14,165,233,0.6)" stroke-width="0.8"/>
+
+                    <!-- === DESTAQUE METÁLICO TOPO === -->
+                    <path d="M90 148 Q140 136 260 133 Q350 131 430 133 Q460 134 482 148"
+                          stroke="url(#shineGrad)" stroke-width="3" fill="none" opacity="0.8"/>
+
+                    <!-- === LINHA DE JANELAS === -->
+                    <g opacity="0.85">
+                        <!-- Janelas do cockpit -->
+                        <rect x="452" y="137" width="14" height="10" rx="3" fill="rgba(14,165,233,0.7)"/>
+                        <rect x="468" y="139" width="10" height="8"  rx="2" fill="rgba(14,165,233,0.5)"/>
+                        <!-- Janelas de passageiros -->
+                        <rect x="400" y="138" width="10" height="8" rx="2" fill="rgba(160,200,230,0.7)"/>
+                        <rect x="383" y="138" width="10" height="8" rx="2" fill="rgba(160,200,230,0.7)"/>
+                        <rect x="366" y="138" width="10" height="8" rx="2" fill="rgba(160,200,230,0.65)"/>
+                        <rect x="349" y="138" width="10" height="8" rx="2" fill="rgba(160,200,230,0.6)"/>
+                        <rect x="332" y="138" width="10" height="8" rx="2" fill="rgba(160,200,230,0.6)"/>
+                        <rect x="315" y="138" width="10" height="8" rx="2" fill="rgba(160,200,230,0.55)"/>
+                        <rect x="298" y="138" width="10" height="8" rx="2" fill="rgba(160,200,230,0.55)"/>
+                        <rect x="281" y="138" width="10" height="8" rx="2" fill="rgba(160,200,230,0.5)"/>
+                        <rect x="264" y="139" width="10" height="8" rx="2" fill="rgba(160,200,230,0.5)"/>
+                        <rect x="247" y="139" width="10" height="8" rx="2" fill="rgba(160,200,230,0.45)"/>
+                        <rect x="230" y="139" width="10" height="8" rx="2" fill="rgba(160,200,230,0.4)"/>
+                        <rect x="213" y="140" width="10" height="8" rx="2" fill="rgba(160,200,230,0.35)"/>
+                        <rect x="196" y="140" width="10" height="8" rx="2" fill="rgba(160,200,230,0.3)"/>
+                        <rect x="179" y="140" width="10" height="8" rx="2" fill="rgba(160,200,230,0.25)"/>
+                        <rect x="162" y="141" width="10" height="8" rx="2" fill="rgba(160,200,230,0.2)"/>
+                    </g>
+
+                    <!-- === LINHA DE PORTA === -->
+                    <rect x="136" y="124" width="1.5" height="72" rx="1" fill="rgba(255,255,255,0.12)"/>
+
+                    <!-- === FAIXA AZUL DECORATIVA (como companhias aéreas reais) === -->
+                    <path d="M90 178 Q140 184 430 180 Q462 179 480 172"
+                          stroke="rgba(14,165,233,0.35)" stroke-width="6" fill="none"/>
+                    <path d="M90 178 Q140 184 430 180 Q462 179 480 172"
+                          stroke="rgba(14,165,233,0.15)" stroke-width="10" fill="none"/>
+
+                    <!-- === MOTOR (nacela) === -->
+                    <!-- corpo do motor -->
+                    <path d="M268 192 Q268 178 290 176 L322 176 Q342 178 342 192 Q342 210 322 212 L290 212 Q268 210 268 192 Z"
+                          fill="url(#engineGrad)"/>
+                    <!-- boca do motor (intake) -->
+                    <ellipse cx="268" cy="194" rx="8" ry="16"
+                             fill="rgba(6,14,28,0.95)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                    <!-- brilho do motor -->
+                    <path d="M272 180 Q295 177 322 178" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" fill="none"/>
+                    <!-- exaustão -->
+                    <ellipse cx="342" cy="194" rx="5" ry="14" fill="rgba(30,50,90,0.8)"/>
+                    <!-- pylon (haste que conecta asa ao motor) -->
+                    <path d="M296 176 L300 162 L310 162 L306 176 Z" fill="rgba(50,80,120,0.7)"/>
+
+                    <!-- === BARRIGA DO AVIÃO (sombra) === -->
+                    <path d="M90 180 Q200 196 350 194 Q420 193 480 178"
+                          stroke="rgba(0,0,0,0.3)" stroke-width="4" fill="none"/>
+
+                    <!-- === REFLEXO DE LUZ NA ASA === -->
+                    <path d="M210 154 L290 124 Q300 120 302 124 L222 156 Z"
+                          fill="rgba(255,255,255,0.08)"/>
                 </svg>
             </div>
         </header>
@@ -688,7 +771,6 @@
             geral:             "✈️ Geral"
         };
 
-        // extract IATA-like code (first 3 uppercase letters of city name)
         function toCode(city) {
             return (city || '???').replace(/[^a-zA-Z]/g,'').substring(0,3).toUpperCase();
         }
