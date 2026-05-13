@@ -1,43 +1,33 @@
-# ─── Secrets & Variáveis de Ambiente ─────────────────────────────────────────
+# Secrets
 .env
 .env.*
 !.env.example
 
-# ─── Python ──────────────────────────────────────────────────────────────────
+# Cache Python (nunca entrar na imagem)
 __pycache__/
 *.py[cod]
 *.pyo
-*.pyd
-.Python
-*.egg-info/
-dist/
-build/
-*.egg
-.eggs/
 
-# ─── Virtual Environments ─────────────────────────────────────────────────────
+# Ambientes virtuais
 venv/
-env/
 .venv/
-.env/
+env/
 
-# ─── IDEs ────────────────────────────────────────────────────────────────────
+# IDEs e OS
 .vscode/
 .idea/
-*.swp
-*.swo
-*~
-
-# ─── OS ──────────────────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
 
-# ─── Dados gerados em runtime ─────────────────────────────────────────────────
-*.json
-!docs/ofertas.example.json
+# Git e CI
+.git/
+.github/
+
+# K8s e Helm (não precisam na imagem Docker)
+k8s/
+helm/
+
+# Docs e logs
+docs/
 logs/
 *.log
-
-# ─── Kubernetes secrets locais ───────────────────────────────────────────────
-k8s/secret*.yaml
-k8s/*-secret.yaml
