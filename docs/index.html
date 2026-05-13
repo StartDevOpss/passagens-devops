@@ -10,53 +10,112 @@
         body { background-color: #0f172a; color: #f1f5f9; }
         .card { background: #1e293b; border: 1px solid #334155; transition: transform 0.2s; }
         .card:hover { transform: translateY(-5px); border-color: #38bdf8; }
+        .badge-brasil { background: #166534; color: #86efac; }
+        .badge-internacional { background: #1e3a5f; color: #93c5fd; }
+        .badge-voos_malucos { background: #7c2d12; color: #fdba74; }
+        .badge-datas_especificas { background: #4a1d96; color: #c4b5fd; }
+        .badge-geral { background: #1e293b; color: #94a3b8; }
     </style>
 </head>
 <body class="p-4 md:p-8">
     <div class="max-w-6xl mx-auto">
         <header class="flex justify-between items-center mb-8 border-b border-slate-700 pb-4">
-            <h1 class="text-3xl font-bold text-sky-400"><i class="fa-solid fa-plane-departure mr-2"></i>FlightHunter</h1>
-            <div id="status" class="text-sm text-slate-400">Atualizado agora</div>
+            <h1 class="text-3xl font-bold text-sky-400">
+                <i class="fa-solid fa-plane-departure mr-2"></i>FlightHunter
+            </h1>
+            <div id="status" class="text-sm text-slate-400">Carregando...</div>
         </header>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="card p-4 rounded-xl text-center">
+                <div id="stat-total" class="text-2xl font-bold text-sky-400">-</div>
+                <div class="text-xs text-slate-400 mt-1">Total de Ofertas</div>
+            </div>
+            <div class="card p-4 rounded-xl text-center">
+                <div id="stat-brasil" class="text-2xl font-bold text-emerald-400">-</div>
+                <div class="text-xs text-slate-400 mt-1">Brasil</div>
+            </div>
+            <div class="card p-4 rounded-xl text-center">
+                <div id="stat-internacional" class="text-2xl font-bold text-blue-400">-</div>
+                <div class="text-xs text-slate-400 mt-1">Internacional</div>
+            </div>
+            <div class="card p-4 rounded-xl text-center">
+                <div id="stat-malucos" class="text-2xl font-bold text-orange-400">-</div>
+                <div class="text-xs text-slate-400 mt-1">Voos Malucos</div>
+            </div>
+        </div>
 
         <div id="ofertas-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="text-center col-span-full py-20">
                 <i class="fa-solid fa-circle-notch fa-spin text-4xl text-sky-500 mb-4"></i>
-                <p>Buscando as melhores ofertas em tempo real...</p>
+                <p>Buscando as melhores ofertas...</p>
             </div>
         </div>
     </div>
 
     <script>
+        const GRUPOS_LABEL = {
+            brasil: "🇧🇷 Brasil",
+            internacional: "🌍 Internacional",
+            voos_malucos: "🤪 Voo Maluco",
+            datas_especificas: "📅 Data Especial",
+            geral: "✈️ Geral"
+        };
+
         async function carregarOfertas() {
             try {
-                const response = await fetch('ofertas.json');
-                const ofertas = await response.json();
+                const response = await fetch('ofertas.json?t=' + Date.now());
+                if (!response.ok) throw new Error('Arquivo não encontrado');
+
+                const dados = await response.json();
+
+                const ofertas = Array.isArray(dados) ? dados : (dados.ofertas || []);
+                const atualizacao = dados.ultima_atualizacao
+                    ? new Date(dados.ultima_atualizacao).toLocaleString('pt-BR')
+                    : 'agora';
+
+                document.getElementById('status').textContent = `Atualizado: ${atualizacao}`;
+
+                document.getElementById('stat-total').textContent = ofertas.length;
+                document.getElementById('stat-brasil').textContent = ofertas.filter(o => o.grupo === 'brasil').length;
+                document.getElementById('stat-internacional').textContent = ofertas.filter(o => o.grupo === 'internacional').length;
+                document.getElementById('stat-malucos').textContent = ofertas.filter(o => o.grupo === 'voos_malucos').length;
+
                 const container = document.getElementById('ofertas-container');
-                
+
                 if (ofertas.length === 0) {
-                    container.innerHTML = '<p class="col-span-full text-center text-slate-500">Nenhuma oferta encontrada no momento. O bot continua monitorando!</p>';
+                    container.innerHTML = '<p class="col-span-full text-center text-slate-500 py-20">Nenhuma oferta no momento. O bot continua monitorando! 🔍</p>';
                     return;
                 }
 
                 container.innerHTML = ofertas.map(o => `
                     <div class="card p-6 rounded-xl">
                         <div class="flex justify-between items-start mb-4">
-                            <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2 py-1 rounded">${o.origin} → ${o.destination}</span>
-                            <span class="text-emerald-400 font-bold text-xl">R$ ${o.price}</span>
+                            <span class="badge-${o.grupo || 'geral'} text-xs font-bold px-2 py-1 rounded">
+                                ${GRUPOS_LABEL[o.grupo] || '✈️ Geral'}
+                            </span>
+                            <span class="text-emerald-400 font-bold text-xl">
+                                ${o.preco > 0 ? 'R$ ' + o.preco : 'Ver preço'}
+                            </span>
                         </div>
-                        <h3 class="text-lg font-semibold mb-2">${o.destination_name || 'Voo Imperdível'}</h3>
-                        <p class="text-sm text-slate-400 mb-4"><i class="fa-solid fa-calendar-days mr-2"></i>${o.date}</p>
-                        <a href="${o.link}" target="_blank" class="block text-center bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 rounded-lg transition">
+                        <h3 class="text-lg font-semibold mb-1">${o.origem} → ${o.destino}</h3>
+                        <p class="text-sm text-slate-400 mb-4">
+                            <i class="fa-solid fa-calendar-days mr-2"></i>${o.data}
+                        </p>
+                        <a href="${o.link}" target="_blank"
+                           class="block text-center bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 rounded-lg transition">
                             Ver no Google Flights
                         </a>
                     </div>
                 `).join('');
+
             } catch (e) {
-                console.error("Aguardando arquivo de ofertas...");
+                document.getElementById('status').textContent = 'Aguardando dados do bot...';
+                console.log("Aguardando ofertas.json:", e.message);
             }
         }
-        setInterval(carregarOfertas, 5000);
+
+        setInterval(carregarOfertas, 30000);
         carregarOfertas();
     </script>
 </body>
