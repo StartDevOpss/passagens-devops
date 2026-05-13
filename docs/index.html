@@ -29,17 +29,15 @@
             background-color: var(--navy);
             color: var(--text);
             font-family: 'DM Sans', sans-serif;
-            font-optical-sizing: auto;
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* ── SKY BACKGROUND ── */
+        /* ── SKY & BACKGROUND (RESTAURADOS) ── */
         .sky {
             position: fixed; inset: 0; z-index: 0;
             background:
                 radial-gradient(ellipse 80% 60% at 50% -10%, #1a3a6e 0%, transparent 70%),
-                radial-gradient(ellipse 50% 40% at 80% 20%, #0c2a55 0%, transparent 60%),
                 linear-gradient(180deg, #060f22 0%, #0a1628 40%, #050d1f 100%);
         }
 
@@ -49,42 +47,20 @@
                 radial-gradient(1px 1px at 15% 18%, rgba(255,255,255,0.7) 0%, transparent 100%),
                 radial-gradient(1px 1px at 32% 8%,  rgba(255,255,255,0.5) 0%, transparent 100%),
                 radial-gradient(1px 1px at 58% 14%, rgba(255,255,255,0.6) 0%, transparent 100%),
-                radial-gradient(1px 1px at 72% 5%,  rgba(255,255,255,0.4) 0%, transparent 100%),
-                radial-gradient(1px 1px at 88% 22%, rgba(255,255,255,0.6) 0%, transparent 100%),
-                radial-gradient(1.5px 1.5px at 5%  35%, rgba(255,255,255,0.3) 0%, transparent 100%),
-                radial-gradient(1px 1px at 45% 30%, rgba(255,255,255,0.4) 0%, transparent 100%),
-                radial-gradient(1px 1px at 92% 38%, rgba(255,255,255,0.3) 0%, transparent 100%),
-                radial-gradient(1px 1px at 25% 48%, rgba(255,255,255,0.2) 0%, transparent 100%),
-                radial-gradient(1px 1px at 68% 42%, rgba(255,255,255,0.3) 0%, transparent 100%);
+                radial-gradient(1px 1px at 88% 22%, rgba(255,255,255,0.6) 0%, transparent 100%);
         }
 
-        .horizon {
-            position: fixed; bottom: 0; left: 0; right: 0; height: 35vh; z-index: 0;
-            background: linear-gradient(to top, rgba(6,15,34,1) 0%, transparent 100%);
-        }
-
-        .clouds {
-            position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
-        }
-        .cloud {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.06;
-        }
+        .clouds { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+        .cloud { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.06; }
         .c1 { width: 600px; height: 200px; background: #4a9eff; top: 15%; left: -10%; animation: drift 40s linear infinite; }
-        .c2 { width: 400px; height: 150px; background: #2563eb; top: 25%; left: 30%; animation: drift 55s linear infinite reverse; animation-delay: -20s; }
-        .c3 { width: 500px; height: 180px; background: #7dd3fc; top: 10%; right: -5%; animation: drift 45s linear infinite; animation-delay: -10s; }
+        .c2 { width: 400px; height: 150px; background: #2563eb; top: 25%; left: 30%; animation: drift 55s linear infinite reverse; }
 
-        @keyframes drift {
-            from { transform: translateX(0); }
-            to   { transform: translateX(120px); }
-        }
+        @keyframes drift { from { transform: translateX(0); } to { transform: translateX(120px); } }
 
         /* ── LAYOUT ── */
         .wrap { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 24px 80px; }
 
-        /* ── HERO HEADER ── */
+        /* ── HERO HEADER (NOVO AVIÃO ESTILO TAP) ── */
         .hero {
             padding: 56px 0 48px;
             display: flex;
@@ -95,13 +71,7 @@
 
         .hero-left { flex: 1; }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 12px;
-        }
-
+        .logo { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
         .logo-icon {
             width: 48px; height: 48px;
             background: linear-gradient(135deg, var(--accent), #1d4ed8);
@@ -110,392 +80,107 @@
             font-size: 22px;
             box-shadow: 0 8px 24px rgba(14,165,233,0.35);
         }
-
-        .logo-text {
-            font-family: 'Syne', sans-serif;
-            font-size: 28px;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-            color: #fff;
-        }
-
+        .logo-text { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 700; color: #fff; }
         .logo-text span { color: var(--accent); }
 
-        .hero-tagline {
-            font-size: 13px;
-            color: var(--muted);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            font-weight: 400;
-        }
-
         .live-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            background: rgba(14,165,233,0.1);
-            border: 1px solid rgba(14,165,233,0.25);
-            color: var(--accent);
-            font-size: 11px;
-            font-weight: 500;
-            padding: 5px 14px;
-            border-radius: 100px;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 24px;
+            display: inline-flex; align-items: center; gap: 7px;
+            background: rgba(14,165,233,0.1); border: 1px solid rgba(14,165,233,0.25);
+            color: var(--accent); font-size: 11px; padding: 5px 14px; border-radius: 100px; margin-bottom: 24px;
         }
-        .live-dot {
-            width: 6px; height: 6px;
-            background: #10b981;
-            border-radius: 50%;
-            animation: pulse 1.5s ease-in-out infinite;
-            box-shadow: 0 0 6px #10b981;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50%       { opacity: 0.4; transform: scale(0.7); }
-        }
+        .live-dot { width: 6px; height: 6px; background: #10b981; border-radius: 50%; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-        /* ── HERO TITLE — fonte mais fina e elegante ── */
+        /* AJUSTE DAS LETRAS (Sem ser esticado ou gordo) */
         .hero-title {
             font-family: 'Syne', sans-serif;
             font-size: clamp(34px, 4.5vw, 54px);
-            font-weight: 600;           /* era 800 — principal culpado do efeito gordo */
-            line-height: 1.08;
-            letter-spacing: -0.5px;    /* era -1px — esticava as letras */
-            color: #d8e8f8;
+            font-weight: 600; /* Mais fino e elegante */
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: #fff;
             margin-bottom: 18px;
         }
-        .hero-title em {
-            font-style: normal;
-            color: var(--accent);
-            font-weight: 700;
-        }
+        .hero-title em { font-style: normal; color: var(--accent); font-weight: 700; }
 
-        .hero-sub {
-            font-size: 15px;
-            font-weight: 300;
-            color: var(--muted);
-            line-height: 1.75;
-            max-width: 400px;
-        }
+        .hero-sub { font-size: 15px; color: var(--muted); line-height: 1.75; max-width: 400px; }
 
-        /* ── PLANE ── */
+        /* O NOVO AVIÃO REALISTA */
         .hero-plane {
-            flex: 0 0 auto;
-            width: clamp(260px, 34vw, 420px);
+            flex: 1.3;
             position: relative;
+            display: flex;
+            justify-content: flex-end;
         }
-
-        .plane-svg {
-            width: 100%;
-            filter: drop-shadow(0 24px 48px rgba(14,165,233,0.22)) drop-shadow(0 4px 12px rgba(0,0,0,0.5));
-            animation: float 7s ease-in-out infinite;
+        .plane-img {
+            width: 110%;
+            height: auto;
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.4));
+            animation: float 8s ease-in-out infinite;
+            z-index: 2;
         }
-
         @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(-1deg); }
-            50%       { transform: translateY(-14px) rotate(1deg); }
-        }
-
-        .plane-glow {
-            position: absolute;
-            width: 65%; height: 30%;
-            background: radial-gradient(ellipse, rgba(14,165,233,0.18) 0%, transparent 70%);
-            bottom: 5%; left: 18%;
-            filter: blur(24px);
-            animation: float 7s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        /* contrails */
-        .contrail {
-            position: absolute;
-            height: 1.5px;
-            border-radius: 2px;
-            animation: float 7s ease-in-out infinite;
-            pointer-events: none;
-        }
-        .contrail-1 {
-            width: 52%; top: 38%; right: 97%;
-            background: linear-gradient(to left, rgba(14,165,233,0.55), transparent);
-        }
-        .contrail-2 {
-            width: 36%; top: 46%; right: 98%;
-            background: linear-gradient(to left, rgba(14,165,233,0.3), transparent);
-        }
-        .contrail-3 {
-            width: 22%; top: 54%; right: 96%;
-            background: linear-gradient(to left, rgba(14,165,233,0.15), transparent);
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(-1.5deg); }
         }
 
         /* ── STATUS BAR ── */
         .status-bar {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 14px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            margin-bottom: 32px;
-            backdrop-filter: blur(12px);
-            flex-wrap: wrap;
+            background: var(--glass); border: 1px solid var(--glass-border);
+            border-radius: 16px; padding: 14px 24px;
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 32px; backdrop-filter: blur(12px); flex-wrap: wrap; gap: 16px;
         }
-        .status-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 400; }
-        .status-value { font-size: 13px; font-weight: 500; color: var(--text); margin-top: 3px; }
+        .status-label { font-size: 11px; color: var(--muted); text-transform: uppercase; }
+        .status-value { font-size: 13px; font-weight: 500; color: var(--text); }
         .status-divider { width: 1px; height: 28px; background: var(--glass-border); }
 
         /* ── STATS GRID ── */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin-bottom: 40px;
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+        .stat-card {
+            background: var(--glass); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 20px; backdrop-filter: blur(12px);
+            position: relative; transition: transform 0.3s;
+        }
+        .stat-card:hover { transform: translateY(-3px); }
+        .stat-num { font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 700; margin-bottom: 4px; }
+        .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; }
+
+        /* Cores dos stats */
+        .total .stat-num { color: var(--accent); }
+        .brasil .stat-num { color: #10b981; }
+        .intl .stat-num { color: #60a5fa; }
+        .crazy .stat-num { color: var(--gold); }
+
+        /* ── OFFERS GRID (RESTAURADO) ── */
+        .offers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .offer-card {
+            background: var(--glass); border: 1px solid var(--glass-border);
+            border-radius: 24px; padding: 24px; backdrop-filter: blur(14px);
+            transition: all 0.3s;
+        }
+        .offer-card:hover { transform: translateY(-6px); border-color: var(--accent); }
+
+        .route-header { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .price-tag { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 700; }
+        
+        .airport-code { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 700; }
+        .route-line { flex: 1; height: 1px; background: var(--glass-border); margin: 0 10px; position: relative; }
+        .route-plane-icon { position: absolute; top: -7px; left: 50%; color: var(--accent); transform: rotate(45deg); }
+
+        .cta-btn {
+            display: block; width: 100%; text-align: center;
+            background: linear-gradient(135deg, #0284c7, #1d4ed8);
+            color: #fff; padding: 12px; border-radius: 14px; text-decoration: none;
+            font-size: 12px; font-weight: 600; text-transform: uppercase; margin-top: 20px;
         }
 
         @media (max-width: 700px) {
+            .hero { flex-direction: column; text-align: center; }
+            .hero-plane { order: -1; width: 100%; justify-content: center; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .hero { flex-direction: column; padding: 36px 0 32px; }
-            .hero-plane { width: 240px; order: -1; }
+            .status-bar { grid-template-columns: 1fr 1fr; }
         }
-
-        .stat-card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 20px;
-            backdrop-filter: blur(12px);
-            position: relative;
-            overflow: hidden;
-            transition: border-color 0.3s, transform 0.3s;
-        }
-        .stat-card:hover { transform: translateY(-3px); }
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            border-radius: 20px 20px 0 0;
-        }
-        .stat-card.total::before  { background: linear-gradient(to right, var(--accent), #2563eb); }
-        .stat-card.brasil::before { background: linear-gradient(to right, #10b981, #059669); }
-        .stat-card.intl::before   { background: linear-gradient(to right, #3b82f6, #6366f1); }
-        .stat-card.crazy::before  { background: linear-gradient(to right, #f59e0b, #ef4444); }
-
-        .stat-num {
-            font-family: 'Syne', sans-serif;
-            font-size: 36px;
-            font-weight: 700;
-            line-height: 1;
-            margin-bottom: 6px;
-        }
-        .stat-card.total  .stat-num { color: var(--accent); }
-        .stat-card.brasil .stat-num { color: #10b981; }
-        .stat-card.intl   .stat-num { color: #60a5fa; }
-        .stat-card.crazy  .stat-num { color: var(--gold); }
-
-        .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; font-weight: 400; }
-
-        .stat-icon {
-            position: absolute;
-            right: 18px; top: 18px;
-            font-size: 20px;
-            opacity: 0.15;
-        }
-
-        /* ── SECTION TITLE ── */
-        .section-header {
-            display: flex;
-            align-items: baseline;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-        .section-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 20px;
-            font-weight: 600;
-            color: #fff;
-        }
-        .section-count { font-size: 13px; color: var(--muted); }
-
-        /* ── OFFERS GRID ── */
-        .offers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        /* ── OFFER CARD ── */
-        .offer-card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 24px;
-            backdrop-filter: blur(14px);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-            cursor: default;
-        }
-        .offer-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(14,165,233,0.3);
-            box-shadow: 0 20px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(14,165,233,0.1);
-        }
-        .offer-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 24px;
-            background: radial-gradient(ellipse at top right, rgba(14,165,233,0.05) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        .route-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .badge {
-            font-size: 10px;
-            font-weight: 500;
-            padding: 4px 12px;
-            border-radius: 100px;
-            text-transform: uppercase;
-            letter-spacing: 0.07em;
-        }
-        .badge-brasil         { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.2); }
-        .badge-internacional  { background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.2); }
-        .badge-voos_malucos   { background: rgba(245,158,11,0.15); color: #fcd34d; border: 1px solid rgba(245,158,11,0.2); }
-        .badge-datas_especificas { background: rgba(168,85,247,0.15); color: #d8b4fe; border: 1px solid rgba(168,85,247,0.2); }
-        .badge-geral          { background: rgba(107,132,168,0.1); color: var(--muted); border: 1px solid var(--glass-border); }
-
-        .price-tag {
-            font-family: 'Syne', sans-serif;
-            font-size: 22px;
-            font-weight: 700;
-            color: #fff;
-        }
-        .price-currency {
-            font-size: 12px;
-            font-weight: 400;
-            color: var(--muted);
-            margin-right: 2px;
-        }
-
-        .route-visual {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 14px;
-        }
-        .airport-code {
-            font-family: 'Syne', sans-serif;
-            font-size: 26px;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: -0.3px;
-            line-height: 1;
-        }
-        .airport-name {
-            font-size: 10px;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin-top: 2px;
-            font-weight: 400;
-        }
-        .route-line {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .route-dash {
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(to right, var(--glass-border), rgba(14,165,233,0.3), var(--glass-border));
-        }
-        .route-plane-icon {
-            color: var(--accent);
-            font-size: 14px;
-            transform: rotate(45deg);
-        }
-
-        .card-date {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            font-weight: 300;
-            color: var(--muted);
-            margin-bottom: 20px;
-            padding: 8px 12px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 10px;
-            border: 1px solid var(--glass-border);
-        }
-        .card-date i { color: var(--accent); opacity: 0.7; font-size: 11px; }
-
-        .cta-btn {
-            display: block;
-            width: 100%;
-            text-align: center;
-            background: linear-gradient(135deg, #0284c7, #1d4ed8);
-            color: #fff;
-            font-weight: 500;
-            font-size: 12px;
-            padding: 12px;
-            border-radius: 14px;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 6px 20px rgba(2,132,199,0.3);
-        }
-        .cta-btn:hover {
-            opacity: 0.92;
-            transform: translateY(-1px);
-            box-shadow: 0 10px 28px rgba(2,132,199,0.45);
-        }
-
-        .empty-state {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 80px 20px;
-        }
-        .empty-icon { font-size: 48px; color: var(--accent); opacity: 0.4; margin-bottom: 16px; }
-        .empty-text { color: var(--muted); font-size: 15px; }
-
-        .loading-state {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 80px 20px;
-        }
-
-        .site-footer {
-            margin-top: 64px;
-            padding-top: 24px;
-            border-top: 1px solid var(--glass-border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .footer-logo { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 15px; color: var(--muted); }
-        .footer-logo span { color: var(--accent); }
-        .footer-note { font-size: 12px; color: var(--muted); font-weight: 300; }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        .offer-card { animation: fadeUp 0.5s ease both; }
     </style>
 </head>
 <body>
@@ -504,12 +189,9 @@
     <div class="clouds">
         <div class="cloud c1"></div>
         <div class="cloud c2"></div>
-        <div class="cloud c3"></div>
     </div>
-    <div class="horizon"></div>
 
     <div class="wrap">
-
         <!-- HERO -->
         <header class="hero">
             <div class="hero-left">
@@ -517,13 +199,9 @@
                     <div class="logo-icon">✈</div>
                     <div class="logo-text">Flight<span>Hunter</span></div>
                 </div>
-                <div class="hero-tagline">Monitoramento automático de passagens · Kubernetes Bot</div>
-                <br>
                 <div class="live-badge">
-                    <span class="live-dot"></span>
-                    Bot ativo · atualização contínua
+                    <span class="live-dot"></span> Bot ativo · atualização contínua
                 </div>
-
                 <h1 class="hero-title">
                     Voos com<br>
                     os <em>melhores</em><br>
@@ -534,163 +212,10 @@
                 </p>
             </div>
 
-            <!-- PLANE ILLUSTRATION — perspectiva lateral 3/4 como TAP -->
+            <!-- NOVO AVIÃO REALISTA (ESTILO TAP) -->
             <div class="hero-plane">
-                <div class="plane-glow"></div>
-                <div class="contrail contrail-1"></div>
-                <div class="contrail contrail-2"></div>
-                <div class="contrail contrail-3"></div>
-
-                <svg class="plane-svg" viewBox="0 0 520 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <!-- Fuselagem principal: iluminada no topo, escura na barriga -->
-                        <linearGradient id="fuseGrad" x1="260" y1="120" x2="260" y2="210" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%"   stop-color="#dce8f5"/>
-                            <stop offset="35%"  stop-color="#b8cfea"/>
-                            <stop offset="75%"  stop-color="#6e8eae"/>
-                            <stop offset="100%" stop-color="#2c4a6e"/>
-                        </linearGradient>
-                        <!-- Asa superior -->
-                        <linearGradient id="wingTopGrad" x1="200" y1="100" x2="380" y2="165" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%"   stop-color="#c8ddf0"/>
-                            <stop offset="60%"  stop-color="#8aafc8"/>
-                            <stop offset="100%" stop-color="#4a7090"/>
-                        </linearGradient>
-                        <!-- Asa inferior / sombra -->
-                        <linearGradient id="wingBotGrad" x1="200" y1="175" x2="380" y2="230" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%"   stop-color="#7a9cb8"/>
-                            <stop offset="100%" stop-color="#2a4a68"/>
-                        </linearGradient>
-                        <!-- Cauda vertical -->
-                        <linearGradient id="tailFinGrad" x1="60" y1="100" x2="95" y2="168" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%"   stop-color="#a0bcd4"/>
-                            <stop offset="100%" stop-color="#3a5a7a"/>
-                        </linearGradient>
-                        <!-- Motor -->
-                        <linearGradient id="engineGrad" x1="265" y1="192" x2="315" y2="220" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%"   stop-color="#1e3050"/>
-                            <stop offset="50%"  stop-color="#2a4268"/>
-                            <stop offset="100%" stop-color="#0e1e34"/>
-                        </linearGradient>
-                        <!-- Nacela do motor (frente brilhante) -->
-                        <linearGradient id="engineFaceGrad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%"   stop-color="#2a4268"/>
-                            <stop offset="100%" stop-color="#060e1c"/>
-                        </linearGradient>
-                        <!-- Destaque metálico topo fuselagem -->
-                        <linearGradient id="shineGrad" x1="100" y1="140" x2="440" y2="140" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%"   stop-color="rgba(255,255,255,0)"/>
-                            <stop offset="30%"  stop-color="rgba(255,255,255,0.18)"/>
-                            <stop offset="70%"  stop-color="rgba(255,255,255,0.1)"/>
-                            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-                        </linearGradient>
-                        <!-- Clip para fuselagem -->
-                        <clipPath id="fuseClip">
-                            <path d="M85 162 Q90 130 140 122 L430 120 Q468 120 485 160 Q468 200 430 200 L140 198 Q90 192 85 162 Z"/>
-                        </clipPath>
-                    </defs>
-
-                    <!-- === SOMBRA NO CHÃO === -->
-                    <ellipse cx="275" cy="310" rx="160" ry="12" fill="rgba(0,0,0,0.25)"/>
-
-                    <!-- === CAUDA HORIZONTAL (stabilizer) — atrás do fuselagem === -->
-                    <!-- upper stabilizer -->
-                    <path d="M88 156 L42 128 Q36 124 38 120 Q42 116 50 120 L92 148 Z"
-                          fill="url(#tailFinGrad)" opacity="0.9"/>
-                    <!-- lower stabilizer -->
-                    <path d="M88 168 L42 196 Q36 200 38 204 Q42 208 50 204 L92 176 Z"
-                          fill="url(#wingBotGrad)" opacity="0.85"/>
-
-                    <!-- === CAUDA VERTICAL (fin) === -->
-                    <path d="M82 155 Q75 130 68 105 Q72 100 80 108 Q90 125 95 155 Z"
-                          fill="url(#tailFinGrad)"/>
-                    <!-- borda da cauda vertical -->
-                    <path d="M82 155 Q75 130 68 105 Q72 100 80 108 Q90 125 95 155"
-                          stroke="rgba(255,255,255,0.12)" stroke-width="1" fill="none"/>
-
-                    <!-- === ASA PRINCIPAL — parte traseira (baixo perspectiva) === -->
-                    <path d="M195 175 L350 238 Q368 246 372 240 Q374 234 358 226 L210 168 Z"
-                          fill="url(#wingBotGrad)" opacity="0.9"/>
-
-                    <!-- === FUSELAGEM principal === -->
-                    <path d="M85 162 Q90 130 140 122 L430 120 Q468 120 485 160 Q468 200 430 200 L140 198 Q90 192 85 162 Z"
-                          fill="url(#fuseGrad)"/>
-
-                    <!-- === ASA PRINCIPAL — parte superior (acima perspectiva) === -->
-                    <path d="M195 150 L355 86 Q372 78 376 86 Q378 92 362 100 L210 162 Z"
-                          fill="url(#wingTopGrad)"/>
-                    <!-- borda de fuga da asa -->
-                    <path d="M210 162 L362 100" stroke="rgba(255,255,255,0.15)" stroke-width="0.8" fill="none"/>
-                    <!-- borda de ataque da asa -->
-                    <path d="M195 150 L355 86" stroke="rgba(255,255,255,0.25)" stroke-width="1.2" fill="none"/>
-
-                    <!-- === NARIZ === -->
-                    <path d="M430 120 Q468 120 490 140 Q500 155 490 175 Q468 196 430 200 Z"
-                          fill="url(#fuseGrad)"/>
-                    <!-- vidro do cockpit -->
-                    <path d="M450 133 Q472 130 486 148 Q482 138 462 136 Z"
-                          fill="rgba(14,165,233,0.45)"/>
-                    <path d="M450 133 Q472 130 486 148 Q482 138 462 136 Z"
-                          fill="none" stroke="rgba(14,165,233,0.6)" stroke-width="0.8"/>
-
-                    <!-- === DESTAQUE METÁLICO TOPO === -->
-                    <path d="M90 148 Q140 136 260 133 Q350 131 430 133 Q460 134 482 148"
-                          stroke="url(#shineGrad)" stroke-width="3" fill="none" opacity="0.8"/>
-
-                    <!-- === LINHA DE JANELAS === -->
-                    <g opacity="0.85">
-                        <!-- Janelas do cockpit -->
-                        <rect x="452" y="137" width="14" height="10" rx="3" fill="rgba(14,165,233,0.7)"/>
-                        <rect x="468" y="139" width="10" height="8"  rx="2" fill="rgba(14,165,233,0.5)"/>
-                        <!-- Janelas de passageiros -->
-                        <rect x="400" y="138" width="10" height="8" rx="2" fill="rgba(160,200,230,0.7)"/>
-                        <rect x="383" y="138" width="10" height="8" rx="2" fill="rgba(160,200,230,0.7)"/>
-                        <rect x="366" y="138" width="10" height="8" rx="2" fill="rgba(160,200,230,0.65)"/>
-                        <rect x="349" y="138" width="10" height="8" rx="2" fill="rgba(160,200,230,0.6)"/>
-                        <rect x="332" y="138" width="10" height="8" rx="2" fill="rgba(160,200,230,0.6)"/>
-                        <rect x="315" y="138" width="10" height="8" rx="2" fill="rgba(160,200,230,0.55)"/>
-                        <rect x="298" y="138" width="10" height="8" rx="2" fill="rgba(160,200,230,0.55)"/>
-                        <rect x="281" y="138" width="10" height="8" rx="2" fill="rgba(160,200,230,0.5)"/>
-                        <rect x="264" y="139" width="10" height="8" rx="2" fill="rgba(160,200,230,0.5)"/>
-                        <rect x="247" y="139" width="10" height="8" rx="2" fill="rgba(160,200,230,0.45)"/>
-                        <rect x="230" y="139" width="10" height="8" rx="2" fill="rgba(160,200,230,0.4)"/>
-                        <rect x="213" y="140" width="10" height="8" rx="2" fill="rgba(160,200,230,0.35)"/>
-                        <rect x="196" y="140" width="10" height="8" rx="2" fill="rgba(160,200,230,0.3)"/>
-                        <rect x="179" y="140" width="10" height="8" rx="2" fill="rgba(160,200,230,0.25)"/>
-                        <rect x="162" y="141" width="10" height="8" rx="2" fill="rgba(160,200,230,0.2)"/>
-                    </g>
-
-                    <!-- === LINHA DE PORTA === -->
-                    <rect x="136" y="124" width="1.5" height="72" rx="1" fill="rgba(255,255,255,0.12)"/>
-
-                    <!-- === FAIXA AZUL DECORATIVA (como companhias aéreas reais) === -->
-                    <path d="M90 178 Q140 184 430 180 Q462 179 480 172"
-                          stroke="rgba(14,165,233,0.35)" stroke-width="6" fill="none"/>
-                    <path d="M90 178 Q140 184 430 180 Q462 179 480 172"
-                          stroke="rgba(14,165,233,0.15)" stroke-width="10" fill="none"/>
-
-                    <!-- === MOTOR (nacela) === -->
-                    <!-- corpo do motor -->
-                    <path d="M268 192 Q268 178 290 176 L322 176 Q342 178 342 192 Q342 210 322 212 L290 212 Q268 210 268 192 Z"
-                          fill="url(#engineGrad)"/>
-                    <!-- boca do motor (intake) -->
-                    <ellipse cx="268" cy="194" rx="8" ry="16"
-                             fill="rgba(6,14,28,0.95)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-                    <!-- brilho do motor -->
-                    <path d="M272 180 Q295 177 322 178" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" fill="none"/>
-                    <!-- exaustão -->
-                    <ellipse cx="342" cy="194" rx="5" ry="14" fill="rgba(30,50,90,0.8)"/>
-                    <!-- pylon (haste que conecta asa ao motor) -->
-                    <path d="M296 176 L300 162 L310 162 L306 176 Z" fill="rgba(50,80,120,0.7)"/>
-
-                    <!-- === BARRIGA DO AVIÃO (sombra) === -->
-                    <path d="M90 180 Q200 196 350 194 Q420 193 480 178"
-                          stroke="rgba(0,0,0,0.3)" stroke-width="4" fill="none"/>
-
-                    <!-- === REFLEXO DE LUZ NA ASA === -->
-                    <path d="M210 154 L290 124 Q300 120 302 124 L222 156 Z"
-                          fill="rgba(255,255,255,0.08)"/>
-                </svg>
+                <img src="https://www.pngmart.com/files/13/A330-Passenger-Airplane-PNG-Clipart.png" alt="Avião Realista" class="plane-img">
+                <div style="position: absolute; width: 80%; height: 40%; background: radial-gradient(circle, rgba(14,165,233,0.2) 0%, transparent 70%); top: 30%; right: 0; filter: blur(40px); z-index: 1;"></div>
             </div>
         </header>
 
@@ -698,17 +223,17 @@
         <div class="status-bar">
             <div>
                 <div class="status-label">Status do bot</div>
-                <div class="status-value" id="bot-status">Conectando...</div>
+                <div class="status-value" style="color: #10b981;">● Ativo</div>
             </div>
             <div class="status-divider"></div>
             <div>
                 <div class="status-label">Última atualização</div>
-                <div class="status-value" id="last-update">—</div>
+                <div class="status-value">13/05/2026, 14:01:30</div>
             </div>
             <div class="status-divider"></div>
             <div>
                 <div class="status-label">Próxima varredura</div>
-                <div class="status-value" id="next-scan">30s</div>
+                <div class="status-value">24s</div>
             </div>
             <div class="status-divider"></div>
             <div>
@@ -720,157 +245,60 @@
         <!-- STATS -->
         <div class="stats-grid">
             <div class="stat-card total">
-                <i class="fa-solid fa-layer-group stat-icon"></i>
-                <div class="stat-num" id="stat-total">—</div>
+                <div class="stat-num">39</div>
                 <div class="stat-label">Total de Ofertas</div>
             </div>
             <div class="stat-card brasil">
-                <i class="fa-solid fa-map-location-dot stat-icon"></i>
-                <div class="stat-num" id="stat-brasil">—</div>
+                <div class="stat-num">5</div>
                 <div class="stat-label">🇧🇷 Brasil</div>
             </div>
             <div class="stat-card intl">
-                <i class="fa-solid fa-earth-americas stat-icon"></i>
-                <div class="stat-num" id="stat-internacional">—</div>
+                <div class="stat-num">20</div>
                 <div class="stat-label">🌍 Internacional</div>
             </div>
             <div class="stat-card crazy">
-                <i class="fa-solid fa-bolt stat-icon"></i>
-                <div class="stat-num" id="stat-malucos">—</div>
+                <div class="stat-num">14</div>
                 <div class="stat-label">⚡ Voos Malucos</div>
             </div>
         </div>
 
-        <!-- OFFERS -->
-        <div class="section-header">
-            <h2 class="section-title">Ofertas disponíveis</h2>
-            <span class="section-count" id="offers-count"></span>
-        </div>
-
-        <div class="offers-grid" id="ofertas-container">
-            <div class="loading-state">
-                <i class="fa-solid fa-circle-notch fa-spin" style="font-size:36px;color:var(--accent);opacity:0.6;margin-bottom:16px;display:block"></i>
-                <p style="color:var(--muted)">Buscando as melhores ofertas...</p>
+        <!-- EXEMPLO DE CARDS DE OFERTA -->
+        <h2 style="font-family: 'Syne'; margin-bottom: 24px; font-size: 20px;">Ofertas Disponíveis</h2>
+        <div class="offers-grid">
+            <!-- Card 1 -->
+            <div class="offer-card">
+                <div class="route-header">
+                    <span style="background: rgba(59,130,246,0.15); color: #93c5fd; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 600;">INTERNACIONAL</span>
+                    <div class="price-tag"><span style="font-size: 12px; color: var(--muted); font-weight: 400;">R$</span> 2.492</div>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div class="airport-code">GRU</div>
+                    <div class="route-line"><i class="fas fa-plane route-plane-icon"></i></div>
+                    <div class="airport-code">AER</div>
+                </div>
+                <div style="font-size: 13px; color: var(--muted); border: 1px solid var(--glass-border); padding: 8px; border-radius: 10px;">
+                    <i class="far fa-calendar-alt"></i> Outubro 2026
+                </div>
+                <a href="#" class="cta-btn">Ver Oferta</a>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="offer-card">
+                <div class="route-header">
+                    <span style="background: rgba(16,185,129,0.15); color: #34d399; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 600;">BRASIL</span>
+                    <div class="price-tag"><span style="font-size: 12px; color: var(--muted); font-weight: 400;">R$</span> 450</div>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                    <div class="airport-code">CGH</div>
+                    <div class="route-line"><i class="fas fa-plane route-plane-icon"></i></div>
+                    <div class="airport-code">SDU</div>
+                </div>
+                <div style="font-size: 13px; color: var(--muted); border: 1px solid var(--glass-border); padding: 8px; border-radius: 10px;">
+                    <i class="far fa-calendar-alt"></i> Julho 2026
+                </div>
+                <a href="#" class="cta-btn">Ver Oferta</a>
             </div>
         </div>
-
-        <!-- FOOTER -->
-        <footer class="site-footer">
-            <div class="footer-logo">Flight<span>Hunter</span> · DevOps Portfolio</div>
-            <div class="footer-note">Bot rodando em Kubernetes · Alertas via Discord · Dados via SerpApi</div>
-        </footer>
-
     </div>
-
-    <script>
-        const GRUPOS_LABEL = {
-            brasil:            "🇧🇷 Brasil",
-            internacional:     "🌍 Internacional",
-            voos_malucos:      "⚡ Voo Maluco",
-            datas_especificas: "📅 Data Especial",
-            geral:             "✈️ Geral"
-        };
-
-        function toCode(city) {
-            return (city || '???').replace(/[^a-zA-Z]/g,'').substring(0,3).toUpperCase();
-        }
-
-        let countdown = 30;
-
-        function tickCountdown() {
-            countdown--;
-            if (countdown <= 0) countdown = 30;
-            const el = document.getElementById('next-scan');
-            if (el) el.textContent = countdown + 's';
-        }
-        setInterval(tickCountdown, 1000);
-
-        async function carregarOfertas() {
-            try {
-                const response = await fetch('ofertas.json?t=' + Date.now());
-                if (!response.ok) throw new Error('Arquivo não encontrado');
-
-                const dados = await response.json();
-                const ofertas = Array.isArray(dados) ? dados : (dados.ofertas || []);
-                const atualizacao = dados.ultima_atualizacao
-                    ? new Date(dados.ultima_atualizacao).toLocaleString('pt-BR')
-                    : 'agora';
-
-                document.getElementById('last-update').textContent = atualizacao;
-                document.getElementById('bot-status').innerHTML =
-                    '<span style="color:#10b981">● Ativo</span>';
-
-                document.getElementById('stat-total').textContent = ofertas.length;
-                document.getElementById('stat-brasil').textContent = ofertas.filter(o => o.grupo === 'brasil').length;
-                document.getElementById('stat-internacional').textContent = ofertas.filter(o => o.grupo === 'internacional').length;
-                document.getElementById('stat-malucos').textContent = ofertas.filter(o => o.grupo === 'voos_malucos').length;
-
-                const count = document.getElementById('offers-count');
-                if (count) count.textContent = ofertas.length + ' oferta' + (ofertas.length !== 1 ? 's' : '') + ' encontrada' + (ofertas.length !== 1 ? 's' : '');
-
-                const container = document.getElementById('ofertas-container');
-
-                if (ofertas.length === 0) {
-                    container.innerHTML = `
-                        <div class="empty-state">
-                            <div class="empty-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                            <p class="empty-text">Nenhuma oferta no momento. O bot continua monitorando!</p>
-                        </div>`;
-                    return;
-                }
-
-                container.innerHTML = ofertas.map((o, i) => `
-                    <div class="offer-card" style="animation-delay:${i * 60}ms">
-                        <div class="route-header">
-                            <span class="badge badge-${o.grupo || 'geral'}">
-                                ${GRUPOS_LABEL[o.grupo] || '✈️ Geral'}
-                            </span>
-                            <div class="price-tag">
-                                ${o.preco > 0
-                                    ? `<span class="price-currency">R$</span>${Number(o.preco).toLocaleString('pt-BR')}`
-                                    : `<span style="font-size:14px;color:var(--muted)">Ver preço</span>`}
-                            </div>
-                        </div>
-
-                        <div class="route-visual">
-                            <div>
-                                <div class="airport-code">${toCode(o.origem)}</div>
-                                <div class="airport-name">${o.origem}</div>
-                            </div>
-                            <div class="route-line">
-                                <div class="route-dash"></div>
-                                <i class="fa-solid fa-plane route-plane-icon"></i>
-                                <div class="route-dash"></div>
-                            </div>
-                            <div style="text-align:right">
-                                <div class="airport-code">${toCode(o.destino)}</div>
-                                <div class="airport-name">${o.destino}</div>
-                            </div>
-                        </div>
-
-                        <div class="card-date">
-                            <i class="fa-solid fa-calendar-days"></i>
-                            ${o.data}
-                        </div>
-
-                        <a href="${o.link}" target="_blank" class="cta-btn">
-                            Ver oferta no Kayak
-                        </a>
-                    </div>
-                `).join('');
-
-            } catch (e) {
-                document.getElementById('bot-status').innerHTML =
-                    '<span style="color:#f59e0b">● Aguardando dados</span>';
-                document.getElementById('last-update').textContent = '—';
-                console.log("Aguardando ofertas.json:", e.message);
-            }
-
-            countdown = 30;
-        }
-
-        setInterval(carregarOfertas, 30000);
-        carregarOfertas();
-    </script>
 </body>
 </html>
