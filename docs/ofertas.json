@@ -1,709 +1,7 @@
 {
-  "ultima_atualizacao": "2026-05-13T02:50:35.058498",
-  "total": 117,
+  "ultima_atualizacao": "2026-05-13T14:01:30.739877",
+  "total": 39,
   "ofertas": [
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Santos Dumont",
-      "preco": 749,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-SDU/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Santos Dumont",
-      "preco": 1035,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-SDU/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Santos Dumont",
-      "preco": 0,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-SDU/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Brasília - Presidente Juscelino Kubitschek",
-      "preco": 3834,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-SDU/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Brasília - Presidente Juscelino Kubitschek",
-      "preco": 3834,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-SDU/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Brasília - Presidente Juscelino Kubitschek",
-      "preco": 3834,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-SDU/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Cuiabá - Marechal Rondon",
-      "preco": 3834,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-SDU/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "geral"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Santos Dumont",
-      "preco": 0,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-SDU/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Porto Alegre - Salgado Filho",
-      "preco": 1059,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-POA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Porto Alegre - Salgado Filho",
-      "preco": 1059,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-POA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Porto Alegre - Salgado Filho",
-      "preco": 1206,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-POA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Porto Alegre - Salgado Filho",
-      "preco": 0,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-POA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Porto Alegre - Salgado Filho",
-      "preco": 1533,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-POA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Porto Alegre - Salgado Filho",
-      "preco": 1636,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-POA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Porto Alegre - Salgado Filho",
-      "preco": 1636,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-POA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Porto Alegre - Salgado Filho",
-      "preco": 1636,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-POA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Porto Alegre - Salgado Filho",
-      "preco": 1636,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-POA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Porto Alegre - Salgado Filho",
-      "preco": 1636,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-POA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Porto Alegre - Salgado Filho",
-      "preco": 1853,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-POA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Porto Alegre - Salgado Filho",
-      "preco": 2464,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-POA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Porto Alegre - Salgado Filho",
-      "preco": 2865,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-POA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Porto Alegre - Salgado Filho",
-      "preco": 0,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-POA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Porto Alegre - Salgado Filho",
-      "preco": 0,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-POA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Porto Alegre - Salgado Filho",
-      "preco": 0,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-POA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Porto Alegre - Salgado Filho",
-      "preco": 0,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-POA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Porto Alegre - Salgado Filho",
-      "preco": 0,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-POA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Curitiba - Afonso Pena",
-      "preco": 451,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-CWB/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Curitiba - Afonso Pena",
-      "preco": 451,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-CWB/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Curitiba - Afonso Pena",
-      "preco": 589,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-CWB/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Curitiba - Afonso Pena",
-      "preco": 0,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-CWB/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Curitiba - Afonso Pena",
-      "preco": 451,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-CWB/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Curitiba - Afonso Pena",
-      "preco": 589,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-CWB/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Curitiba - Afonso Pena",
-      "preco": 589,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-CWB/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Curitiba - Afonso Pena",
-      "preco": 589,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-CWB/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Curitiba - Afonso Pena",
-      "preco": 589,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-CWB/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Curitiba - Afonso Pena",
-      "preco": 589,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-CWB/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Curitiba - Afonso Pena",
-      "preco": 2850,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-CWB/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional do Rio de Janeiro - Galeão – Antonio Carlos Jobim",
-      "preco": 2861,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-CWB/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Curitiba - Afonso Pena",
-      "preco": 0,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-CWB/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Curitiba - Afonso Pena",
-      "preco": 0,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-CWB/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Curitiba - Afonso Pena",
-      "preco": 0,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-CWB/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Salvador Luís Eduardo Magalhães",
-      "preco": 525,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-SSA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Salvador Luís Eduardo Magalhães",
-      "preco": 525,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-SSA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Salvador Luís Eduardo Magalhães",
-      "preco": 560,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-SSA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Salvador Luís Eduardo Magalhães",
-      "preco": 560,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-SSA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Salvador Luís Eduardo Magalhães",
-      "preco": 560,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-SSA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Salvador Luís Eduardo Magalhães",
-      "preco": 560,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-SSA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Salvador Luís Eduardo Magalhães",
-      "preco": 560,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-SSA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Salvador Luís Eduardo Magalhães",
-      "preco": 619,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-SSA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Salvador Luís Eduardo Magalhães",
-      "preco": 1844,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-SSA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional Belo Horizonte/Confins–Tancredo Neves",
-      "preco": 0,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-SSA/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "geral"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre",
-      "preco": 760,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-REC/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre",
-      "preco": 760,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-REC/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre",
-      "preco": 785,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-REC/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre",
-      "preco": 0,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-REC/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre",
-      "preco": 785,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-REC/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre",
-      "preco": 785,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-REC/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre",
-      "preco": 785,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-REC/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre",
-      "preco": 785,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-REC/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre",
-      "preco": 968,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-REC/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre",
-      "preco": 1381,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-REC/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre",
-      "preco": 1990,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-REC/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroparque Jorge Newbery",
-      "preco": 2508,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-REC/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "geral"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre",
-      "preco": 0,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-REC/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre",
-      "preco": 0,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-REC/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre",
-      "preco": 0,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-REC/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre",
-      "preco": 0,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-REC/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre",
-      "preco": 0,
-      "data": "2026-05-28",
-      "link": "https://www.kayak.com.br/flights/GRU-REC/2026-05-28?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Punta Cana",
-      "preco": 1920,
-      "data": "2026-06-12",
-      "link": "https://www.kayak.com.br/flights/GRU-MIA/2026-06-12?sort=price_a",
-      "international": true,
-      "grupo": "geral"
-    },
-    {
-      "origem": "GRU",
-      "destino": "El Dorado International Airport",
-      "preco": 1983,
-      "data": "2026-06-12",
-      "link": "https://www.kayak.com.br/flights/GRU-MIA/2026-06-12?sort=price_a",
-      "international": true,
-      "grupo": "geral"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Miami",
-      "preco": 2164,
-      "data": "2026-06-12",
-      "link": "https://www.kayak.com.br/flights/GRU-MIA/2026-06-12?sort=price_a",
-      "international": true,
-      "grupo": "internacional"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Miami",
-      "preco": 2164,
-      "data": "2026-06-12",
-      "link": "https://www.kayak.com.br/flights/GRU-MIA/2026-06-12?sort=price_a",
-      "international": true,
-      "grupo": "internacional"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Punta Cana",
-      "preco": 2558,
-      "data": "2026-06-12",
-      "link": "https://www.kayak.com.br/flights/GRU-MIA/2026-06-12?sort=price_a",
-      "international": true,
-      "grupo": "geral"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional Tocumen",
-      "preco": 2709,
-      "data": "2026-06-12",
-      "link": "https://www.kayak.com.br/flights/GRU-MIA/2026-06-12?sort=price_a",
-      "international": true,
-      "grupo": "geral"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional Tocumen",
-      "preco": 2709,
-      "data": "2026-06-12",
-      "link": "https://www.kayak.com.br/flights/GRU-MIA/2026-06-12?sort=price_a",
-      "international": true,
-      "grupo": "geral"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional Tocumen",
-      "preco": 2880,
-      "data": "2026-06-12",
-      "link": "https://www.kayak.com.br/flights/GRU-MIA/2026-06-12?sort=price_a",
-      "international": true,
-      "grupo": "geral"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Miami",
-      "preco": 3633,
-      "data": "2026-06-12",
-      "link": "https://www.kayak.com.br/flights/GRU-MIA/2026-06-12?sort=price_a",
-      "international": true,
-      "grupo": "internacional"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Miami",
-      "preco": 3633,
-      "data": "2026-06-12",
-      "link": "https://www.kayak.com.br/flights/GRU-MIA/2026-06-12?sort=price_a",
-      "international": true,
-      "grupo": "internacional"
-    },
     {
       "origem": "GRU",
       "destino": "Aeroporto Humberto Delgado",
@@ -752,7 +50,7 @@
     {
       "origem": "GRU",
       "destino": "Aeroporto Humberto Delgado",
-      "preco": 3234,
+      "preco": 3009,
       "data": "2026-06-12",
       "link": "https://www.kayak.com.br/flights/GRU-LIS/2026-06-12?sort=price_a",
       "international": true,
@@ -770,7 +68,7 @@
     {
       "origem": "GRU",
       "destino": "Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre",
-      "preco": 4178,
+      "preco": 4782,
       "data": "2026-06-12",
       "link": "https://www.kayak.com.br/flights/GRU-LIS/2026-06-12?sort=price_a",
       "international": true,
@@ -779,7 +77,7 @@
     {
       "origem": "GRU",
       "destino": "Aeroporto de Londres-Heathrow",
-      "preco": 3536,
+      "preco": 3534,
       "data": "2026-06-12",
       "link": "https://www.kayak.com.br/flights/GRU-CDG/2026-06-12?sort=price_a",
       "international": true,
@@ -806,20 +104,11 @@
     {
       "origem": "GRU",
       "destino": "Aeroporto Internacional Pearson de Toronto",
-      "preco": 3544,
+      "preco": 3553,
       "data": "2026-06-12",
       "link": "https://www.kayak.com.br/flights/GRU-CDG/2026-06-12?sort=price_a",
       "international": true,
       "grupo": "geral"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional de Roma",
-      "preco": 3757,
-      "data": "2026-06-12",
-      "link": "https://www.kayak.com.br/flights/GRU-CDG/2026-06-12?sort=price_a",
-      "international": true,
-      "grupo": "internacional"
     },
     {
       "origem": "GRU",
@@ -842,7 +131,7 @@
     {
       "origem": "GRU",
       "destino": "Aeroporto de Paris-Charles de Gaulle",
-      "preco": 5006,
+      "preco": 5007,
       "data": "2026-06-12",
       "link": "https://www.kayak.com.br/flights/GRU-CDG/2026-06-12?sort=price_a",
       "international": true,
@@ -851,7 +140,7 @@
     {
       "origem": "GRU",
       "destino": "Aeroporto de Paris-Charles de Gaulle",
-      "preco": 5006,
+      "preco": 5007,
       "data": "2026-06-12",
       "link": "https://www.kayak.com.br/flights/GRU-CDG/2026-06-12?sort=price_a",
       "international": true,
@@ -883,6 +172,15 @@
       "link": "https://www.kayak.com.br/flights/GRU-MAD/2026-06-12?sort=price_a",
       "international": true,
       "grupo": "brasil"
+    },
+    {
+      "origem": "GRU",
+      "destino": "Aeroporto Internacional Mohammed V",
+      "preco": 2990,
+      "data": "2026-06-12",
+      "link": "https://www.kayak.com.br/flights/GRU-MAD/2026-06-12?sort=price_a",
+      "international": true,
+      "grupo": "geral"
     },
     {
       "origem": "GRU",
@@ -977,7 +275,7 @@
     {
       "origem": "GRU",
       "destino": "Aeroporto Internacional de Orlando",
-      "preco": 2769,
+      "preco": 2770,
       "data": "2026-06-12",
       "link": "https://www.kayak.com.br/flights/GRU-JFK/2026-06-12?sort=price_a",
       "international": true,
@@ -986,7 +284,7 @@
     {
       "origem": "GRU",
       "destino": "Aeroporto Internacional John F. Kennedy",
-      "preco": 3207,
+      "preco": 3208,
       "data": "2026-06-12",
       "link": "https://www.kayak.com.br/flights/GRU-JFK/2026-06-12?sort=price_a",
       "international": true,
@@ -995,7 +293,7 @@
     {
       "origem": "GRU",
       "destino": "Aeroporto Internacional de Orlando",
-      "preco": 2769,
+      "preco": 2770,
       "data": "2026-06-12",
       "link": "https://www.kayak.com.br/flights/GRU-JFK/2026-06-12?sort=price_a",
       "international": true,
@@ -1003,8 +301,8 @@
     },
     {
       "origem": "GRU",
-      "destino": "El Dorado International Airport",
-      "preco": 3066,
+      "destino": "Aeroporto Internacional Tocumen",
+      "preco": 3214,
       "data": "2026-06-12",
       "link": "https://www.kayak.com.br/flights/GRU-JFK/2026-06-12?sort=price_a",
       "international": true,
@@ -1031,7 +329,7 @@
     {
       "origem": "GRU",
       "destino": "El Dorado International Airport",
-      "preco": 3540,
+      "preco": 3541,
       "data": "2026-06-12",
       "link": "https://www.kayak.com.br/flights/GRU-JFK/2026-06-12?sort=price_a",
       "international": true,
