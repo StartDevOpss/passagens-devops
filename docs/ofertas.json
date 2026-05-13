@@ -1,1 +1,33 @@
-[]
+{
+  "ultima_atualizacao": "2026-05-13T02:04:01.014835",
+  "total": 3,
+  "ofertas": [
+    {
+      "origem": "GRU",
+      "destino": "Aeroporto Santos Dumont",
+      "preco": 749,
+      "data": "2026-05-28",
+      "link": "https://www.google.com/flights",
+      "international": true,
+      "grupo": "brasil"
+    },
+    {
+      "origem": "GRU",
+      "destino": "Aeroporto Santos Dumont",
+      "preco": 1035,
+      "data": "2026-05-28",
+      "link": "https://www.google.com/flights",
+      "international": true,
+      "grupo": "brasil"
+    },
+    {
+      "origem": "GRU",
+      "destino": "Aeroporto Santos Dumont",
+      "preco": 0,
+      "data": "2026-05-28",
+      "link": "https://www.google.com/flights",
+      "international": true,
+      "grupo": "brasil"
+    }
+  ]
+}
