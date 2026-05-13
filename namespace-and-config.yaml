@@ -1,0 +1,51 @@
+# ─── Namespace ────────────────────────────────────────────────────────────────
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: passagens
+  labels:
+    project: passagens-devops
+
+---
+# ─── ConfigMap (configs não-sensíveis) ────────────────────────────────────────
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: passagens-config
+  namespace: passagens
+data:
+  PYTHONUNBUFFERED: "1"
+  LOG_LEVEL: "INFO"
+  CHECK_INTERVAL_MINUTES: "30"
+
+---
+# ─── Secret Template (valores reais via CI/CD, nunca commitar!) ───────────────
+# Para criar localmente:
+#   kubectl create secret generic passagens-secret \
+#     --from-literal=DISCORD_WEBHOOK_URL='sua_url_aqui' \
+#     --from-literal=SERPAPI_KEY='sua_chave_aqui' \
+#     -n passagens
+apiVersion: v1
+kind: Secret
+metadata:
+  name: passagens-secret
+  namespace: passagens
+type: Opaque
+# ATENÇÃO: não adicione valores reais aqui. Use o comando acima ou CI/CD.
+stringData:
+  DISCORD_WEBHOOK_URL: "SUBSTITUIR_VIA_CI_CD"
+  SERPAPI_KEY: "SUBSTITUIR_VIA_CI_CD"
+
+---
+# ─── PersistentVolumeClaim ─────────────────────────────────────────────────────
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: passagens-pvc
+  namespace: passagens
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi

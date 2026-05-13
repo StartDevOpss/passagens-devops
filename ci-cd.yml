@@ -1,0 +1,179 @@
+name: CI/CD Pipeline — Passagens DevOps
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  # ─────────────────────────────────────────────────────────────────────────────
+  # JOB 1: Lint e testes de qualidade de código
+  # ─────────────────────────────────────────────────────────────────────────────
+  lint:
+    name: 🔍 Lint & Quality Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Instalar dependências de dev
+        run: |
+          pip install flake8 bandit
+
+      - name: Lint com flake8
+        run: |
+          flake8 src/ --max-line-length=120 --ignore=E501,W503
+
+      - name: Análise de segurança com Bandit
+        run: |
+          bandit -r src/ -ll --exit-zero
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # JOB 2: Build e push da imagem Docker para o GHCR
+  # ─────────────────────────────────────────────────────────────────────────────
+  build-and-push:
+    name: 🐳 Build & Push Docker Image
+    runs-on: ubuntu-latest
+    needs: lint
+    # Só faz push na branch main (não em PRs)
+    if: github.ref == 'refs/heads/main'
+
+    permissions:
+      contents: read
+      packages: write
+
+    outputs:
+      image-digest: ${{ steps.build.outputs.digest }}
+      image-tag: ${{ steps.meta.outputs.tags }}
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Login no GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extrair metadata para a imagem
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha,prefix=sha-
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=semver,pattern={{version}}
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build e Push da Imagem
+        id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # JOB 3: Scan de vulnerabilidades na imagem gerada
+  # ─────────────────────────────────────────────────────────────────────────────
+  security-scan:
+    name: 🛡️ Security Scan (Trivy)
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    if: github.ref == 'refs/heads/main'
+
+    permissions:
+      security-events: write
+
+    steps:
+      - name: Scan da imagem com Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          format: "sarif"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL,HIGH"
+          exit-code: "0"  # Não bloqueia o deploy por vulnerabilidades (ajuste conforme maturidade)
+
+      - name: Upload resultado do scan para o GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: "trivy-results.sarif"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # JOB 4: Deploy no Kubernetes (Minikube via self-hosted runner ou kubeconfig)
+  # ─────────────────────────────────────────────────────────────────────────────
+  deploy:
+    name: 🚀 Deploy no Kubernetes
+    runs-on: ubuntu-latest
+    needs: [build-and-push, security-scan]
+    if: github.ref == 'refs/heads/main'
+
+    environment:
+      name: production
+      url: https://startdevopss.github.io/passagens-devops
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: "v1.29.0"
+
+      - name: Configurar kubeconfig
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBECONFIG_BASE64 }}" | base64 -d > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+
+      - name: Criar/atualizar secrets no cluster
+        run: |
+          kubectl create secret generic passagens-secret \
+            --from-literal=DISCORD_WEBHOOK_URL="${{ secrets.DISCORD_WEBHOOK_URL }}" \
+            --from-literal=SERPAPI_KEY="${{ secrets.SERPAPI_KEY }}" \
+            --namespace=passagens \
+            --dry-run=client -o yaml | kubectl apply -f -
+
+      - name: Aplicar manifests do Kubernetes
+        run: |
+          kubectl apply -f k8s/namespace-and-config.yaml
+          kubectl apply -f k8s/deployment.yaml
+
+      - name: Atualizar imagem no deployment
+        run: |
+          kubectl set image deployment/passagens-bot \
+            bot=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest \
+            --namespace=passagens
+
+      - name: Aguardar rollout
+        run: |
+          kubectl rollout status deployment/passagens-bot \
+            --namespace=passagens \
+            --timeout=120s
+
+      - name: Verificar pods após deploy
+        run: |
+          kubectl get pods -n passagens
+          kubectl describe deployment passagens-bot -n passagens
