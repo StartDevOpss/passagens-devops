@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-05-13T02:19:24.569190",
+  "ultima_atualizacao": "2026-05-13T02:25:57.482776",
   "total": 117,
   "ofertas": [
     {
@@ -990,7 +990,7 @@
       "data": "2026-06-12",
       "link": "https://www.google.com/flights#flt=GRU.JFK.2026-06-12;c:BRL;e:1;sd:1;t:f",
       "international": true,
-      "grupo": "geral"
+      "grupo": "internacional"
     },
     {
       "origem": "GRU",
@@ -1044,7 +1044,7 @@
       "data": "2026-06-12",
       "link": "https://www.google.com/flights#flt=GRU.JFK.2026-06-12;c:BRL;e:1;sd:1;t:f",
       "international": true,
-      "grupo": "geral"
+      "grupo": "internacional"
     },
     {
       "origem": "GRU",
@@ -1053,7 +1053,7 @@
       "data": "2026-06-12",
       "link": "https://www.google.com/flights#flt=GRU.JFK.2026-06-12;c:BRL;e:1;sd:1;t:f",
       "international": true,
-      "grupo": "geral"
+      "grupo": "internacional"
     }
   ]
 }
