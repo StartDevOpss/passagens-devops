@@ -3,792 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlightHunter — Melhores Ofertas de Voos</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>FlightHunter — Melhores Ofertas</title>
+    <!-- Fontes leves para evitar o efeito "gordinho" -->
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
+        :root {
+            --bg-deep: #050d1f;
+            --accent: #0ea5e9;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #e2eaf6;
+            --text-muted: #94a3b8;
+        }
+
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        :root {
-            --navy:    #050d1f;
-            --deep:    #0a1628;
-            --mid:     #0f2044;
-            --accent:  #0ea5e9;
-            --gold:    #f59e0b;
-            --glass:   rgba(255,255,255,0.045);
-            --glass-border: rgba(255,255,255,0.09);
-            --text:    #e2eaf6;
-            --muted:   #6b84a8;
-        }
-
-        html { scroll-behavior: smooth; }
-
         body {
-            background-color: var(--navy);
-            color: var(--text);
+            background-color: var(--bg-deep);
+            color: var(--text-main);
             font-family: 'DM Sans', sans-serif;
-            min-height: 100vh;
             overflow-x: hidden;
+            line-height: 1.4;
         }
 
-        /* ── SKY BACKGROUND ── */
-        .sky {
-            position: fixed; inset: 0; z-index: 0;
-            background:
-                radial-gradient(ellipse 80% 60% at 50% -10%, #1a3a6e 0%, transparent 70%),
-                radial-gradient(ellipse 50% 40% at 80% 20%, #0c2a55 0%, transparent 60%),
-                linear-gradient(180deg, #060f22 0%, #0a1628 40%, #050d1f 100%);
+        /* Camada de fundo com o céu e nuvens conforme image_2c35fd.jpg */
+        .dashboard-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(160deg, rgba(5,13,31,0.7) 0%, var(--bg-deep) 100%),
+                        url('https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
         }
 
-        /* Stars */
-        .stars {
-            position: fixed; inset: 0; z-index: 0;
-            background-image:
-                radial-gradient(1px 1px at 15% 18%, rgba(255,255,255,0.7) 0%, transparent 100%),
-                radial-gradient(1px 1px at 32% 8%,  rgba(255,255,255,0.5) 0%, transparent 100%),
-                radial-gradient(1px 1px at 58% 14%, rgba(255,255,255,0.6) 0%, transparent 100%),
-                radial-gradient(1px 1px at 72% 5%,  rgba(255,255,255,0.4) 0%, transparent 100%),
-                radial-gradient(1px 1px at 88% 22%, rgba(255,255,255,0.6) 0%, transparent 100%),
-                radial-gradient(1.5px 1.5px at 5%  35%, rgba(255,255,255,0.3) 0%, transparent 100%),
-                radial-gradient(1px 1px at 45% 30%, rgba(255,255,255,0.4) 0%, transparent 100%),
-                radial-gradient(1px 1px at 92% 38%, rgba(255,255,255,0.3) 0%, transparent 100%),
-                radial-gradient(1px 1px at 25% 48%, rgba(255,255,255,0.2) 0%, transparent 100%),
-                radial-gradient(1px 1px at 68% 42%, rgba(255,255,255,0.3) 0%, transparent 100%);
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
         }
 
-        /* Horizon glow */
-        .horizon {
-            position: fixed; bottom: 0; left: 0; right: 0; height: 35vh; z-index: 0;
-            background: linear-gradient(to top, rgba(6,15,34,1) 0%, transparent 100%);
-        }
-
-        /* Cloud layers */
-        .clouds {
-            position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
-        }
-        .cloud {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.06;
-        }
-        .c1 { width: 600px; height: 200px; background: #4a9eff; top: 15%; left: -10%; animation: drift 40s linear infinite; }
-        .c2 { width: 400px; height: 150px; background: #2563eb; top: 25%; left: 30%; animation: drift 55s linear infinite reverse; animation-delay: -20s; }
-        .c3 { width: 500px; height: 180px; background: #7dd3fc; top: 10%; right: -5%; animation: drift 45s linear infinite; animation-delay: -10s; }
-
-        @keyframes drift {
-            from { transform: translateX(0); }
-            to   { transform: translateX(120px); }
-        }
-
-        /* ── LAYOUT ── */
-        .wrap { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 24px 80px; }
-
-        /* ── HERO HEADER ── */
-        .hero {
-            padding: 56px 0 48px;
+        /* HEADER & AVIAO */
+        .hero-section {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 32px;
+            padding-top: 20px;
+            margin-bottom: 40px;
+            position: relative;
         }
 
-        .hero-left { flex: 1; }
+        .hero-text { max-width: 480px; z-index: 2; }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 14px;
-            margin-bottom: 12px;
-        }
-
-        .logo-icon {
-            width: 48px; height: 48px;
-            background: linear-gradient(135deg, var(--accent), #1d4ed8);
-            border-radius: 14px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 22px;
-            box-shadow: 0 8px 24px rgba(14,165,233,0.35);
-        }
-
-        .logo-text {
+            gap: 12px;
             font-family: 'Syne', sans-serif;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 800;
-            letter-spacing: -0.5px;
-            color: #fff;
+            margin-bottom: 40px;
         }
-
-        .logo-text span { color: var(--accent); }
-
-        .hero-tagline {
-            font-size: 14px;
-            color: var(--muted);
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            font-weight: 500;
-        }
-
-        /* live badge */
-        .live-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            background: rgba(14,165,233,0.1);
-            border: 1px solid rgba(14,165,233,0.25);
-            color: var(--accent);
-            font-size: 12px;
-            font-weight: 600;
-            padding: 5px 14px;
-            border-radius: 100px;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-        .live-dot {
-            width: 7px; height: 7px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50%       { opacity: 0.4; transform: scale(0.7); }
-        }
+        .logo span { color: var(--accent); }
 
         .hero-title {
             font-family: 'Syne', sans-serif;
-            font-size: clamp(32px, 5vw, 52px);
+            font-size: 64px;
             font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -1px;
-            color: #fff;
-            margin-bottom: 16px;
+            line-height: 0.95;
+            letter-spacing: -3px;
+            margin-bottom: 20px;
         }
-        .hero-title em {
-            font-style: normal;
-            color: var(--accent);
-        }
+        .hero-title em { font-style: normal; color: var(--accent); }
 
-        .hero-sub {
+        .hero-desc {
             font-size: 15px;
-            color: var(--muted);
-            line-height: 1.7;
-            max-width: 420px;
+            color: var(--text-muted);
+            font-weight: 300;
+            max-width: 380px;
         }
 
-        /* ── PLANE SVG ── */
-        .hero-plane {
-            flex: 0 0 auto;
-            width: clamp(200px, 30vw, 360px);
-            position: relative;
-        }
-
-        .plane-svg {
-            width: 100%;
-            filter: drop-shadow(0 20px 60px rgba(14,165,233,0.25));
+        /* Imagem do Avião (Igual à foto) */
+        .plane-img {
+            position: absolute;
+            right: -100px;
+            top: 20px;
+            width: 750px;
+            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.5));
+            z-index: 1;
+            pointer-events: none;
             animation: float 6s ease-in-out infinite;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            33%       { transform: translateY(-12px) rotate(1deg); }
-            66%       { transform: translateY(-6px) rotate(-0.5deg); }
+            50% { transform: translateY(-15px) rotate(-1deg); }
         }
 
-        /* Glow behind plane */
-        .plane-glow {
-            position: absolute;
-            width: 70%; height: 40%;
-            background: radial-gradient(ellipse, rgba(14,165,233,0.2) 0%, transparent 70%);
-            bottom: 10%; left: 15%;
-            filter: blur(20px);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* contrail */
-        .contrail {
-            position: absolute;
-            height: 2px;
-            background: linear-gradient(to left, rgba(14,165,233,0.6), transparent);
-            border-radius: 2px;
-            animation: float 6s ease-in-out infinite;
-        }
-        .contrail-1 { width: 45%; top: 42%; right: 88%; }
-        .contrail-2 { width: 30%; top: 50%; right: 90%; opacity: 0.5; }
-
-        /* ── STATUS BAR ── */
+        /* BARRA DE STATUS GLASS */
         .status-bar {
             background: var(--glass);
+            backdrop-filter: blur(15px);
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 14px 24px;
+            border-radius: 12px;
             display: flex;
-            align-items: center;
+            padding: 20px;
+            margin-bottom: 25px;
             justify-content: space-between;
-            gap: 16px;
-            margin-bottom: 32px;
-            backdrop-filter: blur(12px);
-            flex-wrap: wrap;
         }
-        .status-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
-        .status-value { font-size: 13px; font-weight: 500; color: var(--text); }
-        .status-divider { width: 1px; height: 28px; background: var(--glass-border); }
 
-        /* ── STATS GRID ── */
+        .status-item { flex: 1; padding: 0 20px; border-right: 1px solid var(--glass-border); }
+        .status-item:last-child { border: none; }
+        .status-label { font-size: 9px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 4px;}
+        .status-val { font-size: 13px; font-weight: 500; }
+
+        /* CARDS DE ESTATÍSTICA */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
+            gap: 15px;
             margin-bottom: 40px;
-        }
-
-        @media (max-width: 700px) {
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .hero { flex-direction: column; padding: 36px 0 32px; }
-            .hero-plane { width: 220px; order: -1; }
         }
 
         .stat-card {
             background: var(--glass);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
+            padding: 25px;
             border-radius: 20px;
-            padding: 20px;
-            backdrop-filter: blur(12px);
             position: relative;
             overflow: hidden;
-            transition: border-color 0.3s, transform 0.3s;
         }
-        .stat-card:hover { transform: translateY(-3px); }
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            border-radius: 20px 20px 0 0;
+        
+        .stat-card::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px;
         }
-        .stat-card.total::before  { background: linear-gradient(to right, var(--accent), #2563eb); }
-        .stat-card.brasil::before { background: linear-gradient(to right, #10b981, #059669); }
-        .stat-card.intl::before   { background: linear-gradient(to right, #3b82f6, #6366f1); }
-        .stat-card.crazy::before  { background: linear-gradient(to right, #f59e0b, #ef4444); }
+        .stat-card.total::after { background: var(--accent); }
+        .stat-card.br::after { background: #10b981; }
+        .stat-card.int::after { background: #6366f1; }
+        .stat-card.crazy::after { background: #f59e0b; }
 
-        .stat-num {
-            font-family: 'Syne', sans-serif;
-            font-size: 36px;
-            font-weight: 800;
-            line-height: 1;
-            margin-bottom: 6px;
-        }
-        .stat-card.total  .stat-num { color: var(--accent); }
-        .stat-card.brasil .stat-num { color: #10b981; }
-        .stat-card.intl   .stat-num { color: #60a5fa; }
-        .stat-card.crazy  .stat-num { color: var(--gold); }
+        .stat-num { font-family: 'Syne', sans-serif; font-size: 38px; font-weight: 800; line-height: 1; }
+        .stat-name { font-size: 10px; text-transform: uppercase; color: var(--text-muted); margin-top: 5px; }
 
-        .stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
-
-        .stat-icon {
-            position: absolute;
-            right: 18px; top: 18px;
-            font-size: 20px;
-            opacity: 0.18;
-        }
-
-        /* ── SECTION TITLE ── */
-        .section-header {
-            display: flex;
-            align-items: baseline;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-        .section-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 20px;
-            font-weight: 700;
-            color: #fff;
-        }
-        .section-count {
-            font-size: 13px;
-            color: var(--muted);
-        }
-
-        /* ── OFFERS GRID ── */
+        /* GRID DE OFERTAS */
         .offers-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 20px;
         }
 
-        /* ── OFFER CARD ── */
-        .offer-card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 24px;
-            backdrop-filter: blur(14px);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-            cursor: default;
+        /* Responsivo */
+        @media (max-width: 800px) {
+            .plane-img { display: none; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .hero-title { font-size: 48px; }
         }
-        .offer-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(14,165,233,0.3);
-            box-shadow: 0 20px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(14,165,233,0.1);
-        }
-
-        /* subtle gradient bg per card */
-        .offer-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 24px;
-            background: radial-gradient(ellipse at top right, rgba(14,165,233,0.05) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        /* route header */
-        .route-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .badge {
-            font-size: 11px;
-            font-weight: 700;
-            padding: 4px 12px;
-            border-radius: 100px;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }
-        .badge-brasil         { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.2); }
-        .badge-internacional  { background: rgba(59,130,246,0.15); color: #93c5fd; border: 1px solid rgba(59,130,246,0.2); }
-        .badge-voos_malucos   { background: rgba(245,158,11,0.15); color: #fcd34d; border: 1px solid rgba(245,158,11,0.2); }
-        .badge-datas_especificas { background: rgba(168,85,247,0.15); color: #d8b4fe; border: 1px solid rgba(168,85,247,0.2); }
-        .badge-geral          { background: rgba(107,132,168,0.1); color: var(--muted); border: 1px solid var(--glass-border); }
-
-        .price-tag {
-            font-family: 'Syne', sans-serif;
-            font-size: 22px;
-            font-weight: 800;
-            color: #fff;
-        }
-        .price-currency {
-            font-size: 13px;
-            font-weight: 400;
-            color: var(--muted);
-            margin-right: 2px;
-        }
-
-        /* route visual */
-        .route-visual {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 14px;
-        }
-        .airport-code {
-            font-family: 'Syne', sans-serif;
-            font-size: 26px;
-            font-weight: 800;
-            color: #fff;
-            letter-spacing: -0.5px;
-            line-height: 1;
-        }
-        .airport-name {
-            font-size: 10px;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 2px;
-        }
-        .route-line {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .route-dash {
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(to right, var(--glass-border), rgba(14,165,233,0.3), var(--glass-border));
-        }
-        .route-plane-icon {
-            color: var(--accent);
-            font-size: 14px;
-            transform: rotate(45deg);
-        }
-
-        .card-date {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            color: var(--muted);
-            margin-bottom: 20px;
-            padding: 8px 12px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 10px;
-            border: 1px solid var(--glass-border);
-        }
-        .card-date i { color: var(--accent); opacity: 0.7; font-size: 11px; }
-
-        .cta-btn {
-            display: block;
-            width: 100%;
-            text-align: center;
-            background: linear-gradient(135deg, #0284c7, #1d4ed8);
-            color: #fff;
-            font-weight: 700;
-            font-size: 13px;
-            padding: 12px;
-            border-radius: 14px;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 6px 20px rgba(2,132,199,0.3);
-        }
-        .cta-btn:hover {
-            opacity: 0.92;
-            transform: translateY(-1px);
-            box-shadow: 0 10px 28px rgba(2,132,199,0.45);
-        }
-
-        /* ── EMPTY STATE ── */
-        .empty-state {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 80px 20px;
-        }
-        .empty-icon {
-            font-size: 48px;
-            color: var(--accent);
-            opacity: 0.4;
-            margin-bottom: 16px;
-        }
-        .empty-text { color: var(--muted); font-size: 15px; }
-
-        /* ── LOADING ── */
-        .loading-state {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 80px 20px;
-        }
-
-        /* ── FOOTER ── */
-        .site-footer {
-            margin-top: 64px;
-            padding-top: 24px;
-            border-top: 1px solid var(--glass-border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .footer-logo {
-            font-family: 'Syne', sans-serif;
-            font-weight: 700;
-            font-size: 15px;
-            color: var(--muted);
-        }
-        .footer-logo span { color: var(--accent); }
-        .footer-note { font-size: 12px; color: var(--muted); }
-
-        /* entrance animation */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        .offer-card { animation: fadeUp 0.5s ease both; }
     </style>
 </head>
 <body>
-    <div class="sky"></div>
-    <div class="stars"></div>
-    <div class="clouds">
-        <div class="cloud c1"></div>
-        <div class="cloud c2"></div>
-        <div class="cloud c3"></div>
-    </div>
-    <div class="horizon"></div>
+    <div class="dashboard-bg"></div>
 
-    <div class="wrap">
-
-        <!-- HERO -->
-        <header class="hero">
-            <div class="hero-left">
-                <div class="logo">
-                    <div class="logo-icon">✈</div>
-                    <div class="logo-text">Flight<span>Hunter</span></div>
-                </div>
-                <div class="hero-tagline">Monitoramento automático de passagens · Kubernetes Bot</div>
-
-                <br>
-
-                <div class="live-badge">
-                    <span class="live-dot"></span>
-                    Bot ativo · atualização contínua
-                </div>
-
-                <h1 class="hero-title">
-                    Voos com<br>
-                    os <em>melhores</em><br>
-                    preços
-                </h1>
-                <p class="hero-sub">
-                    Nosso bot monitora milhares de rotas 24/7 e entrega os alertas direto no Discord antes que as promoções acabem.
-                </p>
-            </div>
-
-            <!-- PLANE ILLUSTRATION -->
-            <div class="hero-plane">
-                <div class="plane-glow"></div>
-                <div class="contrail contrail-1"></div>
-                <div class="contrail contrail-2"></div>
-                <svg class="plane-svg" viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- fuselage -->
-                    <ellipse cx="200" cy="140" rx="155" ry="32" fill="url(#body)" rx="155"/>
-                    <ellipse cx="200" cy="140" rx="155" ry="32" fill="url(#bodyGrad)"/>
-                    <!-- nose -->
-                    <path d="M355 140 Q390 140 395 138 Q400 136 395 134 Q390 132 355 132 Z" fill="#e2eaf6"/>
-                    <!-- tail fin -->
-                    <path d="M52 138 Q30 110 10 90 Q25 100 55 132 Z" fill="url(#tailGrad)"/>
-                    <path d="M52 142 Q30 170 10 190 Q25 180 55 148 Z" fill="url(#tailGrad2)"/>
-                    <!-- main wing top -->
-                    <path d="M220 134 L310 60 Q318 55 322 62 L250 134 Z" fill="url(#wingGrad)"/>
-                    <!-- main wing bottom -->
-                    <path d="M220 146 L310 220 Q318 225 322 218 L250 146 Z" fill="url(#wingGrad)"/>
-                    <!-- small rear wing top -->
-                    <path d="M90 134 L60 105 Q55 100 58 96 L96 130 Z" fill="url(#tailGrad)"/>
-                    <!-- small rear wing bottom -->
-                    <path d="M90 146 L60 175 Q55 180 58 184 L96 150 Z" fill="url(#tailGrad2)"/>
-                    <!-- windows row -->
-                    <rect x="160" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.6)" opacity="0.8"/>
-                    <rect x="178" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.6)" opacity="0.8"/>
-                    <rect x="196" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.6)" opacity="0.8"/>
-                    <rect x="214" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.8)" opacity="0.9"/>
-                    <rect x="232" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.6)" opacity="0.7"/>
-                    <rect x="250" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.5)" opacity="0.6"/>
-                    <rect x="268" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.4)" opacity="0.5"/>
-                    <rect x="286" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.3)" opacity="0.4"/>
-                    <!-- door line -->
-                    <rect x="143" y="120" width="2" height="40" rx="1" fill="rgba(255,255,255,0.15)"/>
-                    <!-- engine under main wing -->
-                    <ellipse cx="268" cy="153" rx="22" ry="9" fill="url(#engineGrad)"/>
-                    <ellipse cx="268" cy="153" rx="16" ry="6" fill="rgba(14,165,233,0.12)"/>
-                    <!-- highlight stripe -->
-                    <path d="M100 133 Q220 128 355 133" stroke="rgba(14,165,233,0.5)" stroke-width="2" fill="none"/>
-
-                    <defs>
-                        <linearGradient id="bodyGrad" x1="50" y1="108" x2="360" y2="172" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%"   stop-color="#1a2e50"/>
-                            <stop offset="40%"  stop-color="#e2eaf6"/>
-                            <stop offset="100%" stop-color="#8badd0"/>
-                        </linearGradient>
-                        <linearGradient id="wingGrad" x1="220" y1="90" x2="320" y2="140" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%"  stop-color="#c8d8f0"/>
-                            <stop offset="100%" stop-color="#7a9cc0"/>
-                        </linearGradient>
-                        <linearGradient id="tailGrad" x1="50" y1="100" x2="100" y2="140" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%"  stop-color="#b0c8e8"/>
-                            <stop offset="100%" stop-color="#6a8cb4"/>
-                        </linearGradient>
-                        <linearGradient id="tailGrad2" x1="50" y1="180" x2="100" y2="140" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%"  stop-color="#90b0d8"/>
-                            <stop offset="100%" stop-color="#5a7ca4"/>
-                        </linearGradient>
-                        <linearGradient id="engineGrad" x1="246" y1="144" x2="290" y2="162" gradientUnits="userSpaceOnUse">
-                            <stop offset="0%" stop-color="#1e3a5f"/>
-                            <stop offset="100%" stop-color="#0f2244"/>
-                        </linearGradient>
-                    </defs>
-                </svg>
-            </div>
+    <div class="container">
+        <header class="logo">
+            <i class="fas fa-plane" style="color: var(--accent)"></i>
+            Flight<span>Hunter</span>
         </header>
 
-        <!-- STATUS BAR -->
+        <section class="hero-section">
+            <div class="hero-text">
+                <div style="font-size: 10px; color: var(--accent); margin-bottom: 15px; font-weight: 700;">● BOT ATIVO</div>
+                <h1 class="hero-title">Voos com<br>os <em>melhores</em><br>preços</h1>
+                <p class="hero-desc">Nosso bot monitora milhares de rotas 24/7 e entrega os alertas direto no Discord.</p>
+            </div>
+            
+            <!-- Imagem do Avião Realizada conforme a foto -->
+            <img src="https://i.imgur.com/KUpHqV8.png" class="plane-img" alt="Avião FlightHunter">
+        </section>
+
+        <!-- Status Bar -->
         <div class="status-bar">
-            <div>
-                <div class="status-label">Status do bot</div>
-                <div class="status-value" id="bot-status">Conectando...</div>
+            <div class="status-item">
+                <div class="status-label">Status do Bot</div>
+                <div class="status-val" style="color: #10b981;">● Ativo</div>
             </div>
-            <div class="status-divider"></div>
-            <div>
-                <div class="status-label">Última atualização</div>
-                <div class="status-value" id="last-update">—</div>
+            <div class="status-item">
+                <div class="status-label">Última Atualização</div>
+                <div class="status-val" id="last-update">13/05/2026, 14:01:30</div>
             </div>
-            <div class="status-divider"></div>
-            <div>
-                <div class="status-label">Próxima varredura</div>
-                <div class="status-value" id="next-scan">30s</div>
+            <div class="status-item">
+                <div class="status-label">Próxima Varredura</div>
+                <div class="status-val" id="next-scan">24s</div>
             </div>
-            <div class="status-divider"></div>
-            <div>
+            <div class="status-item">
                 <div class="status-label">Infraestrutura</div>
-                <div class="status-value">Kubernetes · Minikube</div>
+                <div class="status-val">Kubernetes - Minikube</div>
             </div>
         </div>
 
-        <!-- STATS -->
+        <!-- Stats -->
         <div class="stats-grid">
             <div class="stat-card total">
-                <i class="fa-solid fa-layer-group stat-icon"></i>
-                <div class="stat-num" id="stat-total">—</div>
-                <div class="stat-label">Total de Ofertas</div>
+                <div class="stat-num" id="stat-total">39</div>
+                <div class="stat-name">Total de Ofertas</div>
             </div>
-            <div class="stat-card brasil">
-                <i class="fa-solid fa-map-location-dot stat-icon"></i>
-                <div class="stat-num" id="stat-brasil">—</div>
-                <div class="stat-label">🇧🇷 Brasil</div>
+            <div class="stat-card br">
+                <div class="stat-num" id="stat-brasil">5</div>
+                <div class="stat-name">Brasil</div>
             </div>
-            <div class="stat-card intl">
-                <i class="fa-solid fa-earth-americas stat-icon"></i>
-                <div class="stat-num" id="stat-internacional">—</div>
-                <div class="stat-label">🌍 Internacional</div>
+            <div class="stat-card int">
+                <div class="stat-num" id="stat-internacional">20</div>
+                <div class="stat-name">Internacional</div>
             </div>
             <div class="stat-card crazy">
-                <i class="fa-solid fa-bolt stat-icon"></i>
-                <div class="stat-num" id="stat-malucos">—</div>
-                <div class="stat-label">⚡ Voos Malucos</div>
+                <div class="stat-num" id="stat-malucos">0</div>
+                <div class="stat-name">Voos Malucos</div>
             </div>
         </div>
 
-        <!-- OFFERS -->
-        <div class="section-header">
-            <h2 class="section-title">Ofertas disponíveis</h2>
-            <span class="section-count" id="offers-count"></span>
-        </div>
-
+        <h3 style="margin-bottom: 20px; font-weight: 500; font-size: 16px;">Ofertas disponíveis <span style="font-size: 12px; color: var(--text-muted); margin-left: 10px;">39 ofertas encontradas</span></h3>
+        
         <div class="offers-grid" id="ofertas-container">
-            <div class="loading-state">
-                <i class="fa-solid fa-circle-notch fa-spin" style="font-size:36px;color:var(--accent);opacity:0.6;margin-bottom:16px;display:block"></i>
-                <p style="color:var(--muted)">Buscando as melhores ofertas...</p>
-            </div>
+            <!-- Os cards de passagens entram aqui via seu JS -->
         </div>
-
-        <!-- FOOTER -->
-        <footer class="site-footer">
-            <div class="footer-logo">Flight<span>Hunter</span> · DevOps Portfolio</div>
-            <div class="footer-note">Bot rodando em Kubernetes · Alertas via Discord · Dados via SerpApi</div>
-        </footer>
-
     </div>
 
-    <script>
-        const GRUPOS_LABEL = {
-            brasil:            "🇧🇷 Brasil",
-            internacional:     "🌍 Internacional",
-            voos_malucos:      "⚡ Voo Maluco",
-            datas_especificas: "📅 Data Especial",
-            geral:             "✈️ Geral"
-        };
-
-        // extract IATA-like code (first 3 uppercase letters of city name)
-        function toCode(city) {
-            return (city || '???').replace(/[^a-zA-Z]/g,'').substring(0,3).toUpperCase();
-        }
-
-        let countdown = 30;
-
-        function tickCountdown() {
-            countdown--;
-            if (countdown <= 0) countdown = 30;
-            const el = document.getElementById('next-scan');
-            if (el) el.textContent = countdown + 's';
-        }
-        setInterval(tickCountdown, 1000);
-
-        async function carregarOfertas() {
-            try {
-                const response = await fetch('ofertas.json?t=' + Date.now());
-                if (!response.ok) throw new Error('Arquivo não encontrado');
-
-                const dados = await response.json();
-                const ofertas = Array.isArray(dados) ? dados : (dados.ofertas || []);
-                const atualizacao = dados.ultima_atualizacao
-                    ? new Date(dados.ultima_atualizacao).toLocaleString('pt-BR')
-                    : 'agora';
-
-                document.getElementById('last-update').textContent = atualizacao;
-                document.getElementById('bot-status').innerHTML =
-                    '<span style="color:#10b981">● Ativo</span>';
-
-                document.getElementById('stat-total').textContent = ofertas.length;
-                document.getElementById('stat-brasil').textContent = ofertas.filter(o => o.grupo === 'brasil').length;
-                document.getElementById('stat-internacional').textContent = ofertas.filter(o => o.grupo === 'internacional').length;
-                document.getElementById('stat-malucos').textContent = ofertas.filter(o => o.grupo === 'voos_malucos').length;
-
-                const count = document.getElementById('offers-count');
-                if (count) count.textContent = ofertas.length + ' oferta' + (ofertas.length !== 1 ? 's' : '') + ' encontrada' + (ofertas.length !== 1 ? 's' : '');
-
-                const container = document.getElementById('ofertas-container');
-
-                if (ofertas.length === 0) {
-                    container.innerHTML = `
-                        <div class="empty-state">
-                            <div class="empty-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                            <p class="empty-text">Nenhuma oferta no momento. O bot continua monitorando!</p>
-                        </div>`;
-                    return;
-                }
-
-                container.innerHTML = ofertas.map((o, i) => `
-                    <div class="offer-card" style="animation-delay:${i * 60}ms">
-                        <div class="route-header">
-                            <span class="badge badge-${o.grupo || 'geral'}">
-                                ${GRUPOS_LABEL[o.grupo] || '✈️ Geral'}
-                            </span>
-                            <div class="price-tag">
-                                ${o.preco > 0
-                                    ? `<span class="price-currency">R$</span>${Number(o.preco).toLocaleString('pt-BR')}`
-                                    : `<span style="font-size:14px;color:var(--muted)">Ver preço</span>`}
-                            </div>
-                        </div>
-
-                        <div class="route-visual">
-                            <div>
-                                <div class="airport-code">${toCode(o.origem)}</div>
-                                <div class="airport-name">${o.origem}</div>
-                            </div>
-                            <div class="route-line">
-                                <div class="route-dash"></div>
-                                <i class="fa-solid fa-plane route-plane-icon"></i>
-                                <div class="route-dash"></div>
-                            </div>
-                            <div style="text-align:right">
-                                <div class="airport-code">${toCode(o.destino)}</div>
-                                <div class="airport-name">${o.destino}</div>
-                            </div>
-                        </div>
-
-                        <div class="card-date">
-                            <i class="fa-solid fa-calendar-days"></i>
-                            ${o.data}
-                        </div>
-
-                        <a href="${o.link}" target="_blank" class="cta-btn">
-                            Ver oferta no Kayak
-                        </a>
-                    </div>
-                `).join('');
-
-            } catch (e) {
-                document.getElementById('bot-status').innerHTML =
-                    '<span style="color:#f59e0b">● Aguardando dados</span>';
-                document.getElementById('last-update').textContent = '—';
-                console.log("Aguardando ofertas.json:", e.message);
-            }
-
-            countdown = 30;
-        }
-
-        setInterval(carregarOfertas, 30000);
-        carregarOfertas();
-    </script>
+    <!-- Mantenha seu <script> original aqui para carregar as ofertas do JSON -->
 </body>
 </html>
