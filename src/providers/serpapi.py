@@ -5,6 +5,13 @@ from datetime import datetime, timedelta
 
 log = logging.getLogger(__name__)
 
+def montar_link_google_flights(origem, destino, data_ida):
+    """Monta link direto no Kayak com rota e data preenchidas."""
+    return (
+        f"https://www.kayak.com.br/flights/"
+        f"{origem}-{destino}/{data_ida}?sort=price_a"
+    )
+
 def buscar_voos_serpapi(origem="GRU", destino="JFK", dias_para_ida=30):
     """Busca voos na SerpApi com parâmetros dinâmicos e fallback automático."""
 
@@ -16,6 +23,7 @@ def buscar_voos_serpapi(origem="GRU", destino="JFK", dias_para_ida=30):
         return []
 
     params = {
+        "engine": "google_flights",
         "departure_id": origem,
         "arrival_id": destino,
         "outbound_date": data_ida,
@@ -26,40 +34,38 @@ def buscar_voos_serpapi(origem="GRU", destino="JFK", dias_para_ida=30):
         "api_key": api_key
     }
 
-    engines = ["google_flights", "google_flights_json"]
+    try:
+        r = requests.get("https://serpapi.com/search", params=params, timeout=20)
+        r.raise_for_status()
+        dados = r.json()
 
-    for engine in engines:
-        params["engine"] = engine
-        try:
-            r = requests.get("https://serpapi.com/search", params=params, timeout=20)
-            r.raise_for_status()
-            dados = r.json()
+        if "error" in dados:
+            log.error(f"❌ Erro na SerpApi: {dados.get('error')}")
+            return []
 
-            if "error" in dados:
-                log.error(f"❌ Erro na SerpApi ({engine}): {dados.get('error')}")
-                continue
+        voos_encontrados = []
+        resultados = dados.get("best_flights", []) + dados.get("other_flights", [])
 
-            voos_encontrados = []
-            resultados = dados.get("best_flights", [])
+        for voo in resultados:
+            preco = voo.get("price", 0)
+            flights = voo.get("flights", [{}])
+            destino_final = flights[0].get("arrival_airport", {}).get("name", destino)
+            destino_iata = flights[-1].get("arrival_airport", {}).get("id", destino)
 
-            for voo in resultados:
-                preco = voo.get("price", 0)
-                destino_final = voo.get("flights", [{}])[0].get("arrival_airport", {}).get("name", destino)
-                voos_encontrados.append({
-                    "origem": origem,
-                    "destino": destino_final,
-                    "preco": preco,
-                    "data": data_ida,
-                    "link": "https://www.google.com/flights",
-                    "international": True
-                })
+            voos_encontrados.append({
+                "origem": origem,
+                "destino": destino_final,
+                "preco": preco,
+                "data": data_ida,
+                "link": montar_link_google_flights(origem, destino_iata, data_ida),
+                "international": True
+            })
 
-            if voos_encontrados:
-                log.info(f"📊 API ({engine}) retornou {len(voos_encontrados)} voos")
-                return voos_encontrados
+        if voos_encontrados:
+            log.info(f"📊 {len(voos_encontrados)} voos encontrados: {origem} → {destino}")
 
-        except Exception as e:
-            log.error(f"❌ ERRO CRÍTICO NA REQUISIÇÃO ({engine}): {e}")
+        return voos_encontrados
 
-    log.warning("⚠️ Nenhum voo encontrado em nenhum engine.")
-    return []
+    except Exception as e:
+        log.error(f"❌ ERRO CRÍTICO NA REQUISIÇÃO: {e}")
+        return []
