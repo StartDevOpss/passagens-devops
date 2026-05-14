@@ -297,8 +297,8 @@
     /* GRID */
     #flights-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); /* Ajustado: era 340px */
+      gap: 1.5rem;
     }
 
     /* FLIGHT CARD */
@@ -341,20 +341,30 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
+      gap: 15px; /* Ajustado: Garante espaço entre texto e preço */
     }
 
     .route {
       display: flex;
-      align-items: center;
-      gap: 8px;
+      flex-direction: column; /* Ajustado: Empilha IATA e Nome para não quebrar */
+      align-items: flex-start;
+      gap: 4px;
+      max-width: 65%; /* Ajustado: Reserva espaço para o preço */
+    }
+
+    .route-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 
     .iata {
       font-family: var(--display);
-      font-size: 22px;
+      font-size: 19px; /* Ajustado: Era 22px, reduzido para caber melhor */
       font-weight: 800;
       letter-spacing: -0.5px;
+      line-height: 1.2;
     }
 
     .route-arrow {
@@ -378,6 +388,7 @@
 
     .price-block {
       text-align: right;
+      flex-shrink: 0; /* Ajustado: impede o preço de encolher */
     }
 
     .price-label {
@@ -396,12 +407,11 @@
     }
 
     .price.high { color: var(--warn); }
-    .price.danger-price { color: var(--danger); }
 
     .card-meta {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
+      gap: 12px;
       padding-top: 1rem;
       border-top: 1px solid var(--border);
     }
@@ -452,113 +462,6 @@
     }
 
     .stops-pill.direto { color: var(--accent); border-color: rgba(0,212,160,0.2); background: rgba(0,212,160,0.05); }
-
-    /* EMPTY / ERROR / LOADING */
-    .state-view {
-      text-align: center;
-      padding: 5rem 2rem;
-      color: var(--muted);
-    }
-
-    .state-icon {
-      font-size: 48px;
-      margin-bottom: 1rem;
-      opacity: 0.4;
-    }
-
-    .state-view h3 {
-      font-family: var(--display);
-      font-size: 18px;
-      color: var(--muted2);
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-    }
-
-    .state-view p {
-      font-size: 13px;
-      font-family: var(--mono);
-      max-width: 360px;
-      margin: 0 auto;
-    }
-
-    .skeleton-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.25rem;
-      animation: shimmer 1.5s infinite;
-    }
-
-    @keyframes shimmer {
-      0%, 100% { opacity: 0.4; }
-      50% { opacity: 0.7; }
-    }
-
-    .skel { background: var(--surface2); border-radius: 4px; }
-    .skel-lg { height: 24px; width: 60%; margin-bottom: 8px; }
-    .skel-md { height: 14px; width: 40%; margin-bottom: 6px; }
-    .skel-sm { height: 10px; width: 30%; }
-
-    /* CONFIG BANNER */
-    .config-banner {
-      background: rgba(0,153,255,0.06);
-      border: 1px solid rgba(0,153,255,0.2);
-      border-radius: 10px;
-      padding: 1rem 1.25rem;
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-    }
-
-    .config-banner-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
-
-    .config-banner p {
-      font-size: 13px;
-      color: var(--muted2);
-      font-family: var(--mono);
-      line-height: 1.6;
-    }
-
-    .config-banner code {
-      background: rgba(255,255,255,0.07);
-      padding: 1px 6px;
-      border-radius: 3px;
-      color: var(--accent2);
-      font-size: 12px;
-    }
-
-    /* LAST UPDATED */
-    .last-updated {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--muted);
-      margin-bottom: 1rem;
-    }
-
-    /* FOOTER */
-    footer {
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid var(--border);
-      padding: 1.5rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    footer span {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-    }
 
     /* RESPONSIVE */
     @media (max-width: 600px) {
@@ -624,13 +527,11 @@
     </div>
   </div>
 
-  <!-- CONFIG BANNER (shown when using demo data) -->
-  <div class="config-banner" id="config-banner" style="display:none;">
-    <div class="config-banner-icon">⚙️</div>
-    <p>
-      Exibindo dados de <strong>demonstração</strong>. Para conectar ao seu bot, edite a constante
-      <code>OFERTAS_URL</code> no final deste arquivo apontando para o seu
-      <code>ofertas.json</code> (GitHub raw, endpoint do cluster, etc).
+  <!-- CONFIG BANNER -->
+  <div class="config-banner" id="config-banner" style="display:none; background: rgba(0,153,255,0.06); border: 1px solid rgba(0,153,255,0.2); border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 2rem; display: flex; align-items: flex-start; gap: 12px;">
+    <div style="font-size: 20px;">⚙️</div>
+    <p style="font-size: 13px; color: var(--muted2); font-family: var(--mono); line-height: 1.6;">
+      Exibindo dados de <strong>demonstração</strong>. Para conectar ao seu bot, edite a constante <code>OFERTAS_URL</code>.
     </p>
   </div>
 
@@ -653,45 +554,30 @@
     <button class="chip" id="chip-direto" onclick="setFilter('direto')">direto</button>
   </div>
 
-  <div class="last-updated" id="last-updated"></div>
+  <div class="last-updated" id="last-updated" style="font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 1rem;"></div>
 
   <!-- GRID -->
   <div id="flights-grid"></div>
 </main>
 
 <footer>
-  <span>FlightHunter Dashboard · Kubernetes + SerpApi</span>
-  <span><a href="https://github.com/StartDevOpss/passagens-devops" target="_blank">github →</a></span>
+  <span style="font-family: var(--mono); font-size: 11px; color: var(--muted);">FlightHunter Dashboard · Kubernetes + SerpApi</span>
+  <span><a href="https://github.com/StartDevOpss/passagens-devops" target="_blank" style="color: var(--accent); text-decoration: none; font-family: var(--mono); font-size: 11px;">github →</a></span>
 </footer>
 
 <script>
-  // ─── CONFIG ───────────────────────────────────────────────────
-  // Aponte para o seu ofertas.json. Exemplos:
-  //   GitHub raw:   'https://raw.githubusercontent.com/SEU_USER/passagens-devops/main/docs/ofertas.json'
-  //   Cluster:      'http://SEU_IP:PORTA/ofertas.json'
-  //   Relativo:     './ofertas.json'  (quando estiver na mesma pasta no Vercel)
   const OFERTAS_URL = './ofertas.json';
-
-  // Preço máximo considerado "promoção" (em R$). Ajuste conforme sua lógica.
-  const PROMO_THRESHOLD_FACTOR = 0.8; // 80% da média ou abaixo
-  // ─────────────────────────────────────────────────────────────
+  const PROMO_THRESHOLD_FACTOR = 0.8;
 
   let allFlights = [];
   let activeChip = 'all';
 
-  // ── DEMO DATA (usado quando o JSON não é encontrado) ─────────
   const DEMO = [
     { origem: 'GRU', destino: 'GIG', preco: 189, companhia: 'LATAM', paradas: 0, data_partida: '2025-07-15', data_retorno: '2025-07-22', duracao: '1h 10min', tipo: 'promo' },
-    { origem: 'GRU', destino: 'FLN', preco: 249, companhia: 'Gol', paradas: 0, data_partida: '2025-07-18', data_retorno: '2025-07-25', duracao: '1h 45min', tipo: 'normal' },
-    { origem: 'BSB', destino: 'SSA', preco: 312, companhia: 'Azul', paradas: 1, data_partida: '2025-07-20', data_retorno: null, duracao: '3h 20min', tipo: 'normal' },
-    { origem: 'GRU', destino: 'MCZ', preco: 198, companhia: 'LATAM', paradas: 1, data_partida: '2025-08-01', data_retorno: '2025-08-10', duracao: '4h 05min', tipo: 'promo' },
-    { origem: 'POA', destino: 'GRU', preco: 159, companhia: 'Gol', paradas: 0, data_partida: '2025-07-28', data_retorno: null, duracao: '1h 55min', tipo: 'promo' },
-    { origem: 'REC', destino: 'FOR', preco: 278, companhia: 'Azul', paradas: 0, data_partida: '2025-08-05', data_retorno: '2025-08-12', duracao: '1h 20min', tipo: 'alerta' },
+    { origem: 'GRU', destino: 'Humberto Delgado', preco: 2307, companhia: 'TAP', paradas: 0, data_partida: '2025-07-18', data_retorno: '2025-07-25', duracao: '10h 45min', tipo: 'promo' }
   ];
 
-  // ── NORMALIZA campos de diferentes formatos do SerpApi ────────
   function normalize(raw) {
-    // Suporta múltiplos formatos que o bot pode gerar
     return {
       origem: raw.origem || raw.departure_airport || raw.from || '???',
       destino: raw.destino || raw.arrival_airport || raw.to || '???',
@@ -707,7 +593,6 @@
 
   async function loadOffers() {
     const btn = document.getElementById('btn-refresh');
-    const icon = document.getElementById('refresh-icon');
     btn.classList.add('spinning');
 
     try {
@@ -715,7 +600,6 @@
       if (!res.ok) throw new Error('HTTP ' + res.status);
       let data = await res.json();
 
-      // aceita tanto array direto quanto { ofertas: [...] } ou { flights: [...] }
       if (Array.isArray(data)) allFlights = data.map(normalize);
       else if (data.ofertas) allFlights = data.ofertas.map(normalize);
       else if (data.flights) allFlights = data.flights.map(normalize);
@@ -723,16 +607,12 @@
 
       setStatus(true, 'online · ' + allFlights.length + ' ofertas');
       document.getElementById('config-banner').style.display = 'none';
-      document.getElementById('last-updated').textContent =
-        'última atualização: ' + new Date().toLocaleString('pt-BR');
-
+      document.getElementById('last-updated').textContent = 'última atualização: ' + new Date().toLocaleString('pt-BR');
     } catch (e) {
-      // Fallback demo
       allFlights = DEMO.map(normalize);
       setStatus(false, 'demo · json não encontrado');
       document.getElementById('config-banner').style.display = 'flex';
-      document.getElementById('last-updated').textContent =
-        'exibindo dados de demonstração';
+      document.getElementById('last-updated').textContent = 'exibindo dados de demonstração';
     }
 
     populateFilters();
@@ -751,27 +631,22 @@
   function populateFilters() {
     const origens = [...new Set(allFlights.map(f => f.origem))].sort();
     const destinos = [...new Set(allFlights.map(f => f.destino))].sort();
-
     const selO = document.getElementById('filter-origem');
     const selD = document.getElementById('filter-destino');
 
-    selO.innerHTML = '<option value="">todas as origens</option>' +
-      origens.map(o => `<option>${o}</option>`).join('');
-    selD.innerHTML = '<option value="">todos os destinos</option>' +
-      destinos.map(d => `<option>${d}</option>`).join('');
+    selO.innerHTML = '<option value="">todas as origens</option>' + origens.map(o => `<option>${o}</option>`).join('');
+    selD.innerHTML = '<option value="">todos os destinos</option>' + destinos.map(d => `<option>${d}</option>`).join('');
   }
 
   function updateStats() {
-    const total = allFlights.length;
     const prices = allFlights.map(f => f.preco).filter(Boolean);
     const min = prices.length ? Math.min(...prices) : 0;
     const avg = prices.length ? prices.reduce((a,b)=>a+b,0)/prices.length : 0;
-    const threshold = avg * PROMO_THRESHOLD_FACTOR;
-    const promos = allFlights.filter(f => f.preco && f.preco <= threshold || f.tipo === 'promo').length;
+    const promos = allFlights.filter(f => f.preco && f.preco <= avg * PROMO_THRESHOLD_FACTOR || f.tipo === 'promo').length;
     const minFlight = allFlights.find(f => f.preco === min);
 
-    document.getElementById('stat-total').textContent = total;
-    document.getElementById('stat-delta').textContent = total + ' rotas monitoradas';
+    document.getElementById('stat-total').textContent = allFlights.length;
+    document.getElementById('stat-delta').textContent = allFlights.length + ' rotas monitoradas';
     document.getElementById('stat-min').textContent = min ? 'R$ ' + min.toFixed(0) : '—';
     document.getElementById('stat-min-route').textContent = minFlight ? minFlight.origem + ' → ' + minFlight.destino : '—';
     document.getElementById('stat-avg').textContent = avg ? 'R$ ' + avg.toFixed(0) : '—';
@@ -793,104 +668,60 @@
     const grid = document.getElementById('flights-grid');
 
     let flights = [...allFlights];
+    const prices = allFlights.map(f=>f.preco).filter(Boolean);
+    const avgGlobal = prices.reduce((a,b)=>a+b,0)/prices.length;
 
-    // chip filter
-    if (activeChip === 'promo') {
-      const prices = flights.map(f=>f.preco).filter(Boolean);
-      const avg = prices.reduce((a,b)=>a+b,0)/prices.length;
-      flights = flights.filter(f => f.preco <= avg * PROMO_THRESHOLD_FACTOR || f.tipo === 'promo');
-    }
+    if (activeChip === 'promo') flights = flights.filter(f => f.preco <= avgGlobal * PROMO_THRESHOLD_FACTOR || f.tipo === 'promo');
     if (activeChip === 'direto') flights = flights.filter(f => f.paradas === 0);
-
-    // select filters
     if (origem) flights = flights.filter(f => f.origem === origem);
     if (destino) flights = flights.filter(f => f.destino === destino);
 
-    // sort
     if (ordem === 'preco_asc') flights.sort((a,b) => a.preco - b.preco);
     if (ordem === 'preco_desc') flights.sort((a,b) => b.preco - a.preco);
     if (ordem === 'data') flights.sort((a,b) => (a.data_partida||'').localeCompare(b.data_partida||''));
 
     if (!flights.length) {
-      grid.innerHTML = `
-        <div class="state-view" style="grid-column: 1/-1">
-          <div class="state-icon">🔍</div>
-          <h3>nenhuma oferta encontrada</h3>
-          <p>tente ajustar os filtros ou aguarde o próximo ciclo do bot</p>
-        </div>`;
+      grid.innerHTML = `<div class="state-view" style="grid-column: 1/-1"><h3>nenhuma oferta encontrada</h3></div>`;
       return;
     }
 
-    const prices = allFlights.map(f=>f.preco).filter(Boolean);
-    const avg = prices.reduce((a,b)=>a+b,0)/prices.length;
-
     grid.innerHTML = flights.map((f, i) => {
-      const isPromo = f.preco && f.preco <= avg * PROMO_THRESHOLD_FACTOR || f.tipo === 'promo';
-      const badge = isPromo ? '<span class="badge badge-promo">PROMO</span>'
-                  : f.tipo === 'alerta' ? '<span class="badge badge-alerta">ALERTA</span>'
-                  : '<span class="badge badge-normal">normal</span>';
-
-      const priceClass = f.preco > avg * 1.3 ? 'high' : '';
-      const stopsPill = f.paradas === 0
-        ? '<span class="stops-pill direto">✦ direto</span>'
-        : `<span class="stops-pill">${f.paradas} parada${f.paradas>1?'s':''}</span>`;
-
-      const dataPartida = f.data_partida
-        ? new Date(f.data_partida + 'T12:00:00').toLocaleDateString('pt-BR', {day:'2-digit', month:'short'})
-        : '—';
-      const dataRetorno = f.data_retorno
-        ? new Date(f.data_retorno + 'T12:00:00').toLocaleDateString('pt-BR', {day:'2-digit', month:'short'})
-        : 'somente ida';
+      const isPromo = f.preco && f.preco <= avgGlobal * PROMO_THRESHOLD_FACTOR || f.tipo === 'promo';
+      const badge = isPromo ? '<span class="badge badge-promo">PROMO</span>' : '<span class="badge badge-normal">normal</span>';
+      const dataPartida = f.data_partida ? new Date(f.data_partida + 'T12:00:00').toLocaleDateString('pt-BR', {day:'2-digit', month:'short'}) : '—';
+      const dataRetorno = f.data_retorno ? new Date(f.data_retorno + 'T12:00:00').toLocaleDateString('pt-BR', {day:'2-digit', month:'short'}) : 'somente ida';
 
       return `
         <div class="flight-card" style="animation-delay: ${i * 0.04}s">
           <div class="card-top">
-            <div>
-              <div class="route">
+            <div class="route">
+              <div class="route-header">
                 <span class="iata">${f.origem}</span>
-                <span class="route-arrow">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
-                </span>
+                <span class="route-arrow">→</span>
                 <span class="iata">${f.destino}</span>
               </div>
-              <div style="margin-top:6px">${badge}</div>
+              <div style="margin-top:4px">${badge}</div>
             </div>
             <div class="price-block">
               <div class="price-label">ida</div>
-              <div class="price ${priceClass}">R$&nbsp;${f.preco ? f.preco.toFixed(0) : '—'}</div>
+              <div class="price">R$&nbsp;${f.preco ? f.preco.toFixed(0) : '—'}</div>
             </div>
           </div>
           <div class="card-meta">
-            <div class="meta-item">
-              <span class="meta-label">partida</span>
-              <span class="meta-value highlight">${dataPartida}</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">retorno</span>
-              <span class="meta-value">${dataRetorno}</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">duração</span>
-              <span class="meta-value">${f.duracao || '—'}</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">companhia</span>
-              <span class="meta-value highlight">${f.companhia}</span>
-            </div>
+            <div class="meta-item"><span class="meta-label">partida</span><span class="meta-value highlight">${dataPartida}</span></div>
+            <div class="meta-item"><span class="meta-label">retorno</span><span class="meta-value">${dataRetorno}</span></div>
+            <div class="meta-item"><span class="meta-label">duração</span><span class="meta-value">${f.duracao || '—'}</span></div>
+            <div class="meta-item"><span class="meta-label">companhia</span><span class="meta-value highlight">${f.companhia}</span></div>
           </div>
           <div class="card-footer">
             <span class="airline-name">${f.companhia}</span>
-            ${stopsPill}
+            <span class="stops-pill ${f.paradas === 0 ? 'direto' : ''}">${f.paradas === 0 ? '✦ direto' : f.paradas + ' paradas'}</span>
           </div>
         </div>`;
     }).join('');
   }
 
-  // ── INIT ─────────────────────────────────────────────────────
   loadOffers();
-  // Auto-refresh a cada 5 minutos
   setInterval(loadOffers, 5 * 60 * 1000);
 </script>
 </body>
