@@ -1,6 +1,6 @@
 {
-  "ultima_atualizacao": "2026-05-14T14:50:37.236204",
-  "total": 115,
+  "ultima_atualizacao": "2026-05-14T14:52:23.265953",
+  "total": 114,
   "ofertas": [
     {
       "origem": "GRU",
@@ -1237,7 +1237,7 @@
     {
       "origem": "GRU",
       "destino": "Aeroporto Internacional Pierre Elliott Trudeau",
-      "preco": 3424,
+      "preco": 3427,
       "data": "2026-06-13",
       "partida": "2026-06-13 21:00",
       "chegada": "2026-06-15 07:05",
@@ -1502,22 +1502,8 @@
     },
     {
       "origem": "GRU",
-      "destino": "Aeroporto Internacional de Miami",
-      "preco": 3244,
-      "data": "2026-06-13",
-      "partida": "2026-06-13 10:00",
-      "chegada": "2026-06-13 23:19",
-      "duracao": "14h 19m",
-      "companhia": "LATAM",
-      "paradas": 1,
-      "link": "https://www.kayak.com.br/flights/GRU-JFK/2026-06-13?sort=price_a",
-      "international": true,
-      "grupo": "internacional"
-    },
-    {
-      "origem": "GRU",
       "destino": "Aeroporto Internacional Tocumen",
-      "preco": 3395,
+      "preco": 3223,
       "data": "2026-06-13",
       "partida": "2026-06-13 11:10",
       "chegada": "2026-06-14 01:00",
@@ -1527,20 +1513,6 @@
       "link": "https://www.kayak.com.br/flights/GRU-JFK/2026-06-13?sort=price_a",
       "international": true,
       "grupo": "geral"
-    },
-    {
-      "origem": "GRU",
-      "destino": "Aeroporto Internacional do Rio de Janeiro - Galeão – Antonio Carlos Jobim",
-      "preco": 2807,
-      "data": "2026-06-13",
-      "partida": "2026-06-13 13:00",
-      "chegada": "2026-06-14 10:00",
-      "duracao": "22h 00m",
-      "companhia": "Gol",
-      "paradas": 2,
-      "link": "https://www.kayak.com.br/flights/GRU-JFK/2026-06-13?sort=price_a",
-      "international": true,
-      "grupo": "brasil"
     },
     {
       "origem": "GRU",
@@ -1555,6 +1527,20 @@
       "link": "https://www.kayak.com.br/flights/GRU-JFK/2026-06-13?sort=price_a",
       "international": true,
       "grupo": "geral"
+    },
+    {
+      "origem": "GRU",
+      "destino": "Aeroporto Internacional de Miami",
+      "preco": 3244,
+      "data": "2026-06-13",
+      "partida": "2026-06-13 10:00",
+      "chegada": "2026-06-13 23:19",
+      "duracao": "14h 19m",
+      "companhia": "LATAM",
+      "paradas": 1,
+      "link": "https://www.kayak.com.br/flights/GRU-JFK/2026-06-13?sort=price_a",
+      "international": true,
+      "grupo": "internacional"
     },
     {
       "origem": "GRU",
