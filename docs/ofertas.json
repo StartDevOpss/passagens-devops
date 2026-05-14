@@ -1,5 +1,5 @@
 {
-  "ultima_atualizacao": "2026-05-14T15:15:41.415821",
+  "ultima_atualizacao": "2026-05-14T15:48:48.262417",
   "total": 114,
   "ofertas": [
     {
@@ -523,7 +523,7 @@
     {
       "origem": "GRU",
       "destino": "Aeroporto Internacional de Curitiba - Afonso Pena",
-      "preco": 1374,
+      "preco": 1084,
       "data": "2026-05-29",
       "partida": "2026-05-29 17:40",
       "chegada": "2026-05-29 18:40",
@@ -593,7 +593,7 @@
     {
       "origem": "GRU",
       "destino": "Aeroporto Internacional de Salvador Luís Eduardo Magalhães",
-      "preco": 592,
+      "preco": 591,
       "data": "2026-05-29",
       "partida": "2026-05-29 09:50",
       "chegada": "2026-05-29 12:10",
@@ -607,7 +607,7 @@
     {
       "origem": "GRU",
       "destino": "Aeroporto Internacional de Salvador Luís Eduardo Magalhães",
-      "preco": 592,
+      "preco": 591,
       "data": "2026-05-29",
       "partida": "2026-05-29 12:10",
       "chegada": "2026-05-29 14:30",
@@ -621,7 +621,7 @@
     {
       "origem": "GRU",
       "destino": "Aeroporto Internacional de Salvador Luís Eduardo Magalhães",
-      "preco": 592,
+      "preco": 591,
       "data": "2026-05-29",
       "partida": "2026-05-29 23:30",
       "chegada": "2026-05-30 01:50",
@@ -663,12 +663,12 @@
     {
       "origem": "GRU",
       "destino": "Aeroporto Internacional de Salvador Luís Eduardo Magalhães",
-      "preco": 1200,
+      "preco": 619,
       "data": "2026-05-29",
-      "partida": "2026-05-29 15:10",
-      "chegada": "2026-05-29 17:30",
+      "partida": "2026-05-29 15:15",
+      "chegada": "2026-05-29 17:35",
       "duracao": "2h 20m",
-      "companhia": "LATAM",
+      "companhia": "Gol",
       "paradas": 0,
       "link": "https://www.kayak.com.br/flights/GRU-SSA/2026-05-29?sort=price_a",
       "international": true,
@@ -679,10 +679,10 @@
       "destino": "Aeroporto Internacional de Salvador Luís Eduardo Magalhães",
       "preco": 1200,
       "data": "2026-05-29",
-      "partida": "2026-05-29 15:15",
-      "chegada": "2026-05-29 17:35",
+      "partida": "2026-05-29 15:10",
+      "chegada": "2026-05-29 17:30",
       "duracao": "2h 20m",
-      "companhia": "Gol",
+      "companhia": "LATAM",
       "paradas": 0,
       "link": "https://www.kayak.com.br/flights/GRU-SSA/2026-05-29?sort=price_a",
       "international": true,
