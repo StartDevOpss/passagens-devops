@@ -179,12 +179,17 @@
             max-width: 420px;
         }
 
-        /* ── PLANE A380 ── */
+        /* ── PLANE SVG ── */
         .hero-plane {
             flex: 0 0 auto;
-            width: clamp(280px, 35vw, 420px);
+            width: clamp(200px, 30vw, 360px);
             position: relative;
-            height: clamp(180px, 25vw, 280px);
+        }
+
+        .plane-svg {
+            width: 100%;
+            filter: drop-shadow(0 20px 60px rgba(14,165,233,0.25));
+            animation: float 6s ease-in-out infinite;
         }
 
         @keyframes float {
@@ -211,112 +216,8 @@
             border-radius: 2px;
             animation: float 6s ease-in-out infinite;
         }
-        .contrail-1 { width: 45%; top: 50%; right: 88%; }
-        .contrail-2 { width: 30%; top: 58%; right: 90%; opacity: 0.5; }
-
-        /* A380 Plane Styles */
-        .a380-plane {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            animation: float 6s ease-in-out infinite;
-            filter: drop-shadow(0 20px 40px rgba(14,165,233,0.3));
-        }
-
-        .a380-fuselage {
-            position: absolute;
-            width: 70%;
-            height: 42%;
-            background: linear-gradient(to bottom, #ffffff, #e8eef5);
-            border-radius: 100px;
-            top: 28%;
-            left: 18%;
-            box-shadow: 0 15px 25px rgba(0,0,0,0.15);
-        }
-
-        .a380-cockpit {
-            position: absolute;
-            width: 11%;
-            height: 30%;
-            background: linear-gradient(to bottom, #ffffff, #e8eef5);
-            border-radius: 80% 20% 40% 80%;
-            left: 18%;
-            top: 38%;
-        }
-
-        .a380-tail {
-            position: absolute;
-            width: 8%;
-            height: 42%;
-            background: #0f3f8f;
-            right: 12%;
-            top: 8%;
-            clip-path: polygon(30% 100%, 100% 0, 100% 100%);
-            border-radius: 8px;
-        }
-
-        .a380-wing {
-            position: absolute;
-            width: 33%;
-            height: 12%;
-            background: linear-gradient(to right, #d5dde6, #f5f8fc);
-            top: 48%;
-            left: 42%;
-            transform: rotate(-6deg);
-            border-radius: 15px;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-        }
-
-        .a380-engine {
-            position: absolute;
-            width: 7.5%;
-            height: 30%;
-            background: linear-gradient(to bottom, #ffffff, #c5cdd8);
-            border-radius: 40px;
-            top: 52%;
-            box-shadow: inset 0 -8px 15px rgba(0,0,0,0.12);
-        }
-
-        .a380-engine1 { left: 48%; }
-        .a380-engine2 { left: 65%; }
-
-        .a380-windows {
-            position: absolute;
-            top: 36%;
-            left: 35%;
-            display: flex;
-            gap: 2.5%;
-        }
-
-        .a380-window {
-            width: 2.5%;
-            height: 8%;
-            background: #2a3e5c;
-            border-radius: 50%;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
-        }
-
-        .a380-brand {
-            position: absolute;
-            top: 32%;
-            left: 38%;
-            font-size: clamp(14px, 2.5vw, 20px);
-            font-weight: 800;
-            color: #0ea5e9;
-            letter-spacing: -0.5px;
-            font-family: 'Syne', sans-serif;
-        }
-
-        .a380-model {
-            position: absolute;
-            top: 50%;
-            left: 39%;
-            font-size: clamp(6px, 1vw, 9px);
-            color: #1d2f4f;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
+        .contrail-1 { width: 45%; top: 42%; right: 88%; }
+        .contrail-2 { width: 30%; top: 50%; right: 90%; opacity: 0.5; }
 
         /* ── STATUS BAR ── */
         .status-bar {
@@ -644,37 +545,69 @@
                 </p>
             </div>
 
-            <!-- PLANE ILLUSTRATION - A380 -->
+            <!-- PLANE ILLUSTRATION -->
             <div class="hero-plane">
                 <div class="plane-glow"></div>
                 <div class="contrail contrail-1"></div>
                 <div class="contrail contrail-2"></div>
-                
-                <div class="a380-plane">
-                    <div class="a380-tail"></div>
-                    <div class="a380-wing"></div>
-                    <div class="a380-engine a380-engine1"></div>
-                    <div class="a380-engine a380-engine2"></div>
-                    <div class="a380-cockpit"></div>
-                    
-                    <div class="a380-fuselage">
-                        <div class="a380-windows">
-                            <div class="a380-window"></div>
-                            <div class="a380-window"></div>
-                            <div class="a380-window"></div>
-                            <div class="a380-window"></div>
-                            <div class="a380-window"></div>
-                            <div class="a380-window"></div>
-                            <div class="a380-window"></div>
-                            <div class="a380-window"></div>
-                            <div class="a380-window"></div>
-                            <div class="a380-window"></div>
-                        </div>
-                        
-                        <div class="a380-brand">FlightHunter</div>
-                        <div class="a380-model">AIRBUS A380</div>
-                    </div>
-                </div>
+                <svg class="plane-svg" viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- fuselage -->
+                    <ellipse cx="200" cy="140" rx="155" ry="32" fill="url(#body)" rx="155"/>
+                    <ellipse cx="200" cy="140" rx="155" ry="32" fill="url(#bodyGrad)"/>
+                    <!-- nose -->
+                    <path d="M355 140 Q390 140 395 138 Q400 136 395 134 Q390 132 355 132 Z" fill="#e2eaf6"/>
+                    <!-- tail fin -->
+                    <path d="M52 138 Q30 110 10 90 Q25 100 55 132 Z" fill="url(#tailGrad)"/>
+                    <path d="M52 142 Q30 170 10 190 Q25 180 55 148 Z" fill="url(#tailGrad2)"/>
+                    <!-- main wing top -->
+                    <path d="M220 134 L310 60 Q318 55 322 62 L250 134 Z" fill="url(#wingGrad)"/>
+                    <!-- main wing bottom -->
+                    <path d="M220 146 L310 220 Q318 225 322 218 L250 146 Z" fill="url(#wingGrad)"/>
+                    <!-- small rear wing top -->
+                    <path d="M90 134 L60 105 Q55 100 58 96 L96 130 Z" fill="url(#tailGrad)"/>
+                    <!-- small rear wing bottom -->
+                    <path d="M90 146 L60 175 Q55 180 58 184 L96 150 Z" fill="url(#tailGrad2)"/>
+                    <!-- windows row -->
+                    <rect x="160" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.6)" opacity="0.8"/>
+                    <rect x="178" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.6)" opacity="0.8"/>
+                    <rect x="196" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.6)" opacity="0.8"/>
+                    <rect x="214" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.8)" opacity="0.9"/>
+                    <rect x="232" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.6)" opacity="0.7"/>
+                    <rect x="250" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.5)" opacity="0.6"/>
+                    <rect x="268" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.4)" opacity="0.5"/>
+                    <rect x="286" y="132" width="9" height="8" rx="2" fill="rgba(14,165,233,0.3)" opacity="0.4"/>
+                    <!-- door line -->
+                    <rect x="143" y="120" width="2" height="40" rx="1" fill="rgba(255,255,255,0.15)"/>
+                    <!-- engine under main wing -->
+                    <ellipse cx="268" cy="153" rx="22" ry="9" fill="url(#engineGrad)"/>
+                    <ellipse cx="268" cy="153" rx="16" ry="6" fill="rgba(14,165,233,0.12)"/>
+                    <!-- highlight stripe -->
+                    <path d="M100 133 Q220 128 355 133" stroke="rgba(14,165,233,0.5)" stroke-width="2" fill="none"/>
+
+                    <defs>
+                        <linearGradient id="bodyGrad" x1="50" y1="108" x2="360" y2="172" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%"   stop-color="#1a2e50"/>
+                            <stop offset="40%"  stop-color="#e2eaf6"/>
+                            <stop offset="100%" stop-color="#8badd0"/>
+                        </linearGradient>
+                        <linearGradient id="wingGrad" x1="220" y1="90" x2="320" y2="140" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%"  stop-color="#c8d8f0"/>
+                            <stop offset="100%" stop-color="#7a9cc0"/>
+                        </linearGradient>
+                        <linearGradient id="tailGrad" x1="50" y1="100" x2="100" y2="140" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%"  stop-color="#b0c8e8"/>
+                            <stop offset="100%" stop-color="#6a8cb4"/>
+                        </linearGradient>
+                        <linearGradient id="tailGrad2" x1="50" y1="180" x2="100" y2="140" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%"  stop-color="#90b0d8"/>
+                            <stop offset="100%" stop-color="#5a7ca4"/>
+                        </linearGradient>
+                        <linearGradient id="engineGrad" x1="246" y1="144" x2="290" y2="162" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#1e3a5f"/>
+                            <stop offset="100%" stop-color="#0f2244"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
             </div>
         </header>
 
