@@ -161,37 +161,133 @@
       padding: 2rem 2rem 4rem;
     }
 
-    /* HERO */
+    /* ===== HERO: Avião saindo de trás das palavras ===== */
     .hero {
-      padding: 2.5rem 0 2rem;
+      position: relative;
+      padding: 0;
       border-bottom: 1px solid var(--border);
       margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      min-height: 480px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: -80px -40px -80px 0;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 25%;
+      display: block;
+      filter: brightness(0.55) saturate(1.05);
+      animation: planeFloat 14s ease-in-out infinite alternate;
+    }
+
+    /* Gradiente fluido que faz a imagem emergir de trás do texto:
+       - Esquerda: fundo escuro sólido por 20% (atrás do texto)
+       - Transição suave: o fundo vai clareando até 45%
+       - Centro: transparente (imagem visível atrás das letras)
+       - Direita: escurece novamente até o fim do hero */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: 
+        linear-gradient(to right, 
+          var(--bg) 0%,
+          var(--bg) 20%,
+          rgba(10,12,15,0.55) 28%,
+          rgba(10,12,15,0.1) 38%,
+          transparent 48%,
+          rgba(10,12,15,0.15) 70%,
+          rgba(10,12,15,0.45) 85%,
+          var(--bg) 100%
+        ),
+        linear-gradient(to bottom,
+          transparent 60%,
+          rgba(10,12,15,0.5) 80%,
+          var(--bg) 100%
+        );
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 52%;
+      padding: 3rem 0;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.6);
     }
 
     .hero-label {
+      display: inline-block;
+      background: rgba(0,212,160,0.12);
+      backdrop-filter: blur(10px);
+      padding: 5px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(0,212,160,0.2);
       font-family: var(--mono);
       font-size: 11px;
       color: var(--accent);
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      margin-bottom: 0.75rem;
+      margin-bottom: 1rem;
     }
 
     .hero h1 {
       font-family: var(--display);
-      font-size: clamp(22px, 3vw, 36px);
+      font-size: clamp(28px, 4vw, 46px);
       font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -1px;
-      margin-bottom: 0.5rem;
+      line-height: 1.05;
+      letter-spacing: -1.5px;
+      margin-bottom: 0.75rem;
+      color: #fff;
     }
 
-    .hero h1 span { color: var(--accent); }
+    .hero h1 span { 
+      color: var(--accent);
+      text-shadow: 0 0 50px rgba(0,212,160,0.25);
+    }
 
     .hero-sub {
-      color: var(--muted2);
-      font-size: 14px;
+      color: rgba(255,255,255,0.7);
+      font-size: 15px;
       font-weight: 300;
+      line-height: 1.6;
+    }
+
+    @keyframes planeFloat {
+      0%   { transform: scale(1.0); }
+      100% { transform: scale(1.06); }
+    }
+
+    /* ===== RESPONSIVO ===== */
+    @media (max-width: 900px) {
+      .hero {
+        flex-direction: column;
+        align-items: stretch;
+        min-height: auto;
+        padding-bottom: 0;
+      }
+
+      .hero-content {
+        max-width: 100%;
+        padding: 0.5rem 0;
+        z-index: 2;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 1rem 0 0; }
+      .hero h1 { font-size: 26px; }
     }
 
     /* STATS */
@@ -297,7 +393,7 @@
     /* GRID */
     #flights-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); /* Ajustado: era 340px */
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
       gap: 1.5rem;
     }
 
@@ -342,15 +438,15 @@
       justify-content: space-between;
       align-items: flex-start;
       margin-bottom: 1.2rem;
-      gap: 15px; /* Ajustado: Garante espaço entre texto e preço */
+      gap: 15px;
     }
 
     .route {
       display: flex;
-      flex-direction: column; /* Ajustado: Empilha IATA e Nome para não quebrar */
+      flex-direction: column;
       align-items: flex-start;
       gap: 4px;
-      max-width: 65%; /* Ajustado: Reserva espaço para o preço */
+      max-width: 65%;
     }
 
     .route-header {
@@ -361,7 +457,7 @@
 
     .iata {
       font-family: var(--display);
-      font-size: 19px; /* Ajustado: Era 22px, reduzido para caber melhor */
+      font-size: 19px;
       font-weight: 800;
       letter-spacing: -0.5px;
       line-height: 1.2;
@@ -388,7 +484,7 @@
 
     .price-block {
       text-align: right;
-      flex-shrink: 0; /* Ajustado: impede o preço de encolher */
+      flex-shrink: 0;
     }
 
     .price-label {
@@ -467,7 +563,7 @@
     @media (max-width: 600px) {
       nav { padding: 0 1rem; }
       main { padding: 1.25rem 1rem 3rem; }
-      .hero h1 { font-size: 28px; }
+      h1 { font-size: 28px; }
       #flights-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -498,9 +594,14 @@
 
 <main>
   <div class="hero">
-    <div class="hero-label">// k8s · serpapi · discord</div>
-    <h1>Radar de <span>Passagens</span></h1>
-    <p class="hero-sub">Monitoramento automatizado via Kubernetes — alertas em tempo real no Discord</p>
+    <div class="hero-bg">
+      <img src="./assets/plane.png" alt="FlightHunter Dashboard">
+    </div>
+    <div class="hero-content">
+      <div class="hero-label">// k8s · serpapi · discord</div>
+      <h1>Radar de <span>Passagens</span></h1>
+      <p class="hero-sub">Monitoramento automatizado via Kubernetes — alertas em tempo real no Discord</p>
+    </div>
   </div>
 
   <!-- STATS -->
